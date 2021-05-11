@@ -8,6 +8,7 @@ import Item from './Item'
 import Loading from './Loading'
 
 const Container = () => {
+    const [value, setValue] = useState('name');
     const dispatch = useDispatch();
     const data = useSelector((state) => (state.books));
     const handleSubmit = (e) => {
@@ -16,10 +17,12 @@ const Container = () => {
             item.classList.remove('container-option-active');
         })
         e.target.classList.add('container-option-active');
-        const value = e.target.getAttribute('value');
-        dispatch(filterBy(value));
+        setValue(e.target.getAttribute('value'));
         setPage(1);
     }
+    useEffect(() => {
+        dispatch(filterBy(value));
+    }, [value])
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
