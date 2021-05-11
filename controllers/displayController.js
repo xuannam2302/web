@@ -33,7 +33,7 @@ exports.display_sort_post = [
                 }
             });
         if(sorted_obj == 'price') 
-            db.collection('book').find({"price":{$gt:0}}).collation({ locale: "en" }).sort({'price': 1}).toArray(function(err, results) {
+            db.collection('book').find({price:{$gt:0}}).collation({ locale: "en" }).sort({'price': 1}).toArray(function(err, results) {
                 if(!err) { 
                     res.send(results);
                 }
@@ -46,4 +46,19 @@ exports.display_sort_post = [
             });
     }
 ]
+
+exports.filter_price_get = function(req, res, next) {
+    res.render('filter_price');
+}
+
+exports.filter_price_post = function(req, res, next) {
+    var db = client.db('web');
+    var lower_price = req.body.lower_price;
+    var upper_price = req.body.upper_price;
+    db.collection('book').find({price: {$gte: Number(lower_price), $lte: Number(upper_price)}}).collation({ locale: "en" }).sort({'price': 1}).toArray(function(err, results) {
+        if(!err) { 
+            res.send(results);
+        }
+    });
+}
 
