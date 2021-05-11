@@ -1,0 +1,40 @@
+.about {
+    padding: 5rem 0 2rem;
+    min-height: 71vh;
+    &-title {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+    &-list {
+        padding-top: 3rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    &-item {
+        transition: all 0.2s ease-in-out;
+        padding: 6rem 4rem;
+        border-radius: 1rem;
+        margin: 0 auto;
+        cursor: pointer;
+        &:hover {
+            box-shadow: 0 0 2px 2px #e5e5e5;
+        }
+    }
+    &-img {
+        border-radius: 50%;
+        @include size(15rem);
+    }
+    &-name {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        text-align: center;
+        font-weight: bold;
+    }
+    &-position {
+        margin-top: 1.5rem;
+        font-size: 1.3rem;
+        text-align: center;
+        font-style: italic;
+    }
+}

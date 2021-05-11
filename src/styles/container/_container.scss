@@ -1,0 +1,51 @@
+.container {
+    &-main {
+        padding: 5rem 0;
+        padding-bottom: 9rem;
+        position: relative;
+    }
+    &-filter {
+        padding: 2rem 1rem;
+        @include bg(#e5e5e5);
+        @include flexbox(center, flex-end);
+    }
+    &-label {
+        font-size: 1.5rem;
+        padding-right: 2rem;
+    }
+    &-select {
+        min-width: 50rem;
+        @include flexbox(center, space-between);
+        padding-right: 2rem;
+    }
+    &-option {
+        cursor: pointer;
+        width: calc(30% - 2rem);
+        padding: 1rem 3rem;
+        font-size: 1.5rem;
+        text-align: center;
+        border-radius: 4px;
+        @include bg(white);
+        font-weight: bold;
+        &:hover {
+            @include bg(rgb(160,195,253));
+        }
+    }
+    &-option-active {
+        @include bg(rgb(160,195,253));
+    }
+    &-list {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 2rem 1rem;
+    }
+    &-paganation {
+        margin-top: 3rem;
+        position: absolute;
+        right: 0;
+        button {
+            font-size: 1.2rem;
+        }
+    }
+}

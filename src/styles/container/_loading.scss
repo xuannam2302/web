@@ -1,0 +1,4 @@
+.loading {
+    @include flexbox(center, center);
+    min-height: 100vh;
+}

@@ -1,0 +1,31 @@
+.error {
+    padding: 3rem 0;
+    &-title {
+        font-weight: bold;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    &-img {
+        margin: 0 auto;
+        @include size(60rem, 35rem);
+    }
+    &-list {
+        margin-top: 4rem;
+        text-align: center;
+        @include flexbox(stretch, center);
+    }
+    &-item:first-child {
+        margin-right: 2rem;
+    }
+    &-item {
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+        @include bg(rgba(184, 184, 236, 0.5));
+        border-radius: 4px;
+        &:hover {
+            @include bg(rgb(184, 184, 236))
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.item {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 0 2px 2px #e5e5e5;
+    }
+    &-img {
+        margin: 0 auto;
+        margin-bottom: 1.5rem;
+        height: 23rem;
+    }
+    &-content {
+        padding-left: 2rem;
+    }
+    &-control {
+        @include flexbox(center);
+        margin-bottom: 5px;
+    }
+    &-title {
+        line-height: 1.2;
+        @include textClamp(2);
+        margin-left: 3px;
+        font-size: 1.3rem;
+    }
+    &-comment {
+        font-size: 1.2rem;
+        margin-left: 1.2rem;
+    }
+    &-price {
+        margin-left: 2px;
+        font-size: 1.2rem;
+        strong {
+            font-weight: bold;
+        }
+    }
+    &-discount {
+        font-size: 1.2rem;
+        padding: 5px 3px;
+        @include bg(tomato);
+        color: white;
+        font-weight: bold;
+        border-radius: 2px;
+        margin-left: 2rem;
+    }
+}
