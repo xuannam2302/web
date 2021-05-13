@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { search } from '../actions/books'
 
 import url from '../assets/Logo.webp'
 const Header = () => {
+    const data = useSelector((state) => state.books);
     const history = useHistory();
     const dispatch = useDispatch();
     const [searchKey, setSeearchKey] = useState('');
@@ -16,7 +17,7 @@ const Header = () => {
         history.push('/about');
     }
     const handleSearch = () => {
-        dispatch(search(searchKey));
+        dispatch(search(searchKey, data));
     }
     return (
         <div className="header">

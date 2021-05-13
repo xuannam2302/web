@@ -1,3 +1,4 @@
 export const FETCH_ALL = 'FETCH_ALL';
-export const FILTER = 'FILTER';
+export const SORT = 'SORT';
 export const SEARCH = 'SEARCH';
+export const FILTER_PRICE = 'FILTER_PRICE';

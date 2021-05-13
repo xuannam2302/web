@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { filterBy } from '../actions/books'
+import { sort, filterPrice } from '../actions/books'
 
 import Pagination from '@material-ui/lab/Pagination';
 import Item from './Item'
@@ -9,8 +9,14 @@ import Loading from './Loading'
 
 const Container = () => {
     const data = useSelector((state) => (state.books));
-    const [value, setValue] = useState('name');
     const dispatch = useDispatch();
+    // -- Content -- //
+    const [page, setPage] = useState(1);
+    const handleChangePage = (e) => {
+        setPage(parseInt(e.target.innerText))
+    }
+    // -- Filter -- //
+    const [value, setValue] = useState('name');
     const handleSelect = (e) => {
         const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
@@ -20,13 +26,16 @@ const Container = () => {
         setValue(e.target.getAttribute('value'));
         setPage(1);
     }
-    const [page, setPage] = useState(1);
-    const handleChangePage = (e) => {
-        setPage(parseInt(e.target.innerText))
+    // -- // Filter Price // -- //
+    const [low_price, setLowPrice] = useState('');
+    const [upper_price, setUpperPrice] = useState('');
+    const handleFilterPrice = () => {
+        dispatch(filterPrice(low_price, upper_price, data));
     }
+    // -- Use Effect -- //
     useEffect(() => {
-        dispatch(filterBy(value));
-    }, [value, dispatch])
+        dispatch(sort(value, data));
+    }, [value, data, dispatch])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
@@ -57,11 +66,21 @@ const Container = () => {
                                 <li className="container-option-select-input">
                                     <p>Từ</p>
                                     <div className="container-option-select-input-content">
-                                        <input type="text" className="container-option-input" name="lower"/>
+                                        <input 
+                                            type="text" 
+                                            className="container-option-input" 
+                                            value={low_price}
+                                            onChange={(e) => setLowPrice(e.target.value)} 
+                                        />
                                         <p>--</p>
-                                        <input type="text" className="container-option-input" name="upper"/>
+                                        <input 
+                                            type="text" 
+                                            className="container-option-input" 
+                                            value={upper_price}
+                                            onChange={(e) => setUpperPrice(e.target.value)}
+                                        />
                                     </div>
-                                    <button className="container-option-select-input-submit">Tìm kiếm</button>
+                                    <button className="container-option-select-input-submit" onClick={handleFilterPrice}>Tìm kiếm</button>
                                 </li>
                             </div>
                         </li>
