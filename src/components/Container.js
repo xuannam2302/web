@@ -8,9 +8,9 @@ import Item from './Item'
 import Loading from './Loading'
 
 const Container = () => {
+    const data = useSelector((state) => (state.books));
     const [value, setValue] = useState('name');
     const dispatch = useDispatch();
-    const data = useSelector((state) => (state.books));
     const handleSelect = (e) => {
         const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
@@ -20,14 +20,13 @@ const Container = () => {
         setValue(e.target.getAttribute('value'));
         setPage(1);
     }
-    useEffect(() => {
-        dispatch(filterBy(value));
-    }, [value])
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
     }
-
+    useEffect(() => {
+        dispatch(filterBy(value));
+    }, [value, dispatch])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
