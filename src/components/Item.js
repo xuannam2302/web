@@ -15,6 +15,11 @@ const Item = ({ data, index, page }) => {
                             </h4>
                         </div>
                         <div className="item-control">
+                            <h4 className="item-author">
+                                <strong>Tác giả: </strong>{data.author}
+                            </h4>
+                        </div>
+                        <div className="item-control">
                             <div className="item-rating">
                                 <Rating name="half-rating-read" value={data.book_depository_stars} precision={0.5} readOnly />
                             </div>

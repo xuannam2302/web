@@ -1,8 +1,5 @@
 import React from 'react'
 
-import pic1 from '../assets/pic1.jpg'
-import pic2 from '../assets/pic2.jpg'
-
 const About = () => {
     return (
         <div className="about">
@@ -30,7 +27,7 @@ const About = () => {
                 </li>
                 <li className="about-item">
                     <img 
-                        src={pic1}
+                        src="https://znews-photo.zadn.vn/w860/Uploaded/piqbzcvo/2021_03_05/The_Soul_of_Wind.jpg"
                         alt="Wibu" 
                         className="about-img" 
                     />
@@ -39,7 +36,7 @@ const About = () => {
                 </li>
                 <li className="about-item">
                     <img 
-                        src={pic2}
+                        src="https://znews-photo.zadn.vn/w860/Uploaded/piqbzcvo/2021_03_05/Wiki.jpg"
                         alt="Wibu" 
                         className="about-img" 
                     />

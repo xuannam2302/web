@@ -24,6 +24,14 @@
         margin-left: 3px;
         font-size: 1.3rem;
     }
+    &-author {
+        strong {
+            font-weight: bold;
+        }
+        font-size: 1.3rem;
+        line-height: 1.2;
+        margin-top: 3px;
+    }
     &-comment {
         font-size: 1.2rem;
         margin-left: 1.2rem;

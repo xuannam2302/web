@@ -41,3 +41,6 @@ button {
     @include bg(transparent);
 }
 
+img {
+    object-fit: cover;
+}

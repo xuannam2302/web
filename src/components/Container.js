@@ -11,12 +11,12 @@ const Container = () => {
     const [value, setValue] = useState('name');
     const dispatch = useDispatch();
     const data = useSelector((state) => (state.books));
-    const handleSubmit = (e) => {
-        const elements = document.querySelectorAll('.container-option');
+    const handleSelect = (e) => {
+        const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
-            item.classList.remove('container-option-active');
+            item.classList.remove('container-option-select-active');
         })
-        e.target.classList.add('container-option-active');
+        e.target.classList.add('container-option-select-active');
         setValue(e.target.getAttribute('value'));
         setPage(1);
     }
@@ -41,11 +41,31 @@ const Container = () => {
         <div className="container">
             <div className="container-main">
                 <div className="container-filter">
-                    <label htmlFor="filter" className="container-label">Sắp xếp theo</label>
+                    <p className="container-label">Sắp xếp theo</p>
                     <ul name="filter" id="filter" className="container-select">
-                        <li value="name" className="container-option container-option-active" onClick={handleSubmit}>Tên</li>
-                        <li value="price" className="container-option" onClick={handleSubmit}>Giá</li>
-                        <li value="author" className="container-option" onClick={handleSubmit}>Tác giả</li>
+                        <li className="container-option">
+                            <p className="container-option-title">Đề mục</p>
+                            <div className="container-option-group">
+                                <li className="container-option-select container-option-select-active" value="name" onClick={handleSelect}>Tên sách</li>
+                                <li className="container-option-select" value="author" onClick={handleSelect}>Tên tác giả</li>
+                            </div>
+                        </li>
+                        <li className="container-option">
+                            <p className="container-option-title">Giá</p>
+                            <div className="container-option-group">
+                                <li className="container-option-select" value="price" onClick={handleSelect}>Từ thấp đến cao</li>
+                                <li className="container-option-select" value="price" onClick={handleSelect}>Từ cao đến thấp</li>
+                                <li className="container-option-select-input">
+                                    <p>Từ</p>
+                                    <div className="container-option-select-input-content">
+                                        <input type="text" className="container-option-input" name="lower"/>
+                                        <p>--</p>
+                                        <input type="text" className="container-option-input" name="upper"/>
+                                    </div>
+                                    <button className="container-option-select-input-submit">Tìm kiếm</button>
+                                </li>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div className="container-list">
