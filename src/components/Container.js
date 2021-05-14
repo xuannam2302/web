@@ -39,7 +39,7 @@ const Container = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
-
+    console.log(data.length);
     if (!data.length) {
         return (
             <Loading />
@@ -87,7 +87,7 @@ const Container = () => {
                     </ul>
                 </div>
                 <div className="container-list">
-                    {data.map((item, index) => {
+                    {data.results.map((item, index) => {
                         return (
                             <Item data={item} key={index} index={index} page={page} />
                         )
@@ -98,6 +98,7 @@ const Container = () => {
                 </div>
             </div>
         </div>
+        
     )
 }
 

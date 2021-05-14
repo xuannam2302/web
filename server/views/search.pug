@@ -2,8 +2,8 @@ extends layout
 
 block content
 
-  form(method='POST' action='')
+  form(method='POST' action='/search?search=value')
     div.form-group
       p Lower price:
-      input#search(type='text' name='search')
+      input#search(type='text' name='value')
     button.btn.btn-primary(type='submit') Submit
