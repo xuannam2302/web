@@ -11,8 +11,8 @@ router.post('/sort', display_controller.display_sort_post);
 router.get('/price', display_controller.filter_price_get);
 router.post('/price', display_controller.filter_price_post);
 router.get('/search', display_controller.search_get);
-router.get('/book/:id', display_controller.display_book);
 router.post('/search', display_controller.search_post);
+router.get('/book/:id', display_controller.display_book);
 
 
 
