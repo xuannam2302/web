@@ -1,5 +1,8 @@
 import * as api from '../api/index'
+import axios from 'axios'
 import { FETCH_ALL, SORT, SEARCH, FILTER_PRICE } from '../constants/actionType'
+
+const url = 'http://localhost:5000';
 
 export const getBooks = () => async (dispatch) => {
     try {
@@ -23,7 +26,7 @@ export const sort = (value) => async (dispatch) => {
 
 export const search = (value) => async (dispatch) => {
     try {
-        const { data } = await api.search(value);
+        const { data } = await axios.get(`${url}/books?id=${value}`);
         dispatch({ type: SEARCH, payload: data })
     }
     catch (err) {

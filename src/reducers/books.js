@@ -1,17 +1,28 @@
 import { FETCH_ALL, SORT, SEARCH, FILTER_PRICE } from '../constants/actionType'
 
-const books = (books = [], action) => {
+const books = (state = {books: []}, action) => {
     switch (action.type) {
-        case FETCH_ALL:
-            return action.payload;
+        case FETCH_ALL: {
+            console.log(action);
+            return {
+                books: action.payload.results,
+                url: action.payload.url
+            }
+        }
         case SORT:
-            return action.payload;
+            return {
+                books: action.payload.results,
+                url: action.payload.url
+            }
         case SEARCH:
-            return action.payload;
+            return {
+                books: action.payload.results,
+                url: action.payload.url
+            }
         case FILTER_PRICE:
             return action.payload;
         default:
-            return books;
+            return state;
     }
 }
 

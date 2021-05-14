@@ -10,10 +10,9 @@ import Loading from './Loading'
 
 const Container = () => {
     // Global Variables
-    // const [finding, setFinding] = useState(false);
-    const data = useSelector((state) => state.books);
+    const data = useSelector(state => state.books);
+    const { books, url } = data;
     const dispatch = useDispatch();
-
     // -- Content -- //
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
@@ -47,8 +46,7 @@ const Container = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
-
-    if (!data.length) {
+    if (!books.length) {
         return (
             <Loading />
         )
@@ -95,14 +93,14 @@ const Container = () => {
                     </ul>
                 </div>
                 <div className="container-list">
-                    {data.map((item, index) => {
+                    {books.map((item, index) => {
                         return (
                             <Item data={item} key={index} index={index} page={page} />
                         )
                     })}
                 </div>
                 <div className="container-paganation">
-                    <Pagination count={Math.floor(data.length / 20)} hidePrevButton hideNextButton page={page} onChange={handleChangePage} />
+                    <Pagination count={Math.floor(books.length / 20)} hidePrevButton hideNextButton page={page} onChange={handleChangePage} />
                 </div>
             </div>
         </div>
