@@ -11,9 +11,9 @@ export const getBooks = () => async (dispatch) => {
     }
 }
 
-export const sort = (type, books) => async (dispatch) => {
+export const sort = (value) => async (dispatch) => {
     try {
-        const { data } = await api.sort(type, books);
+        const { data } = await api.sort(value);
         dispatch({ type: SORT, payload: data });
     }
     catch (err) {
@@ -21,9 +21,9 @@ export const sort = (type, books) => async (dispatch) => {
     }
 }
 
-export const search = (value, books) => async (dispatch) => {
+export const search = (value) => async (dispatch) => {
     try {
-        const { data } = await api.search(value, books);
+        const { data } = await api.search(value);
         dispatch({ type: SEARCH, payload: data })
     }
     catch (err) {
@@ -31,9 +31,9 @@ export const search = (value, books) => async (dispatch) => {
     }
 }
 
-export const filterPrice = (lower_price, upper_price, books) => async (dispatch) => {
+export const filterPrice = (lower_price, upper_price) => async (dispatch) => {
     try {
-        const { data } = await api.filterPrice(lower_price, upper_price, books);
+        const { data } = await api.filterPrice(lower_price, upper_price);
         dispatch({ type: FILTER_PRICE, payload: data })
     }
     catch (err) {

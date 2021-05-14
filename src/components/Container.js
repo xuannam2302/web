@@ -34,8 +34,8 @@ const Container = () => {
     }
     // -- Use Effect -- //
     useEffect(() => {
-        dispatch(sort(value, data));
-    }, [value, data, dispatch])
+        dispatch(sort(value));
+    }, [value, dispatch])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
@@ -54,16 +54,16 @@ const Container = () => {
                         <li className="container-option">
                             <p className="container-option-title">Đề mục</p>
                             <div className="container-option-group">
-                                <li className="container-option-select container-option-select-active" value="name" onClick={handleSelect}>Tên sách</li>
-                                <li className="container-option-select" value="author" onClick={handleSelect}>Tên tác giả</li>
+                                <div className="container-option-select container-option-select-active" value="name" onClick={handleSelect}>Tên sách</div>
+                                <div className="container-option-select" value="author" onClick={handleSelect}>Tên tác giả</div>
                             </div>
                         </li>
                         <li className="container-option">
                             <p className="container-option-title">Giá</p>
                             <div className="container-option-group">
-                                <li className="container-option-select" value="price" onClick={handleSelect}>Từ thấp đến cao</li>
-                                <li className="container-option-select" value="price" onClick={handleSelect}>Từ cao đến thấp</li>
-                                <li className="container-option-select-input">
+                                <div className="container-option-select" value="price" onClick={handleSelect}>Từ thấp đến cao</div>
+                                <div className="container-option-select" value="price" onClick={handleSelect}>Từ cao đến thấp</div>
+                                <div className="container-option-select-input">
                                     <p>Từ</p>
                                     <div className="container-option-select-input-content">
                                         <input 
@@ -81,7 +81,7 @@ const Container = () => {
                                         />
                                     </div>
                                     <button className="container-option-select-input-submit" onClick={handleFilterPrice}>Tìm kiếm</button>
-                                </li>
+                                </div>
                             </div>
                         </li>
                     </ul>
