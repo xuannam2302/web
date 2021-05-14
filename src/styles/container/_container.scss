@@ -6,7 +6,7 @@
         @include flexbox(flex-start);
     }
     &-filter {
-        min-height: 50vh;
+        min-height: 50rem;
         border-radius: 2px;
         max-width: 30rem;
         padding: 2rem;
@@ -51,6 +51,9 @@
         }
         &-select-active {
             color: rgb(13, 46, 228);
+            &:hover {
+                transform: translateX(0);
+            }
         }
         &-select-input {
             position: relative;

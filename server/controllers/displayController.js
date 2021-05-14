@@ -88,11 +88,10 @@ exports.search_post = function(req, res, next) {
         }
     });
 }
-
 exports.display_book = function(req, res, next) {
     var db = client.db('web');
     var id = new ObjectId(req.params.id);
     db.collection('book').find({_id: id}).toArray(function(err, results) {
         res.send(results);
     });
-}
+};
