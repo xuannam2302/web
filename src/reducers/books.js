@@ -1,26 +1,18 @@
-import { FETCH_ALL, SORT, SEARCH, FILTER_PRICE } from '../constants/actionType'
+import { MULTI_FILTER, FETCH_ALL } from '../constants/actionType'
 
-const books = (state = {books: []}, action) => {
+const books = (state = { books: [] }, action) => {
     switch (action.type) {
         case FETCH_ALL: {
-            console.log(action);
-            return {
-                books: action.payload.results,
-                url: action.payload.url
+            return{ 
+                url: action.payload.url,
+                books: action.payload.results 
             }
         }
-        case SORT:
+        case MULTI_FILTER:
             return {
-                books: action.payload.results,
-                url: action.payload.url
+                url: action.payload.url,
+                books: action.payload.results
             }
-        case SEARCH:
-            return {
-                books: action.payload.results,
-                url: action.payload.url
-            }
-        case FILTER_PRICE:
-            return action.payload;
         default:
             return state;
     }

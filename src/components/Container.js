@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { sort, filterPrice } from '../actions/books'
+import { multi_filter } from '../actions/books'
 
 import Pagination from '@material-ui/lab/Pagination';
 import Item from './Item'
 import Loading from './Loading'
-// import Error from './Error'
 
 const Container = () => {
     // Global Variables
-    const data = useSelector(state => state.books);
-    const { books, url } = data;
     const dispatch = useDispatch();
+    const data = useSelector(state => state.books);
+    const {url, books} = data;
     // -- Content -- //
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
     }
-
     // -- Filter -- //
     const [value, setValue] = useState('name');
     const handleSelect = (e) => {
@@ -35,14 +33,12 @@ const Container = () => {
     const [low_price, setLowPrice] = useState('');
     const [upper_price, setUpperPrice] = useState('');
     const handleFilterPrice = () => {
-        dispatch(filterPrice(low_price, upper_price, data));
         setPage(1);
     }
 
-    // -- Use Effect -- //
-    useEffect(() => {
-        dispatch(sort(value));
-    }, [value, dispatch])
+    // useEffect(() => {
+    //     dispatch(multi_filter(url))
+    // }, [value, dispatch])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
@@ -104,7 +100,7 @@ const Container = () => {
                 </div>
             </div>
         </div>
-        
+
     )
 }
 

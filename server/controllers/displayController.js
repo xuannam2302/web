@@ -14,7 +14,7 @@ exports.display_all = function (req, res, next) {
     var db = client.db('web');
     db.collection('book').find({}).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
         if (!err) {
-            let url = "abc";
+            let url = 'http://localhost:5000';
             res.send({ url, results });
         }
     });
@@ -83,13 +83,14 @@ exports.search_get = function (req, res, next) {
 exports.search_post = function (req, res, next) {
     var db = client.db('web');
     var search_str = req.query.search;
+    console.log(req.query);
     console.log(url.parse(req.url, true));
-    db.collection('book').find({$or:[{"name":{ '$regex' : search_str, '$options' : 'i' }}, {"author":{ '$regex' : search_str, '$options' : 'i' }}]})
-      .collation({ locale: "en" }).toArray(function(err, results) {
-        if(!err) { 
-            res.send(results);
-        }
-    });
+    db.collection('book').find({ $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] })
+        .collation({ locale: "en" }).toArray(function (err, results) {
+            if (!err) {
+                res.send(results);
+            }
+        });
 }
 
 exports.display_book = function (req, res, next) {

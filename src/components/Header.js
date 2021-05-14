@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { search } from '../actions/books'
+import { multi_filter } from '../actions/books'
 
-import url from '../assets/Logo.webp'
+import url_icon from '../assets/Logo.webp'
 const Header = () => {
-    const data = useSelector((state) => state.books);
+    const data = useSelector(state => state.books);
+    const {url, books} = data;
     const history = useHistory();
     const dispatch = useDispatch();
     const [searchKey, setSeearchKey] = useState('');
@@ -17,14 +18,14 @@ const Header = () => {
         history.push('/about');
     }
     const handleSearch = () => {
-        dispatch(search(searchKey, data));
+        // dispatch(multi_filter(searchKey, ''));
     }
     return (
         <div className="header">
             <div className="container">
                 <div className="header-container">
                     <div className="header-logo">
-                        <img src={url} alt="Logo" className="header-logo-img" onClick={returnHomePage} />
+                        <img src={url_icon} alt="Logo" className="header-logo-img" onClick={returnHomePage} />
                     </div>
                     <div className="header-search">
                         <input
