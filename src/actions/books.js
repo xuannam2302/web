@@ -1,5 +1,8 @@
 import * as api from '../api/index'
+import axios from 'axios'
 import { FETCH_ALL, SORT, SEARCH, FILTER_PRICE } from '../constants/actionType'
+
+const url = 'http://localhost:5000';
 
 export const getBooks = () => async (dispatch) => {
     try {
