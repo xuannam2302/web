@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
+var url = require('url');
 //const uri = "mongodb+srv://xuannam:xuannamt81@web.qpw3q.mongodb.net";
 const uri = "mongodb://localhost:27017/";
 var client;
@@ -81,13 +82,14 @@ exports.search_get = function (req, res, next) {
 
 exports.search_post = function (req, res, next) {
     var db = client.db('web');
-    var search_str = req.body.value;
-    db.collection('book').find({ $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] })
-        .collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
-            if (!err) {
-                res.send(results);
-            }
-        });
+    var search_str = req.query.search;
+    console.log(url.parse(req.url, true));
+    db.collection('book').find({$or:[{"name":{ '$regex' : search_str, '$options' : 'i' }}, {"author":{ '$regex' : search_str, '$options' : 'i' }}]})
+      .collation({ locale: "en" }).toArray(function(err, results) {
+        if(!err) { 
+            res.send(results);
+        }
+    });
 }
 
 exports.display_book = function (req, res, next) {
@@ -96,4 +98,4 @@ exports.display_book = function (req, res, next) {
     db.collection('book').find({ _id: id }).toArray(function (err, results) {
         res.send(results);
     });
-}
+};

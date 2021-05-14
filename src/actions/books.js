@@ -26,7 +26,7 @@ export const sort = (value) => async (dispatch) => {
 
 export const search = (value) => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${url}/books?id=${value}`);
+        const { data } = await api.search(value);
         dispatch({ type: SEARCH, payload: data })
     }
     catch (err) {
