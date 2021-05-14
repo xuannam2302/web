@@ -11,7 +11,9 @@ import Loading from './Loading'
 const Container = () => {
     // Global Variables
     // const [finding, setFinding] = useState(false);
-    const data = useSelector((state) => state.books);
+    var data = useSelector((state) => state.books);
+    //data = data.results;
+    console.log(data);
     const dispatch = useDispatch();
 
     // -- Content -- //
@@ -47,7 +49,6 @@ const Container = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
-    console.log(data.length);
     if (!data.length) {
         return (
             <Loading />
@@ -95,7 +96,7 @@ const Container = () => {
                     </ul>
                 </div>
                 <div className="container-list">
-                    {data.results.map((item, index) => {
+                    {data.map((item, index) => {
                         return (
                             <Item data={item} key={index} index={index} page={page} />
                         )

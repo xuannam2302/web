@@ -12,9 +12,10 @@ MongoClient.connect(uri, function (err, result) {
 
 exports.display_all = function(req, res, next) {
     var db = client.db('web');
-    db.collection('book').find({}).collation({ locale: "en" }).sort({'name': 1}).toArray(function(err, results) {
+    db.collection('book').find({}).collation({ locale: "en" }).toArray(function(err, results) {
         if(!err) { 
-            res.send({url, results});
+            results[-1] = 'abc';
+            res.send(results);
         }
     });
 };
@@ -30,19 +31,19 @@ exports.display_sort_post = function(req, res, next) {
         if(sorted_obj == 'name') 
             db.collection('book').find({}).collation({ locale: "en" }).sort({'name': 1}).toArray(function(err, results) {
                 if(!err) { 
-                    res.send({results});
+                    res.send(results);
                 }
             });
         if(sorted_obj == 'price') 
             db.collection('book').find({price:{$gt:0}}).collation({ locale: "en" }).sort({'price': 1}).toArray(function(err, results) {
                 if(!err) { 
-                    res.send({results});
+                    res.send(results);
                 }
             });
         if(sorted_obj == 'author') 
             db.collection('book').find({author:{$ne:null}}).collation({ locale: "en" }).sort({'author': 1}).toArray(function(err, results) {
                 if(!err) { 
-                    res.send({results});
+                    res.send(results);
                 }
             });
 }
