@@ -79,6 +79,7 @@ exports.search_post = function (req, res, next) {
     var db = client.db('web');
     console.log(req.body);
     var search_str = req.body.value;
+    // res.send(req.body.books);
     db.collection('book').find({ $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] })
         .collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
             if (!err) {

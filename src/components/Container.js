@@ -6,15 +6,20 @@ import { sort, filterPrice } from '../actions/books'
 import Pagination from '@material-ui/lab/Pagination';
 import Item from './Item'
 import Loading from './Loading'
+// import Error from './Error'
 
 const Container = () => {
-    const data = useSelector((state) => (state.books));
+    // Global Variables
+    // const [finding, setFinding] = useState(false);
+    const data = useSelector((state) => state.books);
     const dispatch = useDispatch();
+
     // -- Content -- //
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
     }
+
     // -- Filter -- //
     const [value, setValue] = useState('name');
     const handleSelect = (e) => {
@@ -26,12 +31,15 @@ const Container = () => {
         setValue(e.target.getAttribute('value'));
         setPage(1);
     }
+
     // -- // Filter Price // -- //
     const [low_price, setLowPrice] = useState('');
     const [upper_price, setUpperPrice] = useState('');
     const handleFilterPrice = () => {
         dispatch(filterPrice(low_price, upper_price, data));
+        setPage(1);
     }
+
     // -- Use Effect -- //
     useEffect(() => {
         dispatch(sort(value));
@@ -66,16 +74,16 @@ const Container = () => {
                                 <div className="container-option-select-input">
                                     <p>Từ</p>
                                     <div className="container-option-select-input-content">
-                                        <input 
-                                            type="text" 
-                                            className="container-option-input" 
+                                        <input
+                                            type="text"
+                                            className="container-option-input"
                                             value={low_price}
-                                            onChange={(e) => setLowPrice(e.target.value)} 
+                                            onChange={(e) => setLowPrice(e.target.value)}
                                         />
                                         <p>--</p>
-                                        <input 
-                                            type="text" 
-                                            className="container-option-input" 
+                                        <input
+                                            type="text"
+                                            className="container-option-input"
                                             value={upper_price}
                                             onChange={(e) => setUpperPrice(e.target.value)}
                                         />
@@ -94,7 +102,7 @@ const Container = () => {
                     })}
                 </div>
                 <div className="container-paganation">
-                    <Pagination count={10} hidePrevButton hideNextButton page={page} onChange={handleChangePage} />
+                    <Pagination count={Math.floor(data.length / 20)} hidePrevButton hideNextButton page={page} onChange={handleChangePage} />
                 </div>
             </div>
         </div>

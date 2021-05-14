@@ -3,7 +3,6 @@ import Rating from '@material-ui/lab/Rating';
 
 const Item = ({ data, index, page }) => {
     if (Math.ceil((index + 1) / 15) === page) {
-
         return (
             <div className="item">
                 <div className="item-container">
@@ -24,7 +23,7 @@ const Item = ({ data, index, page }) => {
                                 <Rating name="half-rating-read" value={data.book_depository_stars} precision={0.5} readOnly />
                             </div>
                             <div className="item-comment">
-                                ({Math.ceil(Math.random() * 300)} nhận xét)
+                                (300 nhận xét)
                             </div>
                         </div>
                         <div className="item-control">
