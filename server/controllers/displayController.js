@@ -20,10 +20,6 @@ exports.display_all = function (req, res, next) {
     });
 };
 
-// exports.search_get = function (req, res, next) {
-//     res.render('search');
-// }
-
 exports.search = function (req, res, next) {
     var db = client.db('web');
     var sort = 'name';
@@ -31,16 +27,17 @@ exports.search = function (req, res, next) {
     var upper_price = 100000;
     var search_str = '';
     var url = url_link.parse(req.url, true);
-    if(req.query.sort) sort = req.query.sort;
-    if(req.query.lower_price) lower_price = req.query.lower_price;
-    if(req.query.lower_price) upper_price = req.query.upper_price;
-    if(req.query.search) search_str = req.query.search;
-    console.log([sort, lower_price, upper_price, search_str]);
+    console.log(url);
+    if (req.query.sort) sort = req.query.sort;
+    if (req.query.lower_price) lower_price = req.query.lower_price;
+    if (req.query.lower_price) upper_price = req.query.upper_price;
+    if (req.query.search) search_str = req.query.search;
+    console.log([sort, Number(lower_price), Number(upper_price), search_str]);
     if (sort == 'name') {
         db.collection('book').find({
             $and: [
-                { $or: [ {"name":{ '$regex' : search_str, '$options' : 'i' }}, {"author":{ '$regex' : search_str, '$options' : 'i' }} ] },
-                { $and: [ {price: { $gte: Number(lower_price)}}, { price: {$lte: Number(upper_price)}} ] }
+                { $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] },
+                { $and: [{ price: { $gte: Number(lower_price) } }, { price: { $lte: Number(upper_price) } }] }
             ]
         }).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
             if (!err) {
@@ -51,8 +48,8 @@ exports.search = function (req, res, next) {
     else if (sort == 'price') {
         db.collection('book').find({
             $and: [
-                { $or: [ {"name":{ '$regex' : search_str, '$options' : 'i' }}, {"author":{ '$regex' : search_str, '$options' : 'i' }} ] },
-                { $and: [ {price: { $gte: Number(lower_price)}}, { price: {$lte: Number(upper_price)}} ] }
+                { $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] },
+                { $and: [{ price: { $gte: Number(lower_price) } }, { price: { $lte: Number(upper_price) } }] }
             ]
         }).collation({ locale: "en" }).sort({ 'price': 1 }).toArray(function (err, results) {
             if (!err) {
@@ -63,8 +60,8 @@ exports.search = function (req, res, next) {
     else if (sort == 'author') {
         db.collection('book').find({
             $and: [
-                { $or: [ {"name":{ '$regex' : search_str, '$options' : 'i' }}, {"author":{ '$regex' : search_str, '$options' : 'i' }} ] },
-                { $and: [ {price: { $gte: Number(lower_price)}}, { price: {$lte: Number(upper_price)}}, { author: { $ne: null } } ] }
+                { $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] },
+                { $and: [{ price: { $gte: Number(lower_price) } }, { price: { $lte: Number(upper_price) } }, { author: { $ne: null } }] }
             ]
         }).collation({ locale: "en" }).sort({ 'author': 1 }).toArray(function (err, results) {
             if (!err) {
