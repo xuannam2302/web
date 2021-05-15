@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { multi_filter } from '../actions/books'
+import { searchFunction } from '../actions/books'
 
 import url_icon from '../assets/Logo.webp'
 const Header = () => {
-    const data = useSelector(state => state.books);
-    const {url, books} = data;
+    // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
-    const [searchKey, setSeearchKey] = useState('');
+    const {search, sort, lower_price, upper_price} = useSelector(state => state.books);
+    const [m_search, setM_Search] = useState(search === undefined ? '' : search);
+    // Function handler
     const returnHomePage = () => {
         history.push('/');
     }
@@ -18,7 +19,7 @@ const Header = () => {
         history.push('/about');
     }
     const handleSearch = () => {
-        // dispatch(multi_filter(searchKey, ''));
+        dispatch(searchFunction(m_search, sort, lower_price, upper_price));
     }
     return (
         <div className="header">
@@ -32,8 +33,8 @@ const Header = () => {
                             type="text"
                             className="header-search-field"
                             placeholder="Nhập tên bạn muốn tìm kiếm"
-                            value={searchKey}
-                            onChange={(e) => setSeearchKey(e.target.value)}
+                            value={m_search}
+                            onChange={(e) => setM_Search(e.target.value)}
                         />
                         <div className="header-search-icon" onClick={handleSearch}>
                             <i class="fas fa-search"></i>

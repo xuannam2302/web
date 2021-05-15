@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { multi_filter } from '../actions/books'
+import { searchFunction } from '../actions/books'
 
 import Pagination from '@material-ui/lab/Pagination';
 import Item from './Item'
@@ -11,37 +11,36 @@ const Container = () => {
     // Global Variables
     const dispatch = useDispatch();
     const data = useSelector(state => state.books);
-    const {url, books} = data;
+    const { search, sort, low_price, upper_price, books } = data;
+    console.log(data);
     // -- Content -- //
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
     }
-    // -- Filter -- //
-    const [value, setValue] = useState('name');
+    const [m_search, setM_Search] = useState(search);
+    const [m_sort, setM_Sort] = useState(sort);
+    const [m_low_price, setM_LowPrice] = useState(low_price);
+    const [m_upper_price, setM_UpperPrice] = useState(upper_price);
     const handleSelect = (e) => {
         const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
             item.classList.remove('container-option-select-active');
         })
         e.target.classList.add('container-option-select-active');
-        setValue(e.target.getAttribute('value'));
+        setM_Sort(e.target.getAttribute('value'));
         setPage(1);
     }
-
-    // -- // Filter Price // -- //
-    const [low_price, setLowPrice] = useState('');
-    const [upper_price, setUpperPrice] = useState('');
     const handleFilterPrice = () => {
-        setPage(1);
+        // console.log((m_search, m_sort, m_low_price, m_upper_price));
     }
-
-    // useEffect(() => {
-    //     dispatch(multi_filter(url))
-    // }, [value, dispatch])
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
+    useEffect(() => {
+        console.log((m_search, m_sort, m_low_price));
+        dispatch(searchFunction(m_search, m_sort, m_low_price, m_upper_price));
+    }, [dispatch,m_search, m_sort, m_low_price, m_upper_price])
     if (!books.length) {
         return (
             <Loading />
@@ -52,15 +51,15 @@ const Container = () => {
             <div className="container-main">
                 <div className="container-filter">
                     <p className="container-label">Sắp xếp theo</p>
-                    <ul name="filter" id="filter" className="container-select">
-                        <li className="container-option">
+                    <div name="filter" id="filter" className="container-select">
+                        <div className="container-option">
                             <p className="container-option-title">Đề mục</p>
                             <div className="container-option-group">
                                 <div className="container-option-select container-option-select-active" value="name" onClick={handleSelect}>Tên sách</div>
                                 <div className="container-option-select" value="author" onClick={handleSelect}>Tên tác giả</div>
                             </div>
-                        </li>
-                        <li className="container-option">
+                        </div>
+                        <div className="container-option">
                             <p className="container-option-title">Giá</p>
                             <div className="container-option-group">
                                 <div className="container-option-select" value="price" onClick={handleSelect}>Từ thấp đến cao</div>
@@ -71,22 +70,22 @@ const Container = () => {
                                         <input
                                             type="text"
                                             className="container-option-input"
-                                            value={low_price}
-                                            onChange={(e) => setLowPrice(e.target.value)}
+                                            value={m_low_price}
+                                            onChange={(e) => setM_LowPrice(e.target.value)}
                                         />
                                         <p>--</p>
                                         <input
                                             type="text"
                                             className="container-option-input"
-                                            value={upper_price}
-                                            onChange={(e) => setUpperPrice(e.target.value)}
+                                            value={m_upper_price}
+                                            onChange={(e) => setM_UpperPrice(e.target.value)}
                                         />
                                     </div>
                                     <button className="container-option-select-input-submit" onClick={handleFilterPrice}>Tìm kiếm</button>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
                 <div className="container-list">
                     {books.map((item, index) => {

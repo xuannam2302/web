@@ -1,22 +1,12 @@
 import axios from 'axios'
-import { MULTI_FILTER, FETCH_ALL } from '../constants/actionType'
+import { SEARCH } from '../constants/actionType'
 
 const url = 'http://localhost:5000';
 
-export const getBooks = () => async (dispatch) => {
+export const searchFunction = (search = '', sort = 'name', lower_price = '', upper_price = '') => async (dispatch) => {
     try {
-        const { data } = await axios.get(url);
-        dispatch({ type: FETCH_ALL, payload: data });
-    }
-    catch (err) {
-        console.log(err.message);
-    }
-}
-
-export const multi_filter = (search, sort) => async (dispatch) => {
-    try {
-        const { data } = await axios.post(`${url}/search?search=${search}&sort=${sort}`)
-        dispatch({ type: MULTI_FILTER, payload: data })
+        const { data } = await axios.post(`${url}/search?search=${search}&sort=${sort}&low_price=${lower_price}&upper_price=${upper_price}`)
+        dispatch({ type: SEARCH, payload: data })
     }
     catch (err) {
         console.log(err.message);
