@@ -41,10 +41,10 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
             if (!err) {
-                var msg = '';
+                var msg;
                 console.log(url);
-                if(results.length == 0) msg = "No book required!"; 
-                res.send({ url, results, msg });
+                if(results.length == 0) msg = "No book required!";
+                res.send({ msg, url, results });
             }
         });
     }
@@ -56,10 +56,10 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'price': 1 }).toArray(function (err, results) {
             if (!err) {
-                var msg = '';
+                var msg;
                 console.log(url);
-                msg = "No book required!"; 
-                res.send({ url, results, msg });
+                if(results.length == 0) msg = "No book required!";
+                res.send({ msg, url, results });
             }
         });
     }
@@ -71,10 +71,10 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'author': 1 }).toArray(function (err, results) {
             if (!err) {
-                var msg = '';
+                var msg;
                 console.log(url);
-                msg = "No book required!"; 
-                res.send({ url, results, msg });
+                if(results.length == 0) msg = "No book required!";
+                res.send({ msg, url, results });
             }
         });
     }

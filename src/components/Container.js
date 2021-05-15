@@ -12,8 +12,7 @@ const Container = () => {
     // Global Variables
     const dispatch = useDispatch();
     const data = useSelector(state => state.books);
-    const { search, sort, lower_price, upper_price, books, message } = data;
-    console.log(message);
+    const { search, sort, lower_price, upper_price, books, msg } = data;
     console.log(data);
     // -- Content -- //
     const [m_sort, setM_Sort] = useState(sort);
@@ -42,7 +41,7 @@ const Container = () => {
         dispatch(searchFunction(search, m_sort, lower_price, upper_price));
     }, [dispatch, search, m_sort, lower_price, upper_price])
     if (!books.length) {
-        if(message != '') {
+        if(msg === 'No book required!') {
             return (
                 <Error />
             )
