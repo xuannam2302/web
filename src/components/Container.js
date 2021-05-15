@@ -18,9 +18,8 @@ const Container = () => {
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
     }
-    const [m_search, setM_Search] = useState(search);
     const [m_sort, setM_Sort] = useState(sort);
-    const [m_lower_price, setM_LowPrice] = useState(lower_price);
+    const [m_low_price, setM_LowPrice] = useState(lower_price);
     const [m_upper_price, setM_UpperPrice] = useState(upper_price);
     const handleSelect = (e) => {
         const elements = document.querySelectorAll('.container-option-select');
@@ -31,15 +30,13 @@ const Container = () => {
         setM_Sort(e.target.getAttribute('value'));
         setPage(1);
     }
-    const handleFilterPrice = () => {
-        // console.log((m_search, m_sort, m_low_price, m_upper_price));
-    }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
     useEffect(() => {
-        dispatch(searchFunction(m_search, m_sort, m_lower_price, m_upper_price));
-    }, [dispatch,m_search, m_sort, m_lower_price, m_upper_price])
+        console.log((search, m_sort, m_low_price));
+        dispatch(searchFunction(search, m_sort, m_low_price, m_upper_price));
+    }, [dispatch,search, m_sort, m_low_price, m_upper_price])
     if (!books.length) {
         return (
             <Loading />
@@ -69,7 +66,7 @@ const Container = () => {
                                         <input
                                             type="text"
                                             className="container-option-input"
-                                            value={m_lower_price}
+                                            value={m_low_price}
                                             onChange={(e) => setM_LowPrice(e.target.value)}
                                         />
                                         <p>--</p>
@@ -80,7 +77,7 @@ const Container = () => {
                                             onChange={(e) => setM_UpperPrice(e.target.value)}
                                         />
                                     </div>
-                                    <button className="container-option-select-input-submit" onClick={handleFilterPrice}>Tìm kiếm</button>
+                                    <button className="container-option-select-input-submit">Tìm kiếm</button>
                                 </div>
                             </div>
                         </div>

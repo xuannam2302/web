@@ -19,6 +19,7 @@ const Header = () => {
         history.push('/about');
     }
     const handleSearch = () => {
+        console.log(m_search, sort, lower_price, upper_price);
         dispatch(searchFunction(m_search, sort, lower_price, upper_price));
     }
     return (
