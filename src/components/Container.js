@@ -41,11 +41,11 @@ const Container = () => {
         console.log(search, m_sort, lower_price, upper_price);
         dispatch(searchFunction(search, m_sort, lower_price, upper_price));
     }, [dispatch, search, m_sort, lower_price, upper_price])
-    if (!books.length) {
-        return (
-            <Loading />
-        )
-    }
+    // if (!books.length) {
+    //     return (
+    //         <Loading />
+    //     )
+    // }
     return (
         <div className="container">
             <div className="container-main">

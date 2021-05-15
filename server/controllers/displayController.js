@@ -41,8 +41,10 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
             if (!err) {
+                var msg;
                 console.log(url);
-                res.send({ url, results });
+                if(results.length == 0) msg = "No book required!"; 
+                res.send({ url, results, msg });
             }
         });
     }
@@ -55,8 +57,8 @@ exports.search = function (req, res, next) {
         }).collation({ locale: "en" }).sort({ 'price': 1 }).toArray(function (err, results) {
             if (!err) {
                 console.log(url);
-
-                res.send({ url, results });
+                msg = "No book required!"; 
+                res.send({ url, results, msg });
             }
         });
     }
@@ -69,8 +71,8 @@ exports.search = function (req, res, next) {
         }).collation({ locale: "en" }).sort({ 'author': 1 }).toArray(function (err, results) {
             if (!err) {
                 console.log(url);
-
-                res.send({ url, results });
+                msg = "No book required!"; 
+                res.send({ url, results, msg });
             }
         });
     }
