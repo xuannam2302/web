@@ -19,8 +19,8 @@ const Container = () => {
         setPage(parseInt(e.target.innerText))
     }
     const [m_sort, setM_Sort] = useState(sort);
-    const [m_low_price, setM_LowPrice] = useState(lower_price);
-    const [m_upper_price, setM_UpperPrice] = useState(upper_price);
+    const [m_lower_price, setM_LowPrice] = useState('');
+    const [m_upper_price, setM_UpperPrice] = useState('');
     const handleSelect = (e) => {
         const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
@@ -30,13 +30,17 @@ const Container = () => {
         setM_Sort(e.target.getAttribute('value'));
         setPage(1);
     }
+    const handlePrice = () => {
+        console.log(search, m_sort, m_lower_price, m_upper_price);
+        dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price));
+    }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
     useEffect(() => {
-        console.log((search, m_sort, m_low_price));
-        dispatch(searchFunction(search, m_sort, m_low_price, m_upper_price));
-    }, [dispatch,search, m_sort, m_low_price, m_upper_price])
+        console.log(search, m_sort, lower_price, upper_price);
+        dispatch(searchFunction(search, m_sort, lower_price, upper_price));
+    }, [dispatch, search, m_sort, lower_price, upper_price])
     if (!books.length) {
         return (
             <Loading />
@@ -66,7 +70,7 @@ const Container = () => {
                                         <input
                                             type="text"
                                             className="container-option-input"
-                                            value={m_low_price}
+                                            value={m_lower_price}
                                             onChange={(e) => setM_LowPrice(e.target.value)}
                                         />
                                         <p>--</p>
@@ -77,7 +81,7 @@ const Container = () => {
                                             onChange={(e) => setM_UpperPrice(e.target.value)}
                                         />
                                     </div>
-                                    <button className="container-option-select-input-submit">Tìm kiếm</button>
+                                    <button className="container-option-select-input-submit" onClick={handlePrice}>Tìm kiếm</button>
                                 </div>
                             </div>
                         </div>
