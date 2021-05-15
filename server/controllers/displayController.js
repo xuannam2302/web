@@ -29,7 +29,7 @@ exports.search = function (req, res, next) {
     var url = url_link.parse(req.url, true);
     if (req.query.sort) sort = req.query.sort;
     if (req.query.lower_price) lower_price = req.query.lower_price;
-    if (req.query.lower_price) upper_price = req.query.upper_price;
+    if (req.query.upper_price) upper_price = req.query.upper_price;
     if (req.query.search) search_str = req.query.search;
     console.log([sort, lower_price, upper_price, search_str]);
     if (sort == 'name') {
@@ -40,6 +40,7 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
             if (!err) {
+                console.log(url);
                 res.send({ url, results });
             }
         });
@@ -52,6 +53,8 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'price': 1 }).toArray(function (err, results) {
             if (!err) {
+                console.log(url);
+
                 res.send({ url, results });
             }
         });
@@ -64,6 +67,8 @@ exports.search = function (req, res, next) {
             ]
         }).collation({ locale: "en" }).sort({ 'author': 1 }).toArray(function (err, results) {
             if (!err) {
+                console.log(url);
+
                 res.send({ url, results });
             }
         });
