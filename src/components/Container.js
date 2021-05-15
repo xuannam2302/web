@@ -6,21 +6,23 @@ import { searchFunction } from '../actions/books'
 import Pagination from '@material-ui/lab/Pagination';
 import Item from './Item'
 import Loading from './Loading'
+import Error from './Error'
 
 const Container = () => {
     // Global Variables
     const dispatch = useDispatch();
     const data = useSelector(state => state.books);
     const { search, sort, lower_price, upper_price, books } = data;
+    const message = "Error";
     console.log(data);
     // -- Content -- //
+    const [m_sort, setM_Sort] = useState(sort);
+    const [m_lower_price, setM_LowPrice] = useState('');
+    const [m_upper_price, setM_UpperPrice] = useState('');
     const [page, setPage] = useState(1);
     const handleChangePage = (e) => {
         setPage(parseInt(e.target.innerText))
     }
-    const [m_sort, setM_Sort] = useState(sort);
-    const [m_lower_price, setM_LowPrice] = useState('');
-    const [m_upper_price, setM_UpperPrice] = useState('');
     const handleSelect = (e) => {
         const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
@@ -31,17 +33,20 @@ const Container = () => {
         setPage(1);
     }
     const handlePrice = () => {
-        console.log(search, m_sort, m_lower_price, m_upper_price);
         dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price));
     }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
     useEffect(() => {
-        console.log(search, m_sort, lower_price, upper_price);
         dispatch(searchFunction(search, m_sort, lower_price, upper_price));
     }, [dispatch, search, m_sort, lower_price, upper_price])
     if (!books.length) {
+        if(message !== '') {
+            return (
+                <Error />
+            )
+        }
         return (
             <Loading />
         )
