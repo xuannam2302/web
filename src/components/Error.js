@@ -1,11 +1,15 @@
 import React from 'react'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
+import {useDispatch} from 'react-redux'
+import { searchFunction } from '../actions/books'
 import url from '../assets/error.webp'
 const Error = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const returnHomePage = () => {
-        history.push('/')
+        history.push('/');
+        dispatch(searchFunction(''));
     }
     const changeToAbout = () => {
         history.push('/about')

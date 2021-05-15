@@ -4,6 +4,7 @@ const books = (state = { books: [] }, action) => {
     switch (action.type) {
         case SEARCH:
             return {
+                msg: action.payload.msg,
                 search: action.payload.url.query.search,
                 sort: action.payload.url.query.sort,
                 lower_price: action.payload.url.query.lower_price,
