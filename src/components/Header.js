@@ -9,7 +9,7 @@ const Header = () => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
-    const {search, sort, lower_price, upper_price} = useSelector(state => state.books);
+    const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
     // Function handler
     const returnHomePage = () => {
