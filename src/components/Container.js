@@ -11,6 +11,7 @@ import Error from './Error'
 const Container = () => {
     // Global Variables
     const dispatch = useDispatch();
+    const elements = document.querySelectorAll('.container-option-select');
     const data = useSelector(state => state.books);
     const { search, sort, lower_price, upper_price, books, msg } = data;
     console.log(data);
@@ -23,7 +24,6 @@ const Container = () => {
         setPage(parseInt(e.target.innerText))
     }
     const handleSelect = (e) => {
-        const elements = document.querySelectorAll('.container-option-select');
         elements.forEach(item => {
             item.classList.remove('container-option-select-active');
         })
@@ -37,6 +37,16 @@ const Container = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
+    useEffect(() => {
+        if(m_sort) {
+            elements.forEach(item => {
+                item.classList.remove('container-option-select-active');
+                if(item.getAttribute('value') === m_sort) {
+                    item.classList.add('container-option-select-active');
+                }
+            })
+        }
+    }, [elements, m_sort])
     useEffect(() => {
         dispatch(searchFunction(search, m_sort, lower_price, upper_price));
     }, [dispatch, search, m_sort, lower_price, upper_price])

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { searchFunction } from '../actions/books'
 import url from '../assets/error.webp'
 const Error = () => {
@@ -9,7 +9,7 @@ const Error = () => {
     const dispatch = useDispatch();
     const returnHomePage = () => {
         history.push('/');
-        dispatch(searchFunction(''));
+        dispatch(searchFunction('', 'name', '', ''));
     }
     const changeToAbout = () => {
         history.push('/about')
