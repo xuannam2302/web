@@ -12,7 +12,7 @@ MongoClient.connect(uri, function (err, result) {
 });
 
 exports.book_create_get = function(req, res, next) {
-    res.render('book_form', {book: ''});
+    res.send({book: ''});
 }
 
 exports.book_create_post = [
@@ -23,7 +23,7 @@ exports.book_create_post = [
     (req, res, next) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
-            res.render('book_form', {book: req.body, errors: errors.array()});
+            res.send({book: req.body, errors: errors.array()});
         } 
         else {
             var db = client.db('web');
@@ -53,6 +53,9 @@ exports.book_create_post = [
 ]
 
 exports.book_update_get = function(req, res, next) {
-    
+    var db = client.db('web');
+    db.collection('book').findOne({isbn: req.params.id}).toArray(function(err, results) {
+        res.render('book_upate', {book: results});
+    });
 }
 
