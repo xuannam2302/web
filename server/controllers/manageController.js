@@ -12,43 +12,50 @@ MongoClient.connect(uri, function (err, result) {
 });
 
 exports.book_create_get = function(req, res, next) {
-    res.render('book_form');
-    
-    // var db = client.db('web');
-    // db.collection('book').insert({name: "abc", price: "12", author: "author"});
-    // res.send('Successful');
+    res.send({book: ''});
 }
 
 exports.book_create_post = [
-    // body('name').trim().isLength({min: 1}),
-    // body('author').trim().isLength({min: 1}),
-    // body('price').trim().isLength({min: 1}).isFloat({min: 0}),
-    // body('isbn').trim().isLength({min: 1}),
+    body('name', 'Name empty').trim().isLength({min: 1}).escape(),
+    body('author', 'Author empty').trim().isLength({min:1}).escape(),
+    body('price', 'Price is less than 0').isFloat({min: 0}).escape(),
+    body('isbn', 'ISBN empty').trim().isLength({min: 1}).escape(),
     (req, res, next) => {
-        var db = client.db('web');
-        var exist = 0;
-        db.collection('book').find({isbn: req.body.isbn}).collation({ locale: "en" }).toArray(function (err, results) {
-            if (!err) {
-                if(results.length > 0) {
-                    exist = 1;
-                    res.send({results, exist});
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            res.send({book: req.body, errors: errors.array()});
+        } 
+        else {
+            var db = client.db('web');
+            var msg;
+            db.collection('book').find({isbn: req.body.isbn}).toArray(function(err, results) {
+                if(!err) {
+                    if(results.length == 0) { 
+                        msg = 'successful created';
+                        db.collection('book').insertOne({author: req.body.author, book_depository_stars: Number(req.body.book_depository_stars), 
+                            category: req.body.category, currency: req.body.currency, format: req.body.format, 
+                            image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
+                            old_price: Number(req.body.old_price), price: Number(req.body.price)});
+                        db.collection('book').find({isbn: req.body.isbn}).collation({ locale: "en" }).toArray(function (err, results) {
+                            if (!err) {
+                                    res.send({results, msg});
+                            }
+                        });
+                    }
+                    else {
+                        msg = 'exist';
+                        res.send({results, msg});
+                    }
                 }
-            }
-        });
-        console.log(req.body);
-        db.collection('book').insert({author: req.body.author, book_depository_stars: req.body.book_depository_stars, 
-                                        category: req.body.category, currency: req.body.currency, format: req.body.format, 
-                                        image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
-                                        old_price: req.body.old_price, price: req.body.price});
-        // db.collection('book').insert({author: req.body.author, name: req.body.name, price: req.body.price, isbn: req.body.isbn});
-        db.collection('book').find({isbn: req.body.isbn}).collation({ locale: "en" }).toArray(function (err, results) {
-            if (!err) {
-                    res.send({results, exist});
-                
-            }
-        });
+            });
+        }
     }
 ]
 
-
+exports.book_update_get = function(req, res, next) {
+    var db = client.db('web');
+    db.collection('book').findOne({isbn: req.params.id}).toArray(function(err, results) {
+        res.render('book_upate', {book: results});
+    });
+}
 
