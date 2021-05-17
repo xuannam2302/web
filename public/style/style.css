@@ -106,10 +106,24 @@ img {
   .header-item {
     font-size: 1.5rem;
     font-weight: bold;
-    cursor: pointer; }
+    cursor: pointer;
+    margin-right: 2rem; }
     .header-item:hover {
       color: rgba(0, 60, 255, 0.815);
       text-decoration: underline; }
+  .header-indentify {
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap; }
+    .header-indentify p {
+      font-weight: bold; }
+    .header-indentify:hover {
+      text-decoration: none;
+      color: black; }
+  .header-item-log-in {
+    margin: 0 5px; }
 
 .container-main {
   padding: 5rem 0;
@@ -271,6 +285,281 @@ img {
   display: flex;
   flex-wrap: nowrap;
   min-height: 100vh; }
+
+.landing_page {
+  padding: 8rem 5rem;
+  position: relative;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap; }
+  .landing_page:before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    width: 1px;
+    background: #e5e5e5;
+    left: 30rem;
+    height: 100%; }
+  .landing_page-img {
+    width: 25rem; }
+    .landing_page-img img {
+      height: 32rem; }
+  .landing_page-content {
+    padding-left: 4rem; }
+  .landing_page-title {
+    font-size: 1.8rem;
+    font-weight: bold; }
+  .landing_page-author {
+    margin-top: 1.3rem;
+    font-size: 1.3rem;
+    font-weight: 300; }
+    .landing_page-author strong {
+      font-weight: bold; }
+  .landing_page-control {
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 1.2rem;
+    font-size: 1.2rem; }
+  .landing_page-comment {
+    margin-left: 1.2rem; }
+  .landing_page-new-price {
+    font-size: 1.4rem; }
+    .landing_page-new-price strong {
+      font-weight: bold; }
+  .landing_page-old-price {
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-decoration: line-through;
+    margin-left: 1rem; }
+  .landing_page-discount {
+    font-weight: bold;
+    background: tomato;
+    color: white;
+    padding: 6px 5px;
+    margin-left: 1.2rem;
+    border-radius: 2px; }
+  .landing_page-promo {
+    margin-top: 2rem;
+    padding: 8px 1.2rem;
+    border: 1px solid blue;
+    border-radius: 2px;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap; }
+  .landing_page-code:not(:first-child) {
+    margin-left: 1rem; }
+  .landing_page-code {
+    padding: 5px 2px;
+    border: 1px solid #919191;
+    border-radius: 2px;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 1.2rem; }
+    .landing_page-code strong {
+      position: relative;
+      padding-right: 5px; }
+      .landing_page-code strong:before {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        content: "";
+        width: 1px;
+        height: 100%;
+        background: #e5e5e5;
+        right: 0; }
+    .landing_page-code p {
+      margin-left: 5px; }
+  .landing_page-amount {
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 2rem;
+    font-size: 1.5rem; }
+    .landing_page-amount-control {
+      align-items: stretch;
+      justify-content: flex-start;
+      flex-direction: row;
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: 2rem; }
+    .landing_page-amount-btn, .landing_page-amount-label {
+      font-weight: 400;
+      font-size: 1.4rem;
+      padding: 0.8rem;
+      background: rgba(229, 229, 229, 0.7);
+      text-align: center; }
+    .landing_page-amount-label {
+      min-width: 4rem; }
+    .landing_page-amount-btn:nth-child(1) {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px; }
+    .landing_page-amount-btn:last-child {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px; }
+  .landing_page-shopping {
+    margin-top: 2rem;
+    padding: 1.5rem 5px;
+    background: tomato;
+    border-radius: 2px;
+    text-align: center;
+    opacity: 0.9;
+    cursor: pointer; }
+    .landing_page-shopping:hover {
+      opacity: 1; }
+    .landing_page-shopping button {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: white; }
+
+.edit-item {
+  padding: 8rem 0; }
+  .edit-item-control-btn {
+    margin-top: 2rem;
+    position: absolute;
+    right: 32%; }
+  .edit-item-btn {
+    padding: 1rem;
+    color: white;
+    background: #128c9c;
+    border-radius: 5px;
+    text-align: center;
+    opacity: 0.7; }
+    .edit-item-btn:hover {
+      opacity: 1; }
+  .edit-item-btn-cancel {
+    background: #535353;
+    margin-right: 1.2rem;
+    min-width: 5rem; }
+
+.login-form {
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 8rem 0 6rem; }
+  .login-form-container {
+    padding: 6rem 4rem;
+    background: #e5e5e5;
+    border-radius: 5px; }
+  .login-form-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold; }
+
+.form-control {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: nowrap; }
+  .form-control-input {
+    margin-top: 0.8rem;
+    min-width: 30rem;
+    padding: 1.2rem 0.8rem;
+    border-radius: 2px; }
+
+.login-form-btn {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1.5rem;
+  margin-top: 4rem;
+  border-radius: 5px;
+  background: tomato;
+  cursor: pointer;
+  opacity: 0.9; }
+  .login-form-btn button {
+    color: white;
+    font-size: 1.5rem; }
+  .login-form-btn:hover {
+    opacity: 1; }
+
+.form-another-link {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.3rem; }
+  .form-another-link strong {
+    margin-left: 1.2rem;
+    cursor: pointer;
+    color: blue; }
+    .form-another-link strong:hover {
+      text-decoration: underline; }
+
+.register-form {
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 8rem 0 6rem; }
+  .register-form-container {
+    padding: 6rem 4rem;
+    background: #e5e5e5;
+    border-radius: 5px; }
+  .register-form-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold; }
+
+.register-form-btn {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1.5rem;
+  margin-top: 4rem;
+  border-radius: 5px;
+  background: tomato;
+  cursor: pointer;
+  opacity: 0.9; }
+  .register-form-btn button {
+    color: white;
+    font-size: 1.5rem; }
+  .register-form-btn:hover {
+    opacity: 1; }
+
+.manage {
+  position: absolute;
+  right: 2%;
+  font-size: 1.5rem; }
+  .manage-title {
+    font-weight: bold;
+    margin-bottom: 2rem; }
+  .manage-info {
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: nowrap; }
+  .manage-authority {
+    margin: 8px 0; }
+    .manage-authority p {
+      margin-top: 5px; }
+  .manage-control {
+    margin-top: 2rem;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: nowrap; }
+    .manage-control-btn {
+      padding: 1.2rem 5px;
+      background: #e5e5e5;
+      margin: 5px 0;
+      border-radius: 5px; }
 
 .about {
   padding: 5rem 0 2rem;

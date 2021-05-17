@@ -24,10 +24,6 @@ const Container = () => {
         setPage(parseInt(e.target.innerText))
     }
     const handleSelect = (e) => {
-        elements.forEach(item => {
-            item.classList.remove('container-option-select-active');
-        })
-        e.target.classList.add('container-option-select-active');
         setM_Sort(e.target.getAttribute('value'));
         setPage(1);
     }

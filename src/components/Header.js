@@ -22,6 +22,12 @@ const Header = () => {
         console.log(m_search, sort, lower_price, upper_price);
         dispatch(searchFunction(m_search, sort, lower_price, upper_price));
     }
+    const linkToLogin = () => {
+        history.push('/login');
+    }
+    const linkToRegister = () => {
+        history.push('/register');
+    }
     return (
         <div className="header">
             <div className="container">
@@ -44,6 +50,15 @@ const Header = () => {
                     <ul className="header-menu">
                         <li className="header-item" onClick={returnHomePage}>Trang chủ</li>
                         <li className="header-item" onClick={changeToAbout}>Về chúng tôi</li>
+                        <li className="header-item header-indentify">
+                            <i class="fas fa-user-circle"></i>
+                            <button className="header-item-log-in" onClick={linkToLogin}>
+                                <p>Đăng nhập</p>
+                            </button>
+                            <button className="header-item-register" onClick={linkToRegister}>
+                                <p>Đăng ký</p>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
