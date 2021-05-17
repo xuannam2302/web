@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text' name='name')
+            label(for='author') Author:
+            input#author.form-control(type='text' name='author')
+            label(for='price') Price:
+            input#price.form-control(type='number' step='0.01' name='price')
+            label(for='isbn') ISBN:
+            input#isbn.form-control(type='text' name='isbn')
+        button.btn.btn-primary(type='submit') Submit

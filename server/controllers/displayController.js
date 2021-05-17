@@ -15,7 +15,8 @@ exports.display_all = function (req, res, next) {
     var url = url_link.parse(req.url, true);
     db.collection('book').find({}).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
         if (!err) {
-            res.send({ msg, url, results });
+            var msg;
+            res.render('index', { books: results });
         }
     });
 };
