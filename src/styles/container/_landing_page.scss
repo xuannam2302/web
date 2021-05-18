@@ -1,0 +1,138 @@
+.landing_page {
+    padding: 8rem 5rem;
+    position: relative;
+    &:before {
+        @include absoluteCenter('top');
+        content: "";
+        width: 1px;
+        @include bg(#e5e5e5);
+        left: 30rem;
+        height: 100%;
+    }
+    @include flexbox(stretch);
+    &-img {
+        width: 25rem;
+        img {
+            height: 32rem;
+        }
+    }
+    &-content {
+        padding-left: 4rem;
+    }
+    &-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+    &-author {
+        margin-top: 1.3rem;
+        font-size: 1.3rem;
+        font-weight: 300;
+        strong {
+            font-weight: bold;
+        }
+    }
+    &-control {
+        @include flexbox(center);
+        margin-top: 1.2rem;
+        font-size: 1.2rem;
+    }
+    &-comment {
+        margin-left: 1.2rem;
+    }
+    &-new-price {
+        font-size: 1.4rem;
+        strong {
+            font-weight: bold;
+        }
+    }
+    &-old-price {
+        font-size: 1.2rem;
+        font-weight: 300;
+        text-decoration: line-through;
+        margin-left: 1rem;
+    }
+    &-discount {
+        font-weight: bold;
+        @include bg(tomato);
+        color: white;
+        padding: 6px 5px;
+        margin-left: 1.2rem;
+        border-radius: 2px;
+    }
+    &-promo {
+        margin-top: 2rem;
+        padding: 8px 1.2rem;
+        border: 1px solid blue;
+        border-radius: 2px;
+        @include flexbox(stretch, space-between);
+    }
+    &-code:not(:first-child) {
+        margin-left: 1rem;
+    }
+    &-code {
+        padding: 5px 2px;
+        border: 1px solid #919191;
+        border-radius: 2px;
+        @include flexbox();
+        font-size: 1.2rem;
+        strong {
+            position: relative;
+            padding-right: 5px;
+            &:before {
+                @include absoluteCenter('top');
+                content: "";
+                width: 1px;
+                height: 100%;
+                @include bg(#e5e5e5);
+                right: 0;
+            }
+        }
+        p {
+            margin-left: 5px;
+        }
+    }
+    &-amount {
+        @include flexbox(center);
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        &-control {
+            @include flexbox(stretch);
+            margin-left: 2rem;
+        }
+        &-btn, &-label {
+            font-weight: 400;
+            font-size: 1.4rem;
+            padding: 0.8rem;
+            @include bg(rgba(#e5e5e5, 0.7));
+            text-align: center;
+        }
+        &-label {
+            min-width: 4rem;
+        }
+        &-btn:nth-child(1) {
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+        }
+        &-btn:last-child {
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+        }
+    }
+    &-shopping {
+        margin-top: 2rem;
+        padding: 1.5rem 5px;
+        @include bg(tomato);
+        border-radius: 2px;
+        text-align: center;
+        opacity: 0.9;
+        cursor: pointer;
+        &:hover {
+            opacity: 1;
+        }
+        button {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: white;
+        }
+    }
+}

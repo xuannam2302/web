@@ -36,9 +36,23 @@
         font-size: 1.5rem;
         font-weight: bold;
         cursor: pointer;
+        margin-right: 2rem;
         &:hover {
             color: rgba(0, 60, 255, 0.815);
             text-decoration: underline;
         }
+    }
+    &-indentify {
+        p {
+            font-weight: bold;
+        }
+        &:hover {
+            text-decoration: none;
+            color: black;
+        }
+        @include flexbox(stretch, space-between);
+    }
+    &-item-log-in {
+        margin: 0 5px;
     }
 }

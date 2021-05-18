@@ -1,4 +1,4 @@
-import { SEARCH } from '../constants/actionType'
+import { SEARCH, LANDING_PAGE, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../constants/actionType'
 
 const books = (state = { books: [] }, action) => {
     switch (action.type) {
@@ -17,4 +17,24 @@ const books = (state = { books: [] }, action) => {
     }
 }
 
-export default books;
+const item = (state = {}, action) => {
+    switch (action.type) {
+        case LANDING_PAGE:
+            return action.payload;
+        case CREATE_ITEM:
+            return {
+                msg: action.payload.msg,
+                item: action.payload.results
+            }
+        case UPDATE_ITEM:
+            return action.payload;
+        case DELETE_ITEM:
+            return {
+                msg: action.payload.msg
+            }
+        default: 
+            return state;
+    }
+}
+
+export { books, item };

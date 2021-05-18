@@ -1,0 +1,58 @@
+.login-form {
+    @include flexbox(center, center);
+    padding: 8rem 0 6rem;
+    &-container {
+        padding: 6rem 4rem;
+        @include bg(#e5e5e5);
+        border-radius: 5px;
+    }
+    &-title {
+        text-align: center;
+        font-size: 3rem;
+        font-weight: bold;
+    }
+}
+
+.form-control {
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    @include flexbox(stretch, space-between, column);
+    &-input {
+        margin-top: 0.8rem;
+        min-width: 30rem;
+        padding: 1.2rem 0.8rem;
+        border-radius: 2px;
+    }
+}
+
+.login-form-btn {
+    button {
+        color: white;
+        font-size: 1.5rem;
+    }
+    text-align: center;
+    margin: 0 auto;
+    padding: 1.5rem;
+    margin-top: 4rem;
+    border-radius: 5px;
+    @include bg(tomato);
+    cursor: pointer;
+    opacity: 0.9;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.form-another-link {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.3rem;
+    strong {
+        margin-left: 1.2rem;
+        cursor: pointer;
+        color: blue;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
