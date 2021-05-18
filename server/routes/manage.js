@@ -7,5 +7,6 @@ var manage_controller = require('../controllers/manageController');
 router.get('/create', manage_controller.book_create_get);
 router.post('/create', manage_controller.book_create_post);
 
+router.get('/update/:id', manage_controller.book_update_get);
 
 module.exports = router;

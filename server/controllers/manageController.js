@@ -54,8 +54,10 @@ exports.book_create_post = [
 
 exports.book_update_get = function(req, res, next) {
     var db = client.db('web');
-    db.collection('book').findOne({isbn: req.params.id}).toArray(function(err, results) {
-        res.render('book_upate', {book: results});
+    db.collection('book').find({isbn: req.params.id}).toArray(function(err, results) {
+        if(!err) {
+            res.send(results);
+        }
     });
 }
 
