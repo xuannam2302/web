@@ -12,7 +12,7 @@ MongoClient.connect(uri, function (err, result) {
 });
 
 exports.book_create_get = function(req, res, next) {
-    res.send({book: ''});
+    res.render('book_form',{book: ''});
 }
 
 exports.book_create_post = [
@@ -20,12 +20,13 @@ exports.book_create_post = [
     body('author', 'Author empty').trim().isLength({min:1}).escape(),
     body('price', 'Price is less than 0').isFloat({min: 0}).escape(),
     body('isbn', 'ISBN empty').trim().isLength({min: 1}).escape(),
-    (req, res, next) => {
+    function(req, res, next)  {
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             res.send({book: req.body, errors: errors.array()});
         } 
         else {
+            console.log(req.body);
             var db = client.db('web');
             var msg;
             db.collection('book').find({isbn: req.body.isbn}).toArray(function(err, results) {

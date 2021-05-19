@@ -45,7 +45,7 @@ const CreateItem = () => {
             isbn
         }
         dispatch(createItem(newItem));
-        history.push(`/book/${item._id}`);
+        //history.push(`/book/${item._id}`);
     }
     const handleCancel = () => {
         history.push(`/`);
