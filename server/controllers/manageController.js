@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 const { body,validationResult } = require('express-validator');
 var async = require('async');
 
@@ -23,10 +24,9 @@ exports.book_create_post = [
     function(req, res, next)  {
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
-            res.send({book: req.body, errors: errors.array()});
+            res.render('book_form',{book: req.body, errors: errors.array()});
         } 
         else {
-            console.log(req.body);
             var db = client.db('web');
             var msg;
             db.collection('book').find({isbn: req.body.isbn}).toArray(function(err, results) {
@@ -53,12 +53,75 @@ exports.book_create_post = [
     }
 ]
 
-exports.book_update_get = function(req, res, next) {
+exports.book_update_get = function (req, res, next) {
     var db = client.db('web');
-    db.collection('book').find({isbn: req.params.id}).toArray(function(err, results) {
+    var id = new ObjectId(req.params.id);
+    db.collection('book').find({ _id: id }).toArray(function (err, results) {
         if(!err) {
-            res.send(results);
+            res.render('book_update', {book: results[0]});
         }
     });
-}
+};
 
+exports.book_update_post = [
+    body('name', 'Name empty').trim().isLength({min: 1}).escape(),
+    body('author', 'Author empty').trim().isLength({min:1}).escape(),
+    body('price', 'Price is less than 0').isFloat({min: 0}).escape(),
+    body('isbn', 'ISBN empty').trim().isLength({min: 1}).escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            res.send({book: req.body, errors: errors.array()});
+        } 
+        else {
+            var db = client.db('web');
+            var id = new ObjectId(req.params.id);  
+            db.collection('book').find({_id: id}).toArray(function(err, results) {
+                if(!err) {
+                    if(results.length > 0) 
+                        res.send({book: req.body, errors: "Exist isbn"});
+                    else {
+                        db.collection('book').updateOne(
+                            {_id: id},
+                            {
+                                $set: {
+                                    author: req.body.author, book_depository_stars: Number(req.body.book_depository_stars), 
+                                        category: req.body.category, currency: req.body.currency, format: req.body.format, 
+                                        image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
+                                        old_price: Number(req.body.old_price), price: Number(req.body.price)
+                                }
+                            }, function(err, results) {
+                                if(!err) {
+                                    db.collection('book').find({_id: id}).toArray(function(err, results) {
+                                        res.send(results);
+                                    });  
+                                }
+                            }
+                        ); 
+                    }
+                }
+            })        
+        }
+    }
+]
+
+exports.book_delete_get = function (req, res, next) {
+    var db = client.db('web');
+    var id = new ObjectId(req.params.id);
+    db.collection('book').find({ _id: id }).toArray(function (err, results) {
+        if(!err) {
+            res.render('book_delete', {book: results[0]});
+        }
+    });
+};
+
+exports.book_delete_post = function(req, res, next) {
+    var db = client.db('web');
+    var id = new ObjectId(req.params.id);
+    if(req.body.delete == 'yes'){
+        db.collection('book').remove({_id: id}, function(err, results) {
+            res.send(results);
+        })
+    }
+    else res.send({msg: 'No object deleted'});
+}

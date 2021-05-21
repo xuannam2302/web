@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    p Name: #{book.name}
+    p Author: #{book.author}
+    p Price: #{book.price}
+    p ISBN: #{book.isbn}
+    form(method='POST' action='')
+        div.form-group
+            select(name='delete')
+                option(value='yes') Yes 
+                option(value='no') No
+        button.btn.btn-primary(type='submit') Submit
+            
+                
