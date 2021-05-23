@@ -8,11 +8,14 @@ const AdminHeader = ({setAdmin}) => {
         setAdmin(false);
         history.push("/");
     }
+    const adminPage = () => {
+        history.push("/admin");
+    }
     return (
         <div className="admin-header">
             <div className="container">
                 <div className="admin-header-container">
-                    <img src={LogoURL} alt="Logo" className="admin-header-logo" />
+                    <img src={LogoURL} alt="Logo" className="admin-header-logo" onClick={adminPage}/>
                     <div className="admin-header-current">
                         Books
                     </div>
