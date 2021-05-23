@@ -1,0 +1,16 @@
+.toast-container {
+    min-height: 5rem;
+}
+
+.toast-state {
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    color: black;
+    // @include bg(#ee8068);
+}
+
+.toast-desc {
+    color: rgb(51,60,72);
+    font-size: 1.2rem;
+}

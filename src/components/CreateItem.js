@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid, TextField, makeStyles } from '@material-ui/core'
@@ -22,8 +23,11 @@ const useStyle = makeStyles(theme => ({
 const CreateItem = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const item = useSelector(state => state.item);
+    const data = useSelector(state => state.item);
+    const { item, msg } = data;
+    console.log(item);
     const classes = useStyle();
+    const [notify, setNotify] = useState('');
     const [name, setName] = useState('');
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState('')
@@ -34,7 +38,7 @@ const CreateItem = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
     }
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
         const newItem = {
             name,
             author,
@@ -45,11 +49,30 @@ const CreateItem = () => {
             isbn
         }
         dispatch(createItem(newItem));
-        history.push(`/book/${item._id}`);
     }
     const handleCancel = () => {
         history.push(`/`);
     }
+    useEffect(() => {
+        if (item !== undefined) {
+            if (item[0]._id) {
+                history.push(`/book/${item[0]._id}`);
+            }
+            switch (msg) {
+                case 'successful created':
+                    setNotify("Thành công");
+                    break;
+                case 'exist':
+                    setNotify("Đã tồn tại");
+                    break;
+                case 'error':
+                    setNotify("Đã có lỗi xảy ra");
+                    break;
+                default:
+                    setNotify("");
+            }
+        }
+    }, [item, history, msg])
     return (
         <>
             <form className={`${classes.root} edit-item`} onSubmit={handleOnSubmit}>
@@ -104,7 +127,9 @@ const CreateItem = () => {
                     <button className="edit-item-btn edit-item-btn-update" onClick={handleUpdate}>Tạo mới</button>
                 </div>
             </form>
-
+            <div className="notity">
+                {notify}
+            </div>
         </>
     )
 }
