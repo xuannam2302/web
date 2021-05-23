@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components';
 
-import { searchFunction, deleteItem } from '../../actions/books'
+import { searchFunction, deleteItem, updateItem } from '../../actions/books'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
@@ -74,12 +74,13 @@ function renderRating(params) {
 
 const AdminContent = () => {
 
-    const [editable, setEditable] = useState(false);
+    // const [editable, setEditable] = useState(false);
 
     const deleteBook = () => toast.success(<Toast state="Successfully" desc="Xóa thành công" />);
 
-    const edit = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
+    const exist = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
 
+    const create = () => toast.success(<Toast state="Successfully" desc="Tạo thành công"/>)
 
     const dispatch = useDispatch();
     const classes = useStyles();
@@ -89,15 +90,24 @@ const AdminContent = () => {
     const { books } = data;
     useEffect(() => {
         dispatch(searchFunction(''));
-    }, [dispatch, item])
-    const handleEdit = (e) => {
-        let el = e.target;
-        while (el) {
-            if (el.getAttribute('keyid'))
-                break;
-            el = el.parentNode;
-        }
-        console.log({ el });
+    }, [dispatch])
+    // useEffect(() => {
+    //     switch (item.msg) 
+    //     {
+    //         case "successful created":
+    //             create();
+    //         break;
+    //         case "exist":
+    //             exist();
+    //         break;
+
+    //         default:
+            
+    //     }
+    // }, [item])
+    const handleEdit = (el) => {
+        console.log(el);
+        dispatch(updateItem(el._id, el));
     }
     const handleDelete = (id) => {
         dispatch(deleteItem(id));
@@ -122,13 +132,15 @@ const AdminContent = () => {
                 width: 200,
                 headerClassName: 'super-app-theme--header',
                 cellClassName: 'super-app-theme--cell',
+                editable: true
             },
             {
                 field: 'author',
                 headerName: 'Author',
                 width: 150,
                 headerClassName: 'super-app-theme--header',
-                cellClassName: 'super-app-theme--cell'
+                cellClassName: 'super-app-theme--cell',
+                editable: true
             },
             {
                 field: 'category',
@@ -178,8 +190,18 @@ const AdminContent = () => {
                 headerName: 'ISBN',
                 width: 150,
                 headerClassName: 'super-app-theme--header',
-                cellClassName: 'super-app-theme--cell'
+                cellClassName: 'super-app-theme--cell',
+                editable: true
             },
+            // {
+            //     field: 'date',
+            //     headerName: 'Date',
+            //     width: 150,
+            //     headerClassName: 'super-app-theme--header',
+            //     cellClassName: 'super-app-theme--cell',
+            //     type: 'dateTime',
+            //     editable: true
+            // },
             {
                 field: 'edit',
                 headerName: 'Edit',
@@ -195,7 +217,7 @@ const AdminContent = () => {
                                 color="primary"
                                 size="small"
                                 startIcon={<EditIcon />}
-                                onClick={(e) => console.log(e)}
+                                onClick={() => {handleEdit(params.row)}}
                             >
                                 Edit
                             </Button>
@@ -226,6 +248,7 @@ const AdminContent = () => {
                 }
             }
         ];
+        console.log(books);
         return (
             <div className={`admin-content ${classes.root}`} style={{ height: 800, width: '100%' }}>
                 <DataGrid

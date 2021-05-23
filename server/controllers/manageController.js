@@ -78,7 +78,7 @@ exports.book_update_post = [
             var id = new ObjectId(req.params.id);  
             db.collection('book').find({_id: id}).toArray(function(err, results) {
                 if(!err) {
-                    if(results.length > 0) 
+                    if(results.length > 1) 
                         res.send({book: req.body, errors: "Exist isbn"});
                     else {
                         db.collection('book').updateOne(

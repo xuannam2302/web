@@ -33,9 +33,9 @@ export const createItem = (newItem) => async (dispatch) => {
     }
 }
 
-export const updateItem = (id) => async (dispatch) => {
+export const updateItem = (id, newItem) => async (dispatch) => {
     try {
-        const { data } = await axios.post(`${url}/manage/update/${id}`);
+        const { data } = await axios.post(`${url}/manage/update/${id}`, newItem);
         dispatch({ type: UPDATE_ITEM, payload: data })
     }
     catch (err) {
