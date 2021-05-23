@@ -36,10 +36,11 @@ exports.book_create_post = [
                         db.collection('book').insertOne({author: req.body.author, book_depository_stars: Number(req.body.book_depository_stars), 
                             category: req.body.category, currency: req.body.currency, format: req.body.format, 
                             image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
-                            old_price: Number(req.body.old_price), price: Number(req.body.price)});
+                            old_price: Number(req.body.old_price), price: Number(req.body.price), lastModified: new Date().toTimeString()});
                         db.collection('book').find({isbn: req.body.isbn}).collation({ locale: "en" }).toArray(function (err, results) {
                             if (!err) {
-                                    res.send({results, msg});
+                                
+                                res.send({results, msg});
                             }
                         });
                     }
@@ -76,9 +77,9 @@ exports.book_update_post = [
         else {
             var db = client.db('web');
             var id = new ObjectId(req.params.id);  
-            db.collection('book').find({_id: id}).toArray(function(err, results) {
+            db.collection('book').find({isbn: req.body.isbn}).toArray(function(err, results) {
                 if(!err) {
-                    if(results.length > 0) 
+                    if(results.length > 1) 
                         res.send({book: req.body, errors: "Exist isbn"});
                     else {
                         db.collection('book').updateOne(
@@ -88,7 +89,7 @@ exports.book_update_post = [
                                     author: req.body.author, book_depository_stars: Number(req.body.book_depository_stars), 
                                         category: req.body.category, currency: req.body.currency, format: req.body.format, 
                                         image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
-                                        old_price: Number(req.body.old_price), price: Number(req.body.price)
+                                        old_price: Number(req.body.old_price), price: Number(req.body.price), lastModified: new Date().toTimeString()
                                 }
                             }, function(err, results) {
                                 if(!err) {
@@ -120,7 +121,7 @@ exports.book_delete_post = function(req, res, next) {
     var id = new ObjectId(req.params.id);
     if(req.body.delete == 'yes'){
         db.collection('book').remove({_id: id}, function(err, results) {
-            res.send(results);
+            res.send({msg: 'Object deleted'});
         })
     }
     else res.send({msg: 'No object deleted'});
