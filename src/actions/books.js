@@ -43,9 +43,9 @@ export const updateItem = (id) => async (dispatch) => {
     }
 }
 
-export const deleteItem = (id, newItem) => async (dispatch) => {
+export const deleteItem = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.post(`${url}/manage/delete/${id}`, newItem);
+        const { data } = await axios.post(`${url}/manage/delete/${id}`);
         dispatch({ type: DELETE_ITEM, payload: data })
     }
     catch (err) {

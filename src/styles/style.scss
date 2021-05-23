@@ -6,6 +6,7 @@
 
 @import "./container/typoraphy";
 
+@import "./container//admin";
 @import "./container/header";
 @import "./container/container";
 @import "./container/item";
@@ -16,5 +17,6 @@
 @import "./container/register";
 @import "./container/manage";
 @import "./container/about";
+@import "./container/toast";
 @import "./container/error";
 @import "./container/footer";

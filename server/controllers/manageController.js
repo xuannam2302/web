@@ -119,10 +119,11 @@ exports.book_delete_get = function (req, res, next) {
 exports.book_delete_post = function(req, res, next) {
     var db = client.db('web');
     var id = new ObjectId(req.params.id);
-    if(req.body.delete == 'yes'){
+    console.log(id);
+    // if(req.body.delete == 'yes'){
         db.collection('book').remove({_id: id}, function(err, results) {
             res.send({msg: 'Object deleted'});
         })
-    }
-    else res.send({msg: 'No object deleted'});
+    // }
+    // else res.send({msg: 'No object deleted'});
 }

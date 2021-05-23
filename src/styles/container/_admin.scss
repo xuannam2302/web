@@ -1,0 +1,77 @@
+.admin-header {
+    padding: 3rem 0;
+    width: 100%;
+    @include bg(rgba(#21A3F1, 0.4));
+    &-container {
+        @include flexbox(center, space-between);
+    }
+    &-logo {
+        @include size(4rem);
+    }
+    &-current {
+        margin-left: -7rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+    &-search-bar {
+        padding: 1rem;
+        border: 1px solid rgb(57, 57, 61);
+        border-radius: 5px;
+        min-width: 50rem;
+        @include bg(transparent);
+        margin-left: -4rem;
+    }
+    &-identify {
+        margin-right: 5rem;
+        @include flexbox(center);
+        i {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+    }
+    &-info {
+        margin-right: 2rem;
+    }
+    &-name {
+        font-size: 1.2rem;
+    }
+    &-id {
+        font-size: 1.2rem;
+    }
+}
+
+.admin {
+    padding: 5rem 0;
+}
+
+.admin-container {
+    @include flexbox(flex-start);
+}
+
+.admin-list {
+    @include flexbox(stretch, flex-start, column);
+    margin-right: 6rem;
+}
+
+.admin-item:not(:last-child) {
+    margin-bottom: 4rem;
+}
+
+.admin-item {
+    @include flexbox(baseline);
+    font-size: 1.5rem;
+    cursor: pointer;
+    &:hover {
+        transform: translateX(1rem);
+        color: #21A3F1;
+    }
+    transition: all 0.2s ease-in-out;
+    &-text {
+        margin-left: 1.2rem;
+    }
+}
+
+.admin-content {
+    flex: 2.5;
+}

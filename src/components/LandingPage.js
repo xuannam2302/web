@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import Loading from '../components/Loading'
-import Manage from './Manage'
+import Error from '../components/Error'
 import Rating from '@material-ui/lab/Rating';
 
 const LandingPage = () => {
@@ -13,6 +13,7 @@ const LandingPage = () => {
     const item = useSelector(state => state.item);
     const [amount, setAmount] = useState(1);
     const { _id } = useParams();
+    console.log(item);
     const handleAmountPlus = () => {
         setAmount(amount + 1);
     }
@@ -24,7 +25,14 @@ const LandingPage = () => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
     if (!item) {
-        <Loading />
+        if(!item._id) {
+            return (
+                <Error />
+            )
+        }
+        return (
+            <Loading />
+        )
     }
     return (
         <div className="container">
@@ -94,7 +102,6 @@ const LandingPage = () => {
                         </button>
                     </div>
                 </div>
-                <Manage />
             </div>
         </div>
     )

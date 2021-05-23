@@ -15,9 +15,6 @@ const Manage = () => {
     const handleUpdate = () => {
         history.push(`/book/${_id}/edit`);
     }
-    const handleCreate = () => {
-        history.push(`/book/create`);
-    }
     return (
         <div className="manage">
             <h2 className="manage-title">
@@ -31,7 +28,6 @@ const Manage = () => {
                 </div>
             </div>
             <div className="manage-control">
-                <button className="manage-control-btn" onClick={handleCreate}>Thêm</button>
                 <button className="manage-control-btn" onClick={handleUpdate}>Sửa</button>
                 <button className="manage-control-btn" onClick={handleDelete}>Xóa</button>
             </div>
