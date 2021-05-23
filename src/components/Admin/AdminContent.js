@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components';
 
@@ -74,9 +74,11 @@ function renderRating(params) {
 
 const AdminContent = () => {
 
-    const notify = () => toast.success(<Toast state="Successfully" desc="Xóa thành công" />);
+    const [editable, setEditable] = useState(false);
 
-    const editable = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
+    const deleteBook = () => toast.success(<Toast state="Successfully" desc="Xóa thành công" />);
+
+    const edit = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
 
 
     const dispatch = useDispatch();
@@ -86,8 +88,8 @@ const AdminContent = () => {
     console.log(item);
     const { books } = data;
     useEffect(() => {
-        dispatch(searchFunction('name'));
-    }, [dispatch])
+        dispatch(searchFunction(''));
+    }, [dispatch, item])
     const handleEdit = (e) => {
         let el = e.target;
         while (el) {
@@ -99,6 +101,7 @@ const AdminContent = () => {
     }
     const handleDelete = (id) => {
         dispatch(deleteItem(id));
+        deleteBook();
     }
     if (books) {
         books.forEach((book, index) => {
@@ -192,7 +195,7 @@ const AdminContent = () => {
                                 color="primary"
                                 size="small"
                                 startIcon={<EditIcon />}
-                                onClick={editable}
+                                onClick={(e) => console.log(e)}
                             >
                                 Edit
                             </Button>
@@ -214,7 +217,7 @@ const AdminContent = () => {
                                 color="secondary"
                                 className={classes.button}
                                 startIcon={<DeleteIcon />}
-                                onClick={notify}
+                                onClick={() => handleDelete(params.row._id)}
                             >
                                 Delete
                             </Button>
@@ -240,7 +243,6 @@ const AdminContent = () => {
                     autoClose={1800}
                     hideProgressBar
                 >
-                    {notify}
                 </StyledContainer>
             </div>
         )

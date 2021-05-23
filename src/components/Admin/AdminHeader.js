@@ -1,7 +1,13 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 
 import LogoURL from '../../assets/Logo.webp'
-const AdminHeader = () => {
+const AdminHeader = ({setAdmin}) => {
+    const history = useHistory();
+    const returnUser = () => {
+        setAdmin(false);
+        history.push("/");
+    }
     return (
         <div className="admin-header">
             <div className="container">
@@ -23,7 +29,7 @@ const AdminHeader = () => {
                                 9932un28ndq00sfe
                             </p>
                         </div>
-                        <div className="admin-header-log-out">
+                        <div className="admin-header-log-out" onClick={returnUser}>
                             <button>Đăng xuất</button>
                         </div>
                     </div>

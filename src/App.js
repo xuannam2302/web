@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
@@ -11,20 +11,24 @@ import Register from './components/Register'
 import About from './components/About'
 import Footer from './components/Footer'
 import Error from './components/Error'
+import CreateItem from './components/CreateItem'
 
 import Admin from './components/Admin/Admin'
 import AdminHeader from './components/Admin/AdminHeader'
 
 function App() {
-  const admin = true;
-  if(admin) {
+  const [admin, setAdmin] = useState(false);
+  if (admin) {
     return (
       <Router>
         <div className="App">
           <div className="wrapper">
-            <AdminHeader />
+            <AdminHeader setAdmin={setAdmin}/>
             <Switch>
-              <Route>
+              <Route path="/admin/create">
+                <CreateItem />
+              </Route>
+              <Route path="/admin">
                 <Admin />
               </Route>
             </Switch>
@@ -37,7 +41,7 @@ function App() {
     <Router>
       <div className="App">
         <div className="wrapper">
-          <Header />
+          <Header setAdmin={setAdmin}/>
           <Switch>
             <Route path="/login">
               <Login />

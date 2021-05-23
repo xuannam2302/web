@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const AdminList = () => {
     const list = ['books', 'users'];
@@ -12,6 +13,12 @@ const AdminList = () => {
                     </div>
                 )
             })}
+            <Link to="/admin/create">
+                <div className="admin-item">
+                    <i class="fas fa-plus"></i>
+                    <div className="admin-item-text">Create</div>
+                </div>
+            </Link>
         </div>
     )
 }

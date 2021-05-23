@@ -38,7 +38,7 @@ const CreateItem = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
     }
-    const handleUpdate = async () => {
+    const handleCreate = async () => {
         const newItem = {
             name,
             author,
@@ -51,12 +51,12 @@ const CreateItem = () => {
         dispatch(createItem(newItem));
     }
     const handleCancel = () => {
-        history.push(`/`);
+        // history.push(`/`);
     }
     useEffect(() => {
         if (item !== undefined) {
             if (item[0]._id) {
-                history.push(`/book/${item[0]._id}`);
+                history.push(`/admin`);
             }
             switch (msg) {
                 case 'successful created':
@@ -124,7 +124,7 @@ const CreateItem = () => {
                 </Grid>
                 <div className="edit-item-control-btn">
                     <button className="edit-item-btn edit-item-btn-cancel" onClick={handleCancel}>Hủy</button>
-                    <button className="edit-item-btn edit-item-btn-update" onClick={handleUpdate}>Tạo mới</button>
+                    <button className="edit-item-btn edit-item-btn-update" onClick={handleCreate}>Tạo mới</button>
                 </div>
             </form>
             <div className="notity">

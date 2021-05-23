@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { searchFunction } from '../actions/books'
 
 import url_icon from '../assets/Logo.webp'
-const Header = () => {
+const Header = ({setAdmin}) => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
@@ -27,6 +27,10 @@ const Header = () => {
     }
     const linkToRegister = () => {
         history.push('/register');
+    }
+    const handleAdmin = () => {
+        setAdmin(true);
+        history.push('/admin');
     }
     return (
         <div className="header">
@@ -57,6 +61,9 @@ const Header = () => {
                             </button>
                             <button className="header-item-register" onClick={linkToRegister}>
                                 <p>Đăng ký</p>
+                            </button>
+                            <button className="header-item-register" onClick={handleAdmin} style={{color: "red", marginLeft: "1rem"}}>
+                                <p>Admin</p>
                             </button>
                         </li>
                     </ul>
