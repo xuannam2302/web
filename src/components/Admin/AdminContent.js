@@ -89,8 +89,9 @@ const AdminContent = () => {
     console.log(item);
     const { books } = data;
     useEffect(() => {
+        console.log(books);
         dispatch(searchFunction(''));
-    }, [dispatch])
+    }, [dispatch, books]);
     // useEffect(() => {
     //     switch (item.msg) 
     //     {
