@@ -127,9 +127,6 @@ const CreateItem = () => {
                     <button className="edit-item-btn edit-item-btn-update" onClick={handleCreate}>Tạo mới</button>
                 </div>
             </form>
-            <div className="notity">
-                {notify}
-            </div>
         </>
     )
 }
