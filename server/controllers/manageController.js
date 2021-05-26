@@ -22,6 +22,7 @@ exports.book_create_post = [
     body('price', 'Price is less than 0').isFloat({min: 0}).escape(),
     body('isbn', 'ISBN empty').trim().isLength({min: 1}).escape(),
     function(req, res, next)  {
+        console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             res.render('book_form',{book: req.body, errors: errors.array()});
@@ -36,7 +37,7 @@ exports.book_create_post = [
                         db.collection('book').insertOne({author: req.body.author, book_depository_stars: Number(req.body.book_depository_stars), 
                             category: req.body.category, currency: req.body.currency, format: req.body.format, 
                             image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
-                            old_price: Number(req.body.old_price), price: Number(req.body.price), lastModified: new Date().toTimeString()});
+                            old_price: Number(req.body.old_price), price: Number(req.body.price), last_modified: new Date().toTimeString()});
                         db.collection('book').find({isbn: req.body.isbn}).collation({ locale: "en" }).toArray(function (err, results) {
                             if (!err) {
                                 
@@ -89,7 +90,7 @@ exports.book_update_post = [
                                     author: req.body.author, book_depository_stars: Number(req.body.book_depository_stars), 
                                         category: req.body.category, currency: req.body.currency, format: req.body.format, 
                                         image: req.body.image, img_paths: req.body.img_paths, isbn: req.body.isbn, name: req.body.name, 
-                                        old_price: Number(req.body.old_price), price: Number(req.body.price), lastModified: new Date().toTimeString()
+                                        old_price: Number(req.body.old_price), price: Number(req.body.price), last_modified: new Date().toTimeString()
                                 }
                             }, function(err, results) {
                                 if(!err) {
@@ -119,7 +120,6 @@ exports.book_delete_get = function (req, res, next) {
 exports.book_delete_post = function(req, res, next) {
     var db = client.db('web');
     var id = new ObjectId(req.params.id);
-    console.log(id);
     db.collection('book').remove({_id: id}, function(err, results) {
         res.send({msg: 'Object deleted'});
     })
