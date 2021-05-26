@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid, TextField, makeStyles } from '@material-ui/core'
 import { createItem } from '../actions/books'
+import { History } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -23,11 +24,10 @@ const useStyle = makeStyles(theme => ({
 const CreateItem = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const data = useSelector(state => state.item);
+    const data = useSelector(state => state.books);
     const { item, msg } = data;
     console.log(item);
     const classes = useStyle();
-    const [notify, setNotify] = useState('');
     const [name, setName] = useState('');
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState('')
@@ -56,23 +56,23 @@ const CreateItem = () => {
     useEffect(() => {
         if (item !== undefined) {
             if (item[0]._id) {
-                history.push(`/admin`);
+                history.push('/admin');
             }
-            switch (msg) {
-                case 'successful created':
-                    setNotify("Thành công");
-                    break;
-                case 'exist':
-                    setNotify("Đã tồn tại");
-                    break;
-                case 'error':
-                    setNotify("Đã có lỗi xảy ra");
-                    break;
-                default:
-                    setNotify("");
-            }
+            // switch (msg) {
+            //     case 'successful created':
+            //         setNotify("Thành công");
+            //         break;
+            //     case 'exist':
+            //         setNotify("Đã tồn tại");
+            //         break;
+            //     case 'error':
+            //         setNotify("Đã có lỗi xảy ra");
+            //         break;
+            //     default:
+            //         setNotify("");
+            // }
         }
-    }, [item, history, msg])
+    }, [item, history])
     return (
         <>
             <form className={`${classes.root} edit-item`} onSubmit={handleOnSubmit}>
@@ -127,9 +127,6 @@ const CreateItem = () => {
                     <button className="edit-item-btn edit-item-btn-update" onClick={handleCreate}>Tạo mới</button>
                 </div>
             </form>
-            <div className="notity">
-                {notify}
-            </div>
         </>
     )
 }

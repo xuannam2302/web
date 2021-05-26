@@ -89,23 +89,8 @@ const AdminContent = () => {
     console.log(item);
     const { books } = data;
     useEffect(() => {
-        console.log(books);
         dispatch(searchFunction(''));
-    }, [dispatch, books]);
-    // useEffect(() => {
-    //     switch (item.msg) 
-    //     {
-    //         case "successful created":
-    //             create();
-    //         break;
-    //         case "exist":
-    //             exist();
-    //         break;
-
-    //         default:
-            
-    //     }
-    // }, [item])
+    }, [dispatch, item]);
     const handleEdit = (el) => {
         console.log(el);
         dispatch(updateItem(el._id, el));
