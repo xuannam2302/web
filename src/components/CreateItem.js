@@ -31,7 +31,7 @@ const CreateItem = () => {
     const [name, setName] = useState('');
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState('')
-    const [stars, setStars] = useState('');
+    const [book_depository_stars, setStars] = useState('');
     const [price, setPrice] = useState('');
     const [old_price, setOld_Price] = useState('');
     const [isbn, setISBN] = useState('');
@@ -43,7 +43,7 @@ const CreateItem = () => {
             name,
             author,
             image,
-            stars,
+            book_depository_stars,
             price,
             old_price,
             isbn
@@ -97,7 +97,7 @@ const CreateItem = () => {
                             onChange={(e) => setImage(e.target.value)}
                         />
                         <TextField
-                            value={stars}
+                            value={book_depository_stars}
                             variant="outlined"
                             label="Đánh giá"
                             onChange={(e) => setStars(e.target.value)}

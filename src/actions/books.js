@@ -3,7 +3,7 @@ import { SEARCH, LANDING_PAGE, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../
 
 const url = 'http://localhost:5000';
 
-export const searchFunction = (search = '', sort = 'name', lower_price = '', upper_price = '') => async (dispatch) => {
+export const searchFunction = (search = '', sort = '', lower_price = '', upper_price = '') => async (dispatch) => {
     try {
         const { data } = await axios.post(`${url}/search?search=${search}&sort=${sort}&lower_price=${lower_price}&upper_price=${upper_price}`)
         dispatch({ type: SEARCH, payload: data })

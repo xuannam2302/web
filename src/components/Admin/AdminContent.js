@@ -68,7 +68,7 @@ const StyledContainer = styled(ToastContainer).attrs({
 
 
 function renderRating(params) {
-    return <Rating readOnly value={params.value} />;
+    return <Rating name="half-rating-read" readOnly value={params.value} />;
 }
 
 

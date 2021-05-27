@@ -71,6 +71,7 @@ exports.book_update_post = [
     body('price', 'Price is less than 0').isFloat({min: 0}).escape(),
     body('isbn', 'ISBN empty').trim().isLength({min: 1}).escape(),
     (req, res, next) => {
+        console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             res.send({book: req.body, errors: errors.array()});
