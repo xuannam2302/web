@@ -177,17 +177,17 @@ const AdminContent = () => {
                 width: 150,
                 headerClassName: 'super-app-theme--header',
                 cellClassName: 'super-app-theme--cell',
+                editabel: true
+            },
+            {
+                field: 'last_modified',
+                headerName: 'Last Modified',
+                width: 250,
+                headerClassName: 'super-app-theme--header',
+                cellClassName: 'super-app-theme--cell',
+                type: 'dateTime',
                 editable: true
             },
-            // {
-            //     field: 'date',
-            //     headerName: 'Date',
-            //     width: 150,
-            //     headerClassName: 'super-app-theme--header',
-            //     cellClassName: 'super-app-theme--cell',
-            //     type: 'dateTime',
-            //     editable: true
-            // },
             {
                 field: 'edit',
                 headerName: 'Edit',
