@@ -5,6 +5,8 @@ var url_link = require('url');
 //const uri = "mongodb+srv://xuannam:xuannamt81@web.qpw3q.mongodb.net";
 const uri = "mongodb://localhost:27017/";
 var client;
+var limit = 15;
+
 MongoClient.connect(uri, function (err, result) {
     if (!err) client = result;
     else console.log('Cannot connect to this database!');
@@ -27,17 +29,20 @@ exports.search = function (req, res, next) {
     var lower_price = 0;
     var upper_price = 100000;
     var search_str = '';
+    var page = 1;
     var url = url_link.parse(req.url, true);
     if (req.query.sort) sort = req.query.sort;
     if (req.query.lower_price) lower_price = req.query.lower_price;
     if (req.query.upper_price) upper_price = req.query.upper_price;
     if (req.query.search) search_str = req.query.search;
+    if (req.query.page) page = req.query.page;
     if (sort == '') {
         db.collection('book').find().sort({'last_modified': -1}).toArray(function(err, results) {
             if(!err) {
                 var msg;
                 if(results.length == 0) msg = "No book required!";
-                res.send({msg, url, results});
+                else results = results.slice((page - 1) * limit, page * limit);
+                res.send({msg, url, results, count: results.length});
             }
         })
     }
@@ -51,7 +56,8 @@ exports.search = function (req, res, next) {
             if (!err) {
                 var msg;
                 if(results.length == 0) msg = "No book required!";
-                res.send({ msg, url, results });
+                else results = results.slice((page - 1) * limit, page * limit);
+                res.send({ msg, url, results, count: results.length });
             }
         });
     }
@@ -65,7 +71,8 @@ exports.search = function (req, res, next) {
             if (!err) {
                 var msg;
                 if(results.length == 0) msg = "No book required!";
-                res.send({ msg, url, results });
+                else results = results.slice((page - 1) * limit, page * limit);
+                res.send({ msg, url, results, count: results.length });
             }
         });
     }
@@ -79,7 +86,8 @@ exports.search = function (req, res, next) {
             if (!err) {
                 var msg;
                 if(results.length == 0) msg = "No book required!";
-                res.send({ msg, url, results });
+                else results = results.slice((page - 1) * limit, page * limit);
+                res.send({ msg, url, results, count: results.length });
             }
         });
     }
