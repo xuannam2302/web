@@ -40,9 +40,10 @@ exports.search = function (req, res, next) {
         db.collection('book').find().sort({'last_modified': -1}).toArray(function(err, results) {
             if(!err) {
                 var msg;
+                var count = results.length;
                 if(results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
-                res.send({msg, url, results, count: results.length});
+                res.send({msg, url, results, count});
             }
         })
     }
@@ -55,6 +56,7 @@ exports.search = function (req, res, next) {
         }).collation({ locale: "en" }).sort({ 'name': 1 }).toArray(function (err, results) {
             if (!err) {
                 var msg;
+                var count = results.length;
                 if(results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
                 res.send({ msg, url, results, count: results.length });
@@ -70,6 +72,7 @@ exports.search = function (req, res, next) {
         }).collation({ locale: "en" }).sort({ 'price': 1 }).toArray(function (err, results) {
             if (!err) {
                 var msg;
+                var count = results.length;
                 if(results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
                 res.send({ msg, url, results, count: results.length });
@@ -85,6 +88,7 @@ exports.search = function (req, res, next) {
         }).collation({ locale: "en" }).sort({ 'author': 1 }).toArray(function (err, results) {
             if (!err) {
                 var msg;
+                var count = results.length;
                 if(results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
                 res.send({ msg, url, results, count: results.length });
