@@ -10,7 +10,9 @@ const books = (state = { books: [] }, action) => {
                 lower_price: action.payload.url.query.lower_price,
                 upper_price: action.payload.url.query.upper_price,
                 books: action.payload.results,
-                message: action.payload.msg
+                message: action.payload.msg,
+                _page: action.payload.page,
+                limit: action.payload.count
             }
         case CREATE_ITEM: {
             return {

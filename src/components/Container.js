@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { searchFunction } from '../actions/books'
-
-import Pagination from '@material-ui/lab/Pagination';
 import Item from './Item'
 import Loading from './Loading'
+import Pagination from '@material-ui/lab/Pagination';
 import Error from './Error'
 
 const Container = () => {
@@ -13,41 +12,43 @@ const Container = () => {
     const dispatch = useDispatch();
     const elements = document.querySelectorAll('.container-option-select');
     const data = useSelector(state => state.books);
-    const { search, sort, lower_price, upper_price, books, msg } = data;
+    const { search, sort, lower_price, upper_price, books, msg, _page, limit } = data;
+    console.log(_page, limit);
     console.log(data);
     // -- Content -- //
     const [m_sort, setM_Sort] = useState(sort);
     const [m_lower_price, setM_LowPrice] = useState('');
     const [m_upper_price, setM_UpperPrice] = useState('');
     const [page, setPage] = useState(1);
-    const handleChangePage = (e) => {
-        setPage(parseInt(e.target.innerText))
-    }
     const handleSelect = (e) => {
         setM_Sort(e.target.getAttribute('value'));
         setPage(1);
     }
     const handlePrice = () => {
-        dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price));
+        dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price, page));
+    }
+    const handleChangePage = (e) => {
+        console.log(limit);
+        setPage(parseInt(e.target.innerText))
     }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
     useEffect(() => {
-        if(m_sort) {
+        if (m_sort) {
             elements.forEach(item => {
                 item.classList.remove('container-option-select-active');
-                if(item.getAttribute('value') === m_sort) {
+                if (item.getAttribute('value') === m_sort) {
                     item.classList.add('container-option-select-active');
                 }
             })
         }
     }, [elements, m_sort])
     useEffect(() => {
-        dispatch(searchFunction(search, m_sort, lower_price, upper_price));
-    }, [dispatch, search, m_sort, lower_price, upper_price])
+        dispatch(searchFunction(search, m_sort, lower_price, upper_price, page));
+    }, [dispatch, search, m_sort, lower_price, upper_price, page])
     if (!books.length) {
-        if(msg === 'No book required!') {
+        if (msg === 'No book required!') {
             return (
                 <Error />
             )
@@ -100,12 +101,18 @@ const Container = () => {
                 <div className="container-list">
                     {books.map((item, index) => {
                         return (
-                            <Item data={item} key={index} index={index} page={page} />
+                            <Item data={item} key={index} index={index} />
                         )
                     })}
                 </div>
-                <div className="container-paganation">
-                    <Pagination count={Math.floor(books.length / 20)} hidePrevButton hideNextButton page={page} onChange={handleChangePage} />
+                <div className="container-pagination">
+                    <Pagination 
+                        count={Math.floor(limit / 20)}
+                        hidePrevButton 
+                        hideNextButton 
+                        page={page} 
+                        onChange={handleChangePage} 
+                    />
                 </div>
             </div>
         </div>
