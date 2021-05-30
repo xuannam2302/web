@@ -21,7 +21,12 @@ const Item = ({ data }) => {
                         </div>
                         <div className="item-control">
                             <div className="item-rating">
-                                <Rating name="half-rating-read" value={data.book_depository_stars} precision={0.5} readOnly />
+                                <Rating 
+                                    name="half-rating-read" 
+                                    value={data.book_depository_stars} 
+                                    precision={0.5} 
+                                    readOnly 
+                                />
                             </div>
                             <div className="item-comment">
                                 (300 nhận xét)
@@ -29,7 +34,9 @@ const Item = ({ data }) => {
                         </div>
                         <div className="item-control">
                             <div className="item-price">
-                                Giá: <strong>{data.price === null ? 0 : data.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong>
+                                Giá: <strong>{data.price === null ? 0 : 
+                                data.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                            </strong>
                             </div>
                             {data.old_price !== undefined && data.old_price !== null ? <div className="item-discount">
                                 <strong>-{Math.ceil((1 - data.price / data.old_price) * 100)}%</strong>

@@ -9,11 +9,18 @@ import Error from '../components/Error'
 import Rating from '@material-ui/lab/Rating';
 
 const LandingPage = () => {
+    // Global Variables
     const dispatch = useDispatch();
     const item = useSelector(state => state.item);
+
+    // Component State
     const [amount, setAmount] = useState(1);
     const { _id } = useParams();
+    
+    // Debug
     console.log(item);
+
+    // Function handler
     const handleAmountPlus = () => {
         setAmount(amount + 1);
     }
@@ -21,9 +28,12 @@ const LandingPage = () => {
         if(amount > 1)
             setAmount(amount - 1);
     }
+
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
+
+    // Render
     if (!item) {
         if(!item._id) {
             return (

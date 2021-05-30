@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 
 import { searchFunction, deleteItem, updateItem } from '../../actions/books'
@@ -73,23 +73,24 @@ function renderRating(params) {
 
 const AdminContent = () => {
 
-    // const [editable, setEditable] = useState(false);
-
     const deleteBook = () => toast.success(<Toast state="Successfully" desc="Xóa thành công" />);
 
-    const exist = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
+    // const exist = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
 
-    const create = () => toast.success(<Toast state="Successfully" desc="Tạo thành công"/>)
+    // const create = () => toast.success(<Toast state="Successfully" desc="Tạo thành công"/>)
 
     const dispatch = useDispatch();
     const classes = useStyles();
     const data = useSelector(state => state.books);
     const item = useSelector(state => state.item);
     console.log(item);
+
     const { books } = data;
+    
     useEffect(() => {
         dispatch(searchFunction(''));
     }, [dispatch, item]);
+    
     const handleEdit = (el) => {
         console.log(el);
         dispatch(updateItem(el._id, el));
@@ -98,6 +99,7 @@ const AdminContent = () => {
         dispatch(deleteItem(id));
         deleteBook();
     }
+    
     if (books) {
         books.forEach((book, index) => {
             book.id = index + 1;

@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 
 const Login = () => {
+
+    // Component State
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    // Function handler
     const handleSubmit = (event) => {
         event.preventDefault();
     }

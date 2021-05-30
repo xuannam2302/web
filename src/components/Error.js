@@ -5,8 +5,11 @@ import { useDispatch } from 'react-redux'
 import { searchFunction } from '../actions/books'
 import url from '../assets/error.webp'
 const Error = () => {
+    // Global variables
     const history = useHistory();
     const dispatch = useDispatch();
+
+    // Function handler
     const returnHomePage = () => {
         history.push('/');
         dispatch(searchFunction('', 'name', '', ''));
@@ -14,13 +17,21 @@ const Error = () => {
     const changeToAbout = () => {
         history.push('/about')
     }
+    
+    // Render page
     return (
         <div className="error">
             <h2 className="error-title">Không tìm thấy kết quả</h2>
             <img src={url} alt="Error Page" className="error-img" />
             <ul className="error-list">
-                <li className="error-item" onClick={returnHomePage}>Trang chủ</li>
-                <li className="error-item" onClick={changeToAbout}>Về chúng tôi</li>
+                <li 
+                    className="error-item" 
+                    onClick={returnHomePage}>Trang chủ
+                </li>
+                <li 
+                    className="error-item" 
+                    onClick={changeToAbout}>Về chúng tôi
+                </li>
             </ul>
         </div>
     )
