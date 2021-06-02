@@ -1,17 +1,46 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+// mongo key
+const mongoURI = 'mongodb://localhost:27017/web';
+const options = {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+}
+
+// Tạo kết nối tới database
+mongoose.connect(mongoURI, options)
+    .then(
+        () => console.log('Database connection established'),
+        err => console.log('Database connection unestablied, error occurred')
+    )
+
 const User = mongoose.model(
-    "User",
+    "User", 
     new mongoose.Schema({
-        username: String,
+        username: {
+            type: String, 
+            minLength: 6,
+            required: true
+        },
         email: String,
-        password: String,
-        roles: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Role"
-            }
-        ]
-    })
-)
+        password: {
+            type: String, 
+            minLength: 6,
+            required: true
+        },
+        user: {
+            type: Boolean, 
+            default: true
+        },
+        admin: {
+            type: Boolean, 
+            default: false
+        },
+        manager: {
+            type: Boolean, 
+            default: false
+        }
+    }),
+    "users"
+);
 
 module.exports = User;
