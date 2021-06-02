@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Grid, TextField, makeStyles } from '@material-ui/core'
 import { createItem } from '../actions/books'
-import { History } from '@material-ui/icons';
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -25,7 +24,7 @@ const CreateItem = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const data = useSelector(state => state.books);
-    const { item, msg } = data;
+    const { item } = data;
     console.log(item);
     const classes = useStyle();
     const [name, setName] = useState('');
@@ -51,26 +50,13 @@ const CreateItem = () => {
         dispatch(createItem(newItem));
     }
     const handleCancel = () => {
-        // history.push(`/`);
+        history.push(`/`);
     }
     useEffect(() => {
         if (item !== undefined) {
             if (item[0]._id) {
                 history.push('/admin');
             }
-            // switch (msg) {
-            //     case 'successful created':
-            //         setNotify("Thành công");
-            //         break;
-            //     case 'exist':
-            //         setNotify("Đã tồn tại");
-            //         break;
-            //     case 'error':
-            //         setNotify("Đã có lỗi xảy ra");
-            //         break;
-            //     default:
-            //         setNotify("");
-            // }
         }
     }, [item, history])
     return (
@@ -123,8 +109,14 @@ const CreateItem = () => {
                     </Grid>
                 </Grid>
                 <div className="edit-item-control-btn">
-                    <button className="edit-item-btn edit-item-btn-cancel" onClick={handleCancel}>Hủy</button>
-                    <button className="edit-item-btn edit-item-btn-update" onClick={handleCreate}>Tạo mới</button>
+                    <button 
+                        className="edit-item-btn edit-item-btn-cancel" 
+                        onClick={handleCancel}>Hủy
+                    </button>
+                    <button 
+                        className="edit-item-btn edit-item-btn-update" 
+                        onClick={handleCreate}>Tạo mới
+                    </button>
                 </div>
             </form>
         </>

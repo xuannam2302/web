@@ -9,8 +9,11 @@ const Header = ({setAdmin}) => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
+
+    // Component State
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
+    
     // Function handler
     const returnHomePage = () => {
         history.push('/');
@@ -32,12 +35,19 @@ const Header = ({setAdmin}) => {
         setAdmin(true);
         history.push('/admin');
     }
+
+    // Render
     return (
         <div className="header">
             <div className="container">
                 <div className="header-container">
                     <div className="header-logo">
-                        <img src={url_icon} alt="Logo" className="header-logo-img" onClick={returnHomePage} />
+                        <img 
+                            src={url_icon} 
+                            alt="Logo" 
+                            className="header-logo-img" 
+                            onClick={returnHomePage} 
+                        />
                     </div>
                     <div className="header-search">
                         <input
@@ -52,17 +62,33 @@ const Header = ({setAdmin}) => {
                         </div>
                     </div>
                     <ul className="header-menu">
-                        <li className="header-item" onClick={returnHomePage}>Trang chủ</li>
-                        <li className="header-item" onClick={changeToAbout}>Về chúng tôi</li>
+                        <li 
+                            className="header-item" 
+                            onClick={returnHomePage}>Trang chủ
+                        </li>
+                        <li 
+                            className="header-item" 
+                            onClick={changeToAbout}>Về chúng tôi
+                        </li>
                         <li className="header-item header-indentify">
                             <i class="fas fa-user-circle"></i>
-                            <button className="header-item-log-in" onClick={linkToLogin}>
+                            <button 
+                                className="header-item-log-in" 
+                                onClick={linkToLogin}
+                            >
                                 <p>Đăng nhập</p>
                             </button>
-                            <button className="header-item-register" onClick={linkToRegister}>
+                            <button 
+                                className="header-item-register" 
+                                onClick={linkToRegister}
+                            >
                                 <p>Đăng ký</p>
                             </button>
-                            <button className="header-item-register" onClick={handleAdmin} style={{color: "red", marginLeft: "1rem"}}>
+                            <button 
+                                className="header-item-register" 
+                                onClick={handleAdmin} 
+                                style={{color: "red", marginLeft: "1rem"}}
+                            >
                                 <p>Admin</p>
                             </button>
                         </li>
