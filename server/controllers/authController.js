@@ -6,7 +6,6 @@ var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
 
 exports.register = function(req, res) {
-    
     const user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -48,6 +47,10 @@ exports.login = function(req, res, next) {
             id: user._id,
             username: user.username,
             email: user.email,
+            user: user.user,
+            admin: user.admin,
+            manager: user.manager,
+            token: token
         });
     });
 };

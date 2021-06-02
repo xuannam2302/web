@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var display_controller = require('../controllers/displayController');
+
 //var manage_controller = require('../controllers/manageController');
 
 /* GET home page. */
