@@ -10,6 +10,8 @@ var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
 
 exports.register = function(req, res) {
+    // console.log(req.body);
+    // console.log("Acvbgb");
     const user = new User({
         username: req.body.username,
         email: req.body.email,

@@ -6,8 +6,15 @@ import {
 import Header from './components/Header'
 import Container from './components/Container'
 import LandingPage from './components/LandingPage'
-import Login from './components/Login'
-import Register from './components/Register'
+
+// import Login from './components/Login'
+// import Register from './components/Register'
+
+import Login from './components/Auth/Login'
+import Register from './components/Auth/Register'
+import Profile from './components/Profile'
+
+
 import About from './components/About'
 import Footer from './components/Footer'
 import Error from './components/Error'
@@ -18,7 +25,6 @@ import AdminHeader from './components/Admin/AdminHeader'
 
 function App() {
   const [admin, setAdmin] = useState(false);
-
   if (admin) {
     return (
       <Router>
@@ -44,11 +50,14 @@ function App() {
         <div className="wrapper">
           <Header setAdmin={setAdmin}/>
           <Switch>
-            <Route path="/login">
+            <Route path="/auth/login">
               <Login />
             </Route>
-            <Route path="/register">
+            <Route path="/auth/register">
               <Register />
+            </Route>
+            <Route path="/user/profile">
+              <Profile />
             </Route>
             <Route path="/book/:_id">
               <LandingPage />

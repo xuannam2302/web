@@ -31,7 +31,7 @@ exports.book_create_post = [
         console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
-            res.render('book_form',{book: req.body, errors: errors.array()});
+            res.send({book: req.body, errors: errors.array()});
         } 
         else {
             var db = client.db('web');
