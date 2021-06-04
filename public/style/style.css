@@ -178,7 +178,7 @@ img {
       padding-left: 7px;
       border: 1px solid #e5e5e5; }
   .header-menu {
-    align-items: stretch;
+    align-items: center;
     justify-content: space-between;
     flex-direction: row;
     display: flex;
@@ -193,7 +193,7 @@ img {
       color: rgba(0, 60, 255, 0.815);
       text-decoration: underline; }
   .header-indentify {
-    align-items: stretch;
+    align-items: center;
     justify-content: space-between;
     flex-direction: row;
     display: flex;
@@ -205,6 +205,26 @@ img {
       color: black; }
   .header-item-log-in {
     margin: 0 5px; }
+  .header-info {
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 1rem; }
+  .header-item-user-profile {
+    padding-left: 5px;
+    margin-left: 5px;
+    position: relative; }
+    .header-item-user-profile:before {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      content: "";
+      width: 1px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      left: 0; }
 
 .container-main {
   padding: 5rem 0;
@@ -554,6 +574,12 @@ img {
     min-width: 30rem;
     padding: 1.2rem 0.8rem;
     border-radius: 2px; }
+    .form-control-input-invalid {
+      border: 1.5px solid red; }
+  .form-control-error {
+    margin-top: 1.2rem;
+    color: red;
+    font-size: 1.2rem; }
 
 .login-form-btn {
   text-align: center;
@@ -675,6 +701,62 @@ img {
     font-size: 1.3rem;
     text-align: center;
     font-style: italic; }
+
+.profile {
+  padding: 5rem 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap; }
+  .profile-container {
+    padding: 3rem 4rem;
+    border-radius: 5px;
+    background: rgba(229, 229, 229, 0.5); }
+  .profile-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 2rem; }
+  .profile-img-card {
+    width: 8rem;
+    height: 8rem;
+    margin: 0 auto; }
+  .profile-content {
+    padding-top: 4rem; }
+  .profile-content-group {
+    margin-bottom: 1.5rem; }
+  .profile-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px; }
+  .profile-authority, .profile-email, .profile-username {
+    font-size: 1.2rem;
+    min-width: 25rem;
+    padding: 1rem; }
+  .profile-btn {
+    align-items: stretch;
+    justify-content: flex-end;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 2rem; }
+  .profile-cancel, .profile-update {
+    padding: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-align: center;
+    opacity: 0.8;
+    font-weight: bold; }
+    .profile-cancel:hover, .profile-update:hover {
+      opacity: 1; }
+  .profile-cancel {
+    background: #e5e5e5;
+    margin: 0 1rem 0 0; }
+  .profile-update {
+    background: tomato; }
+    .profile-update button {
+      color: white; }
 
 .toast-container {
   min-height: 5rem; }

@@ -3,17 +3,22 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { searchFunction } from '../actions/books'
+import {logout} from '../actions/auth'
 
 import url_icon from '../assets/Logo.webp'
-const Header = ({setAdmin}) => {
+const Header = ({ setAdmin }) => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
 
     // Component State
+    const auth = useSelector(state => state.auth);
+    const { isLoggedIn, user } = auth;
+    console.log(user, auth);
+
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
-    
+
     // Function handler
     const returnHomePage = () => {
         history.push('/');
@@ -26,14 +31,21 @@ const Header = ({setAdmin}) => {
         dispatch(searchFunction(m_search, sort, lower_price, upper_price));
     }
     const linkToLogin = () => {
-        history.push('/login');
+        history.push('/auth/login');
     }
     const linkToRegister = () => {
-        history.push('/register');
+        history.push('/auth/register');
     }
     const handleAdmin = () => {
         setAdmin(true);
         history.push('/admin');
+    }
+    const handleLogout = () => {
+        dispatch(logout());
+        history.push('/');
+    }
+    const linkToProfile = () => {
+        history.push('/user/profile');
     }
 
     // Render
@@ -42,11 +54,11 @@ const Header = ({setAdmin}) => {
             <div className="container">
                 <div className="header-container">
                     <div className="header-logo">
-                        <img 
-                            src={url_icon} 
-                            alt="Logo" 
-                            className="header-logo-img" 
-                            onClick={returnHomePage} 
+                        <img
+                            src={url_icon}
+                            alt="Logo"
+                            className="header-logo-img"
+                            onClick={returnHomePage}
                         />
                     </div>
                     <div className="header-search">
@@ -62,32 +74,59 @@ const Header = ({setAdmin}) => {
                         </div>
                     </div>
                     <ul className="header-menu">
-                        <li 
-                            className="header-item" 
+                        <li
+                            className="header-item"
                             onClick={returnHomePage}>Trang chủ
                         </li>
-                        <li 
-                            className="header-item" 
+                        <li
+                            className="header-item"
                             onClick={changeToAbout}>Về chúng tôi
                         </li>
                         <li className="header-item header-indentify">
                             <i class="fas fa-user-circle"></i>
-                            <button 
-                                className="header-item-log-in" 
-                                onClick={linkToLogin}
-                            >
-                                <p>Đăng nhập</p>
-                            </button>
-                            <button 
-                                className="header-item-register" 
-                                onClick={linkToRegister}
-                            >
-                                <p>Đăng ký</p>
-                            </button>
-                            <button 
-                                className="header-item-register" 
-                                onClick={handleAdmin} 
-                                style={{color: "red", marginLeft: "1rem"}}
+                            {isLoggedIn === false ?
+                                <>
+                                    <button
+                                        className="header-item-log-in"
+                                        onClick={linkToLogin}
+                                    >
+                                        <p>Đăng nhập</p>
+                                    </button>
+                                    <button
+                                        className="header-item-register"
+                                        onClick={linkToRegister}
+                                    >
+                                        <p>Đăng ký</p>
+                                    </button>
+                                </>
+                                :
+                                <>
+                                    <div className="header-info">
+                                        <h3 className="header-info-username">
+                                            {user.username}
+                                        </h3>
+                                        <div className="header-info-btn">
+                                            <button
+                                                className="header-item-logout"
+                                                onClick={handleLogout}
+                                            >
+                                                <p>Đăng xuất</p>
+                                            </button>
+                                            <button
+                                                className="header-item-user-profile"
+                                                onClick={linkToProfile}
+                                            >
+                                                <p>Hồ sơ của tôi</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </>
+                            }
+
+                            <button
+                                className="header-item-register"
+                                onClick={handleAdmin}
+                                style={{ color: "red", marginLeft: "1rem" }}
                             >
                                 <p>Admin</p>
                             </button>
