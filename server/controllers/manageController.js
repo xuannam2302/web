@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 const { body,validationResult } = require('express-validator');
-var async = require('async');
+
 
 //const uri = "mongodb+srv://xuannam:xuannamt81@web.qpw3q.mongodb.net";
 const uri = "mongodb://localhost:27017/";
@@ -12,8 +12,14 @@ MongoClient.connect(uri, function (err, result) {
     else console.log('Cannot connect to this database!');
 });
 
-exports.book_create_get = function(req, res, next) {
-    res.render('book_form',{book: ''});
+exports.book_manage = function(req, res, next) {
+    db.collection('book').find().sort({'last_modified': -1}).toArray(function(err, results) {
+        if(!err) {
+            var msg;
+            if(results.length == 0) msg = "No book required!";
+            res.send({msg, url, results});
+        }
+    })
 }
 
 exports.book_create_post = [
@@ -54,16 +60,6 @@ exports.book_create_post = [
         }
     }
 ]
-
-exports.book_update_get = function (req, res, next) {
-    var db = client.db('web');
-    var id = new ObjectId(req.params.id);
-    db.collection('book').find({ _id: id }).toArray(function (err, results) {
-        if(!err) {
-            res.render('book_update', {book: results[0]});
-        }
-    });
-};
 
 exports.book_update_post = [
     body('name', 'Name empty').trim().isLength({min: 1}).escape(),
@@ -107,16 +103,6 @@ exports.book_update_post = [
         }
     }
 ]
-
-exports.book_delete_get = function (req, res, next) {
-    var db = client.db('web');
-    var id = new ObjectId(req.params.id);
-    db.collection('book').find({ _id: id }).toArray(function (err, results) {
-        if(!err) {
-            res.render('book_delete', {book: results[0]});
-        }
-    });
-};
 
 exports.book_delete_post = function(req, res, next) {
     var db = client.db('web');

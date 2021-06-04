@@ -1,17 +1,13 @@
 const mongoose = require('mongoose');
-// mongo key
 const mongoURI = 'mongodb://localhost:27017/web';
 const options = {
     useNewUrlParser: true,
     useFindAndModify: false,
 }
 
-// Tạo kết nối tới database
-mongoose.connect(mongoURI, options)
-    .then(
-        () => console.log('Database connection established'),
-        err => console.log('Database connection unestablied, error occurred')
-    )
+mongoose.connect(mongoURI, options, (err) => {
+    if(err) console.log('Cannot connect to MongoDB');
+});
 
 const User = mongoose.model(
     "User", 
@@ -38,7 +34,11 @@ const User = mongoose.model(
         manager: {
             type: Boolean, 
             default: false
-        }
+        },
+        verified: {
+            type: Boolean,
+            default: false
+        },
     }),
     "users"
 );
