@@ -101,7 +101,7 @@ const Register = () => {
                             onChange={(e) => setUserName(e.target.value)}
                             type="text"
                             className="form-control-input"
-                            onBlur={(e) => handleUserName(e)}
+                            onBlur={(e) => handleUserName(e.target)}
                             onKeyUp={(e) => clearError(e.target)}
                             name="name"
                         />
@@ -114,7 +114,7 @@ const Register = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             type="email"
                             className="form-control-input"
-                            onBlur={(e) => handleEmail(e)}
+                            onBlur={(e) => handleEmail(e.target)}
                             onKeyUp={(e) => clearError(e.target)}
                             name="email"
                         />
@@ -127,7 +127,7 @@ const Register = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             type="password"
                             className="form-control-input"
-                            onBlur={(e) => handlePassword(e)}
+                            onBlur={(e) => handlePassword(e.target)}
                             onKeyUp={(e) => clearError(e.target)}
                             name="password"
                         />

@@ -14,14 +14,10 @@ const User = mongoose.model(
     new mongoose.Schema({
         username: {
             type: String, 
-            minLength: 6,
-            required: true
         },
         email: String,
         password: {
             type: String, 
-            minLength: 6,
-            required: true
         },
         user: {
             type: Boolean, 
