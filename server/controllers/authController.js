@@ -17,6 +17,7 @@ exports.register = function(req, res) {
     });
     user.save((err, user) => {
         if(err) {
+            console.log(err.message);
             res.send({msg: err});
             return;
         }
@@ -25,6 +26,7 @@ exports.register = function(req, res) {
         });
         localStorage.setItem('access_token', token);
         if(user) {
+            // console.log(2);
             // res.send({msg: 'User was registered successfully'});
             var transporter = nodemailer.createTransport(sendgrid({
                 auth: {

@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { searchFunction } from '../actions/books'
-import {logout} from '../actions/auth'
+
+import Menu from './Profile/Menu';
 
 import url_icon from '../assets/Logo.webp'
-const Header = ({ setAdmin }) => {
+
+const Header = () => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
@@ -14,7 +16,6 @@ const Header = ({ setAdmin }) => {
     // Component State
     const auth = useSelector(state => state.auth);
     const { isLoggedIn, user } = auth;
-    console.log(user, auth);
 
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
@@ -35,17 +36,6 @@ const Header = ({ setAdmin }) => {
     }
     const linkToRegister = () => {
         history.push('/auth/register');
-    }
-    const handleAdmin = () => {
-        setAdmin(true);
-        history.push('/admin');
-    }
-    const handleLogout = () => {
-        dispatch(logout());
-        history.push('/');
-    }
-    const linkToProfile = () => {
-        history.push('/user/profile');
     }
 
     // Render
@@ -105,31 +95,13 @@ const Header = ({ setAdmin }) => {
                                         <h3 className="header-info-username">
                                             {user.username}
                                         </h3>
-                                        <div className="header-info-btn">
-                                            <button
-                                                className="header-item-logout"
-                                                onClick={handleLogout}
-                                            >
-                                                <p>Đăng xuất</p>
-                                            </button>
-                                            <button
-                                                className="header-item-user-profile"
-                                                onClick={linkToProfile}
-                                            >
-                                                <p>Hồ sơ của tôi</p>
-                                            </button>
+                                        <div className="header-setting">
+                                            <i class="fas fa-cog header-config"></i>
+                                            <Menu user={user}/>
                                         </div>
                                     </div>
                                 </>
                             }
-
-                            <button
-                                className="header-item-register"
-                                onClick={handleAdmin}
-                                style={{ color: "red", marginLeft: "1rem" }}
-                            >
-                                <p>Admin</p>
-                            </button>
                         </li>
                     </ul>
                 </div>

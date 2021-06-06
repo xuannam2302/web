@@ -4,6 +4,7 @@ export const LANDING_PAGE = 'LANDING_PAGE';
 export const CREATE_ITEM = 'CREATE_ITEM';
 export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const RESET_STATE = 'RESET_STATE';
 
 // Auth
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

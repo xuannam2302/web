@@ -1,23 +1,23 @@
 var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
-const { body,validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 
 //const uri = "mongodb+srv://xuannam:xuannamt81@web.qpw3q.mongodb.net";
 const uri = "mongodb://localhost:27017/";
 var client;
 MongoClient.connect(uri, function (err, result) {
-    if(!err) client = result;
+    if (!err) client = result;
     else console.log('Cannot connect to this database!');
 });
 
-exports.book_manage = function(req, res, next) {
-    db.collection('book').find().sort({'last_modified': -1}).toArray(function(err, results) {
-        if(!err) {
+exports.book_manage = function (req, res, next) {
+    db.collection('book').find().sort({ 'last_modified': -1 }).toArray(function (err, results) {
+        if (!err) {
             var msg;
-            if(results.length == 0) msg = "No book required!";
-            res.send({msg, url, results});
+            if (results.length == 0) msg = "No book required!";
+            res.send({ msg, url, results });
         }
     });
 };
@@ -93,10 +93,10 @@ exports.book_update_post = (req, res, next) => {
     }
 }
 
-exports.book_delete_post = function(req, res, next) {
+exports.book_delete_post = function (req, res, next) {
     var db = client.db('web');
     var id = new ObjectId(req.params.id);
-    db.collection('book').remove({_id: id}, function(err, results) {
-        res.send({msg: 'Object deleted'});
+    db.collection('book').remove({ _id: id }, function (err, results) {
+        res.send({ msg: 'Object deleted' });
     })
 }

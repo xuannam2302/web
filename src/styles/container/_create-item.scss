@@ -1,0 +1,42 @@
+.form-create {
+    padding: 14rem 0;
+    position: relative;
+    &-title {
+        font-size: 3rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: -4rem;
+    }
+    &-control-input {
+        margin-top: 1rem;
+        padding: 1.2rem 0.8rem;
+        margin-left: -0.8rem;
+        border: 1px solid rgb(153, 209, 226);
+        border-radius: 5px;
+    }
+    &-control-input-invalid {
+        border: 1px solid red;
+    }
+
+    &-control-btn {
+        margin-top: 3rem;
+        position: absolute;
+        right: 0;
+    }
+    &-btn {
+        padding: 1rem;
+        color: white;
+        @include bg(rgb(18, 140, 156));
+        border-radius: 5px;
+        text-align: center;
+        opacity: 0.7;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    &-btn-cancel {
+        @include bg(#535353);
+        margin-right: 1.2rem;
+        min-width: 5rem;
+    }
+}

@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
 
+// import { useSelector } from 'react-redux'
+
 import Header from './components/Header'
 import Container from './components/Container'
 import LandingPage from './components/LandingPage'
-
-// import Login from './components/Login'
-// import Register from './components/Register'
 
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
@@ -21,35 +20,25 @@ import Error from './components/Error'
 import CreateItem from './components/CreateItem'
 
 import Admin from './components/Admin/Admin'
-import AdminHeader from './components/Admin/AdminHeader'
 
 function App() {
-  const [admin, setAdmin] = useState(false);
-  if (admin) {
-    return (
-      <Router>
-        <div className="App">
-          <div className="wrapper">
-            <AdminHeader setAdmin={setAdmin}/>
-            <Switch>
-              <Route path="/admin/create">
-                <CreateItem />
-              </Route>
-              <Route path="/admin">
-                <Admin />
-              </Route>
-            </Switch>
-          </div>
-        </div>
-      </Router>
-    )
-  }
+  // const user = useSelector(state => state.auth.user);
+  // // const isUser = user.user;
+  // const isAdmin = user.admin;
+  // // const isManager = user.manager;
+
   return (
     <Router>
       <div className="App">
         <div className="wrapper">
-          <Header setAdmin={setAdmin}/>
+          <Header />
           <Switch>
+            <Route path="/admin/create">
+              <CreateItem />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
             <Route path="/auth/login">
               <Login />
             </Route>
