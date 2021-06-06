@@ -10,8 +10,6 @@ var LocalStorage = require('node-localstorage').LocalStorage;
 localStorage = new LocalStorage('./scratch');
 
 exports.register = function(req, res) {
-    // console.log(req.body);
-    // console.log("Acvbgb");
     const user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -29,26 +27,21 @@ exports.register = function(req, res) {
         localStorage.setItem('access_token', token);
         if(user) {
             // console.log(2);
-            // res.send({msg: 'User was registered successfully'});
+            res.send({msg: 'User was registered successfully'});
             var transporter = nodemailer.createTransport(sendgrid({
                 auth: {
                     api_key: sendgrid_api_key
                 }
             }));
-            var mailOptions = { from: 'thuhuonghv1978@gmail.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link\nhttp:\/\/' + req.headers.host + '\/auth\/confirmation\/' + token + '.\n' };
-            transporter.sendMail(mailOptions, function (err) {
-                if (err) { return res.send({ send_mail: err.message }); }
-                res.send('A verification email has been sent to ' + user.email + '.');
-            });
+            var mailOptions = { from: 'thuhuonghv1978@gmail.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link\nhttp:\/\/' + req.headers.host + '\/auth\/confirmation\/' + token + '\n' };
+            transporter.sendMail(mailOptions);
             return;
         }
     }) 
 };
 
 exports.confirmation = function(req, res, next) {
-    console.log(req.params.token);
     token = req.params.token;
-    token = token.slice(0, -1);
     jwt.verify(token, secret_key, (err, decoded) => {
         if(err) {
             return res.send('Unaccessible');
@@ -66,17 +59,40 @@ exports.confirmation = function(req, res, next) {
     });
 };
 
+exports.resend_verify = function(req, res, next) {
+    User.findOne({username: req.body.username}).exec((err, user) => {
+        if(err) return res.send({msg: err.message});
+        if(user) {
+            var token = jwt.sign({id: user.id}, secret_key, {
+                expiresIn: 3 * 60 * 60
+            });
+        }
+        var transporter = nodemailer.createTransport(sendgrid({
+            auth: {
+                api_key: sendgrid_api_key
+            }
+        }));
+        var mailOptions = { from: 'thuhuonghv1978@gmail.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link\nhttp:\/\/' + req.headers.host + '\/auth\/confirmation\/' + token + '\n' };
+        transporter.sendMail(mailOptions, function (err) {
+            if (err) { return res.send({ send_mail: err.message }); }
+            res.send('A verification email has been sent to ' + user.email + '.');
+        });
+        return;
+    })
+}
+
 exports.login = function(req, res, next) {
     User.findOne({username: req.body.username}).exec((err, user) => {
         if(!user) {
-            res.send({msg: "Incorrect Username"});
+            res.send({msg: "Incorrect Username or Password"});
             return;
         }
         var password_check = bcrypt.compareSync(req.body.password, user.password);
         if(!password_check) {
-            res.send({access_token: null, msg: "Incorrect Password"});
+            res.send({access_token: null, msg: "Incorrect Username or Password"});
             return;
         }
+        //have not verified email
         if(!user.verified) {
             res.send({access_token: null, msg: "This account is not verified"});
             return;
@@ -91,13 +107,13 @@ exports.login = function(req, res, next) {
         });
         localStorage.setItem('access_token', token);
         res.send({
-            msg: "Successfully logged in",
             username: user.username,
             email: user.email,
             user: user.user,
             admin: user.admin,
             manager: user.manager,
-            token: token
+            token: token,
+            msg: 'Successfully logged in'
         });
     });
 };

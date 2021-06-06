@@ -22,43 +22,33 @@ import CreateItem from './components/CreateItem'
 import Admin from './components/Admin/Admin'
 
 function App() {
-  // const user = useSelector(state => state.auth.user);
-  // // const isUser = user.user;
-  // // const isManager = user.manager;
-  // const isUser = true;
-  // let isAdmin = false;
-  // if (user !== null) {
-  //   isAdmin = user.admin
-  // }
-
-
   return (
     <Router>
       <div className="App">
         <div className="wrapper">
           <Header />
           <Switch>
-                <Route path="/admin/create">
-                  <CreateItem />
-                </Route>
-                <Route path="/admin">
-                  <Admin />
-                </Route>
-                <Route path="/auth/login">
-                  <Login />
-                </Route>
-                <Route path="/auth/register">
-                  <Register />
-                </Route>
-                <Route path="/user/profile">
-                  <Profile />
-                </Route>
-                <Route path="/book/:_id">
-                  <LandingPage />
-                </Route>
-                <Route exact path='/' component={Container} />
-                <Route path='/about' component={About} />
-                <Route path="*" component={Error} />
+            <Route path="/admin/create">
+              <CreateItem />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/auth/login">
+              <Login />
+            </Route>
+            <Route path="/auth/register">
+              <Register />
+            </Route>
+            <Route path="/user/profile">
+              <Profile />
+            </Route>
+            <Route path="/book/:_id">
+              <LandingPage />
+            </Route>
+            <Route exact path='/' component={Container} />
+            <Route path='/about' component={About} />
+            <Route path="*" component={Error} />
           </Switch>
           <Footer />
         </div>

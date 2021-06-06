@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 
 const Item = ({ data }) => {

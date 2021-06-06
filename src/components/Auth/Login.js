@@ -1,44 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { isRequired, getErrorTag } from '../../util/Validator'
+import { isRequired, getErrorTag } from '../../util/Validator';
+
+import { clearMessage } from '../../actions/message';
 
 import { login } from "../../actions/auth";
 
+// import Loading from '../Loading';
 import Toast from "../Toast";
-import { ToastContainer, toast } from 'react-toastify';
-import styled from 'styled-components';
-import 'react-toastify/dist/ReactToastify.css';
-
-const StyledContainer = styled(ToastContainer).attrs({
-    className: 'toast-container',
-    toastClassName: 'toast',
-    bodyClassName: 'body',
-    progressClassName: 'progress',
-})`
-    .Toastify__toast--success {
-        background: #3ebe61
-    }
-    .Toastify__toast--error {
-        background: #ee8068
-    }
-    .Toastify__toast--warning {
-        background: #ef9400
-    }
-`;
+import { toast } from 'react-toastify';
+import ToastNotify from '../../util/ToastNotify';
 
 
 const Login = () => {
+    // Global variables
+    // const stopPage = localStorage.getItem('user') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
-    const data = useSelector(state => state.auth);
     const msg = useSelector(state => state.message);
-    // const { msg } = data;
-    console.log(data);
     console.log(msg);
 
+    // Toast message
     const loginSuccessful = () => toast.success(<Toast state="Successfully" desc="Đăng nhập thành công" />);
     const error = () => toast.error(<Toast state="Error" desc="Tên đăng nhập hoặc mật khẩu không chính xác" />);
     const warningVerified = () => toast.warn(<Toast state="Warning" desc="Tài khoản chưa được xác thực" />);
@@ -46,8 +31,6 @@ const Login = () => {
     // Component State
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const message = useSelector(state => state.message);
-    console.log(message);
     // Error Messages
     const [errorUserName, setErrorUserName] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
@@ -107,20 +90,32 @@ const Login = () => {
             console.log("Error");
         }
     }
-    // useEffect(() => {
-    //     if (msg === 'Successfully logged in') {
-    //         loginSuccessful();
-    //         // setTimeout(() => {
-    //         //     history.push('/');
-    //         // }, 2000)
-    //     }
-    //     else if (msg === 'Incorrect Username' || msg === 'Incorrect Password') {
-    //         error();
-    //     }
-    //     else if (msg === 'This account is not verified') {
-    //         warningVerified();
-    //     }
-    // }, [msg])
+    useEffect(() => {
+        if (msg !== undefined) {
+            if (msg.msg === 'Successfully logged in') {
+                loginSuccessful();
+                dispatch(clearMessage());
+                setTimeout(() => {
+                    history.push('/');
+                }, 2000)
+            }
+            else if (msg.msg === 'Incorrect Username or Password') {
+                error();
+                dispatch(clearMessage());
+            }
+            else if (msg.msg === 'This account is not verified') {
+                warningVerified();
+                dispatch(clearMessage());
+            }
+        }
+
+    }, [msg, history, dispatch]);
+
+    // if(stopPage) {
+    //     return (
+    //         <Loading />
+    //     )
+    // }
 
     return (
         <div className="containr">
@@ -170,11 +165,7 @@ const Login = () => {
                     </div>
                 </form>
             </div>
-            <StyledContainer
-                autoClose={1800}
-                hideProgressBar
-            >
-            </StyledContainer>
+            <ToastNotify />
         </div>
     );
 }

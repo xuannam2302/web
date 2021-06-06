@@ -13,11 +13,11 @@ const User = mongoose.model(
     "User", 
     new mongoose.Schema({
         username: {
-            type: String
+            type: String, 
         },
         email: String,
         password: {
-            type: String
+            type: String, 
         },
         user: {
             type: Boolean, 
