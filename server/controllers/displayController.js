@@ -37,7 +37,12 @@ exports.search = function (req, res, next) {
     if (req.query.search) search_str = req.query.search;
     if (req.query.page) page = req.query.page;
     if (sort == '') {
-        db.collection('book').find().sort({'last_modified': -1}).toArray(function(err, results) {
+        db.collection('book').find({
+            $and: [
+                { $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] },
+                { $and: [{ price: { $gte: Number(lower_price) } }, { price: { $lte: Number(upper_price) } }] }
+            ]
+        }).collation({ locale: "en" }).sort({'last_modified': -1}).toArray(function(err, results) {
             if(!err) {
                 var msg;
                 var count = results.length;

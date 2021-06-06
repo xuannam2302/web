@@ -56,20 +56,85 @@
         margin: 0 5px;
     }
     &-info {
-        @include flexbox(stretch, flex-start, column);
         margin-left: 1rem;
+        @include flexbox();
+    }
+    &-setting {
+        position: relative;
+        &:before {
+            position: absolute;
+            height: 1rem;
+            width: 10rem;
+            content: "";
+            // @include bg(red);
+            top: 1.2rem;
+            right: -1rem;
+        }
     }
     &-item-user-profile {
         padding-left: 5px;
         margin-left: 5px;
         position: relative;
         &:before {
-            @include absoluteCenter('top');
+            @include absoluteCenter("top");
             content: "";
             width: 1px;
             height: 100%;
             @include bg(rgba(black, 0.6));
             left: 0;
         }
+    }
+    &-config {
+        margin-left: 1rem;
+    }
+    &-dropdown-menu {
+        position: absolute;
+        padding: 1.2rem 1rem;
+        top: 2rem;
+        right: 0;
+        @include bg(#e0e0e0c0);
+        border-radius: 2px;
+        display: none;
+        z-index: 2;
+        transform-origin: top right;
+        animation: dropdown ease-in-out 0.25s;
+    }
+    &-dropdown-item {
+        font-weight: lighter;
+        font-size: 1.2rem;
+        min-width: 9rem;
+        @include flexbox(center, space-between);
+        min-height: 2rem;
+        padding: 5px 0 1rem;
+    }
+    &-item-logout {
+        padding-top: 7px;
+        margin-top: 5px;
+        margin-bottom: -5px;
+        position: relative;
+        &:before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 1px;
+            @include bg(black);
+            top: 0;
+        }
+    }
+}
+
+.header-setting:hover > .header-dropdown-menu {
+    @include flexbox(stretch, space-between, column);
+}
+
+@keyframes dropdown {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }

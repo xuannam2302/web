@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { isRequired, getErrorTag } from '../../util/Validator'
 
@@ -9,10 +10,12 @@ import { login } from "../../actions/auth";
 const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+
     // Component State
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-
+    const message = useSelector(state => state.message);
+    console.log(message);
     // Error Messages
     const [errorUserName, setErrorUserName] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
@@ -64,9 +67,10 @@ const Login = () => {
         const nameElement = formElement.querySelector("#name");
         const passwordElement = formElement.querySelector("#password");
 
-        let check = handleUserName(nameElement) + handlePassword(passwordElement);
-        if(!check) {
-            dispatch(login(username, password)).then(history.push("/user/profile"));
+        let check = handleUserName(nameElement) || handlePassword(passwordElement);
+        if (!check) {
+            dispatch(login(username, password));
+            history.push('/');
         }
         else {
             console.log("Error");
@@ -75,7 +79,7 @@ const Login = () => {
     return (
         <div className="containr">
             <div className="login-form">
-                <form id= "form-login" className="login-form-container" onSubmit={handleSubmit}>
+                <form id="form-login" className="login-form-container" onSubmit={handleSubmit}>
                     <h2 className="login-form-title">Đăng nhập</h2>
                     <div className="form-control">
                         <label htmlFor="name">Tên đăng nhập</label>

@@ -83,10 +83,9 @@ const AdminContent = () => {
     const classes = useStyles();
     const data = useSelector(state => state.books);
     const item = useSelector(state => state.item);
-    console.log(item);
 
     const { books } = data;
-    
+
     useEffect(() => {
         dispatch(searchFunction(''));
     }, [dispatch, item]);
@@ -99,7 +98,7 @@ const AdminContent = () => {
         dispatch(deleteItem(id));
         deleteBook();
     }
-    
+    // console.log(msg);
     if (books) {
         books.forEach((book, index) => {
             book.id = index + 1;

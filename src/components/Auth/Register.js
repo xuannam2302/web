@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { isRequired, isEmail, minLength, getErrorTag } from '../../util/Validator'
 
@@ -10,6 +10,9 @@ const Register = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const message = useSelector(state => state.message);
+    console.log(message);
 
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -21,7 +24,7 @@ const Register = () => {
 
     const handleUserName = (target) => {
         const value = target.value;
-        const getError = isRequired(value) || "";
+        const getError = isRequired(value) || minLength(value, 6) || "";
         if (getError) {
             target.classList.add("form-control-input-invalid");
             setErrorUserName(getError);
@@ -35,7 +38,7 @@ const Register = () => {
         const getError = isRequired(value) || isEmail(value) || "";
         if (getError) {
             target.classList.add("form-control-input-invalid");
-            setErrorEmail(getError);
+            setErrorEmail(getError);    
             return 1;
         }
         return 0;
@@ -43,7 +46,7 @@ const Register = () => {
 
     const handlePassword = (target) => {
         const value = target.value;
-        const getError = isRequired(value) || minLength(value, 6) || "";
+        const getError = isRequired(value) || minLength(value, 7) || "";
         if (getError) {
             target.classList.add("form-control-input-invalid");
             setErrorPassword(getError);

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SEARCH, LANDING_PAGE, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from '../constants/actionType'
+import { SEARCH, LANDING_PAGE, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM, RESET_STATE } from '../constants/actionType'
 
 const url = 'http://localhost:5000';
 
@@ -26,6 +26,7 @@ export const findLandingPage = (id) => async (dispatch) => {
 export const createItem = (newItem) => async (dispatch) => {
     try {
         const { data } = await axios.post(`${url}/manage/create`, newItem);
+        console.log(232);
         dispatch({ type: CREATE_ITEM, payload: data })
     }
     catch (err) {
@@ -51,4 +52,8 @@ export const deleteItem = (id) => async (dispatch) => {
     catch (err) {
         console.log(err.message);
     }
+}
+
+export const resetState = () => (dispatch) => {
+    return dispatch({ type: RESET_STATE, payload: {} });
 }
