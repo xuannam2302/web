@@ -18,7 +18,7 @@ exports.register = function(req, res) {
     user.save((err, user) => {
         if(err) {
             console.log(err.message);
-            res.send({msg: err});
+            res.status(500).send({msg: err});
             return;
         }
         var token = jwt.sign({id: user.id}, secret_key, {
@@ -26,18 +26,14 @@ exports.register = function(req, res) {
         });
         localStorage.setItem('access_token', token);
         if(user) {
-            // console.log(2);
-            // res.send({msg: 'User was registered successfully'});
+            res.send({msg: 'User was registered successfully'});
             var transporter = nodemailer.createTransport(sendgrid({
                 auth: {
                     api_key: sendgrid_api_key
                 }
             }));
             var mailOptions = { from: 'thuhuonghv1978@gmail.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link\nhttp:\/\/' + req.headers.host + '\/auth\/confirmation\/' + token + '\n' };
-            transporter.sendMail(mailOptions, function (err) {
-                if (err) { return res.send({ send_mail: err.message }); }
-                res.send('A verification email has been sent to ' + user.email + '.');
-            });
+            transporter.sendMail(mailOptions);
             return;
         }
     }) 
@@ -87,17 +83,17 @@ exports.resend_verify = function(req, res, next) {
 exports.login = function(req, res, next) {
     User.findOne({username: req.body.username}).exec((err, user) => {
         if(!user) {
-            res.send({msg: "Incorrect Username or Password"});
+            res.status(404).send({msg: "Incorrect Username or Password"});
             return;
         }
         var password_check = bcrypt.compareSync(req.body.password, user.password);
         if(!password_check) {
-            res.send({access_token: null, msg: "Incorrect Username or Password"});
+            res.status(401).send({access_token: null, msg: "Incorrect Username or Password"});
             return;
         }
         //have not verified email
         if(!user.verified) {
-            res.send({access_token: null, msg: "This account is not verified"});
+            res.status(401).send({access_token: null, msg: "This account is not verified"});
             return;
         }
         var token = jwt.sign({id: user.id}, secret_key, {
