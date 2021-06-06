@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,9 +7,41 @@ import { isRequired, getErrorTag } from '../../util/Validator'
 
 import { login } from "../../actions/auth";
 
+import Toast from "../Toast";
+import { ToastContainer, toast } from 'react-toastify';
+import styled from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
+
+const StyledContainer = styled(ToastContainer).attrs({
+    className: 'toast-container',
+    toastClassName: 'toast',
+    bodyClassName: 'body',
+    progressClassName: 'progress',
+})`
+    .Toastify__toast--success {
+        background: #3ebe61
+    }
+    .Toastify__toast--error {
+        background: #ee8068
+    }
+    .Toastify__toast--warning {
+        background: #ef9400
+    }
+`;
+
+
 const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const data = useSelector(state => state.auth);
+    const msg = useSelector(state => state.message);
+    // const { msg } = data;
+    console.log(data);
+    console.log(msg);
+
+    const loginSuccessful = () => toast.success(<Toast state="Successfully" desc="Đăng nhập thành công" />);
+    const error = () => toast.error(<Toast state="Error" desc="Tên đăng nhập hoặc mật khẩu không chính xác" />);
+    const warningVerified = () => toast.warn(<Toast state="Warning" desc="Tài khoản chưa được xác thực" />);
 
     // Component State
     const [username, setUserName] = useState("");
@@ -70,12 +102,26 @@ const Login = () => {
         let check = handleUserName(nameElement) || handlePassword(passwordElement);
         if (!check) {
             dispatch(login(username, password));
-            history.push('/');
         }
         else {
             console.log("Error");
         }
     }
+    // useEffect(() => {
+    //     if (msg === 'Successfully logged in') {
+    //         loginSuccessful();
+    //         // setTimeout(() => {
+    //         //     history.push('/');
+    //         // }, 2000)
+    //     }
+    //     else if (msg === 'Incorrect Username' || msg === 'Incorrect Password') {
+    //         error();
+    //     }
+    //     else if (msg === 'This account is not verified') {
+    //         warningVerified();
+    //     }
+    // }, [msg])
+
     return (
         <div className="containr">
             <div className="login-form">
@@ -124,6 +170,11 @@ const Login = () => {
                     </div>
                 </form>
             </div>
+            <StyledContainer
+                autoClose={1800}
+                hideProgressBar
+            >
+            </StyledContainer>
         </div>
     );
 }

@@ -74,7 +74,7 @@ exports.login = function(req, res, next) {
         }
         var password_check = bcrypt.compareSync(req.body.password, user.password);
         if(!password_check) {
-            res.send({access_token: null, msg: "Incorrect Password!"});
+            res.send({access_token: null, msg: "Incorrect Password"});
             return;
         }
         if(!user.verified) {
@@ -91,6 +91,7 @@ exports.login = function(req, res, next) {
         });
         localStorage.setItem('access_token', token);
         res.send({
+            msg: "Successfully logged in",
             username: user.username,
             email: user.email,
             user: user.user,

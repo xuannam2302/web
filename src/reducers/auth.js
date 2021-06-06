@@ -29,6 +29,7 @@ const Auth = (state = initialState, action) => {
         case LOGIN_SUCCESS:
             return {
                 ...state,
+                msg: action.payload,
                 isLoggedIn: true,
                 user: payload.user,
             };
