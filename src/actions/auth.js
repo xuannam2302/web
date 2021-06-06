@@ -18,7 +18,7 @@ export const register = (username, email, password) => (dispatch) => {
 
             dispatch({
                 type: SET_MESSAGE,
-                payload: response.data.message,
+                payload: response.data.msg,
             });
 
             return Promise.resolve();
@@ -48,22 +48,15 @@ export const register = (username, email, password) => (dispatch) => {
 export const login = (username, password) => (dispatch) => {
     return AuthService.login(username, password).then(
         (data) => {
-            if(!Object.keys(data).includes('token')) {
-                dispatch({
-                    type: LOGIN_FAIL,
-                });
-
-                dispatch({
-                    type: SET_MESSAGE,
-                    payload: data.msg,
-                });
-            }
-            else {
-                dispatch({
-                    type: LOGIN_SUCCESS,
-                    payload: { user: data },
-                });
-            }
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: { user: data },
+            });
+            
+            dispatch({
+                type: SET_MESSAGE,
+                payload: data.msg,
+            });
 
             return Promise.resolve();
         },

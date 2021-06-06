@@ -1,21 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { isRequired, getErrorTag } from '../../util/Validator'
+import { isRequired, getErrorTag } from '../../util/Validator';
+
+import { clearMessage } from '../../actions/message';
 
 import { login } from "../../actions/auth";
 
+// import Loading from '../Loading';
+import Toast from "../Toast";
+import { toast } from 'react-toastify';
+import ToastNotify from '../../util/ToastNotify';
+
+
 const Login = () => {
+    // Global variables
+    // const stopPage = localStorage.getItem('user') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
+    const msg = useSelector(state => state.message);
+    console.log(msg);
+
+    // Toast message
+    const loginSuccessful = () => toast.success(<Toast state="Successfully" desc="Đăng nhập thành công" />);
+    const error = () => toast.error(<Toast state="Error" desc="Tên đăng nhập hoặc mật khẩu không chính xác" />);
+    const warningVerified = () => toast.warn(<Toast state="Warning" desc="Tài khoản chưa được xác thực" />);
 
     // Component State
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const message = useSelector(state => state.message);
-    console.log(message);
     // Error Messages
     const [errorUserName, setErrorUserName] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
@@ -70,12 +85,38 @@ const Login = () => {
         let check = handleUserName(nameElement) || handlePassword(passwordElement);
         if (!check) {
             dispatch(login(username, password));
-            history.push('/');
         }
         else {
             console.log("Error");
         }
     }
+    useEffect(() => {
+        if (msg !== undefined) {
+            if (msg.msg === 'Successfully logged in') {
+                loginSuccessful();
+                dispatch(clearMessage());
+                setTimeout(() => {
+                    history.push('/');
+                }, 2000)
+            }
+            else if (msg.msg === 'Incorrect Username or Password') {
+                error();
+                dispatch(clearMessage());
+            }
+            else if (msg.msg === 'This account is not verified') {
+                warningVerified();
+                dispatch(clearMessage());
+            }
+        }
+
+    }, [msg, history, dispatch]);
+
+    // if(stopPage) {
+    //     return (
+    //         <Loading />
+    //     )
+    // }
+
     return (
         <div className="containr">
             <div className="login-form">
@@ -124,6 +165,7 @@ const Login = () => {
                     </div>
                 </form>
             </div>
+            <ToastNotify />
         </div>
     );
 }

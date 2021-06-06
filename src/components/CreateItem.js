@@ -5,35 +5,15 @@ import { createItem, resetState } from '../actions/books';
 
 import Error from './Error';
 import Toast from '../components/Toast';
-import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import ToastNotify from '../util/ToastNotify';
 
 
 import { isRequired, isNumber, getErrorTag, isLower, isHigher } from '../util/Validator'
 
-const StyledContainer = styled(ToastContainer).attrs({
-    className: 'toast-container',
-    toastClassName: 'toast',
-    bodyClassName: 'body',
-    progressClassName: 'progress',
-})`
-    .Toastify__toast--success {
-        background: #3ebe61
-    }
-    .Toastify__toast--error {
-        background: #ee8068
-    }
-    .Toastify__toast--warning {
-        background: #ef9400
-    }
-`;
-
 
 const CreateItem = () => {
-
     const isAdmin = useSelector(state => state.auth.user).admin;
-
 
     // Global variables
     const dispatch = useDispatch();
@@ -243,7 +223,6 @@ const CreateItem = () => {
         )
     }
 
-
     return (
         <div className="container">
             <form id="form-create" className="form-create" onSubmit={handleSubmit}>
@@ -343,11 +322,7 @@ const CreateItem = () => {
                     </button>
                 </div>
             </form>
-            <StyledContainer
-                autoClose={1800}
-                hideProgressBar
-            >
-            </StyledContainer>
+            <ToastNotify />
         </div>
     )
 }

@@ -22,11 +22,6 @@ import CreateItem from './components/CreateItem'
 import Admin from './components/Admin/Admin'
 
 function App() {
-  // const user = useSelector(state => state.auth.user);
-  // // const isUser = user.user;
-  // const isAdmin = user.admin;
-  // // const isManager = user.manager;
-
   return (
     <Router>
       <div className="App">

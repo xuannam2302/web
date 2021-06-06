@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { searchFunction } from '../actions/books'
 
 import Menu from './Profile/Menu';
 
-import url_icon from '../assets/Logo.webp'
+import url_icon from '../assets/Logo.webp';
 
 const Header = () => {
     // Global Variavles

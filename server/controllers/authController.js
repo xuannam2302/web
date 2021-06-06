@@ -112,7 +112,7 @@ exports.login = function(req, res, next) {
             admin: user.admin,
             manager: user.manager,
             token: token,
-            msg: 'successfully logged in'
+            msg: 'Successfully logged in'
         });
     });
 };

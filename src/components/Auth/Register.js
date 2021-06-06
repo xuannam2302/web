@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -6,13 +6,32 @@ import { isRequired, isEmail, minLength, getErrorTag } from '../../util/Validato
 
 import { register } from '../../actions/auth'
 
+import { clearMessage } from '../../actions/message';
+
+// import Loading from '../Loading';
+import Toast from "../Toast";
+import { toast } from 'react-toastify';
+import ToastNotify from "../../util/ToastNotify";
+
+
 const Register = () => {
 
+    // Global variables
+    // const stopPage = localStorage.getItem('user') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const message = useSelector(state => state.message);
-    console.log(message);
+    const msg = useSelector(state => state.message);
+    console.log(msg);
+
+    const warningUserName = () => toast.warn(<Toast state="Warning" desc="Tên đăng nhập đã tồn tại" />);
+    const warningEmail = () => toast.warn(<Toast state="Warning" desc="Địa chỉ email đã được sử dụng" />);
+    const successfullyRegister = () => toast.success(
+        <Toast state="Success" desc="Đăng ký thành công, vui lòng xác nhận email" />,
+        {
+            autoClose: 5000,
+        }
+    );
 
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -38,7 +57,7 @@ const Register = () => {
         const getError = isRequired(value) || isEmail(value) || "";
         if (getError) {
             target.classList.add("form-control-input-invalid");
-            setErrorEmail(getError);    
+            setErrorEmail(getError);
             return 1;
         }
         return 0;
@@ -81,16 +100,42 @@ const Register = () => {
         const nameElement = formElement.querySelector("#name");
         const passwordElement = formElement.querySelector("#password");
 
-        let check = handleUserName(nameElement) + handleEmail(emailElement) + handlePassword(passwordElement);
-        if(!check) {
+        let check = handleUserName(nameElement) || handleEmail(emailElement) || handlePassword(passwordElement);
+        if (!check) {
             dispatch(register(userName, email, password));
-            history.push('/auth/login');
-            console.log("Submit form");
         }
         else {
             console.log("Error");
         }
     }
+
+    useEffect(() => {
+        if (msg !== undefined) {
+            if (msg.msg === 'Username is already in use') {
+                warningUserName();
+                dispatch(clearMessage());
+            }
+            else if (msg.msg === 'Email is already in use') {
+                warningEmail();
+                dispatch(clearMessage());
+            }
+            else if (msg.msg === 'User was registered successfully') {
+                successfullyRegister();
+                setTimeout(() => {
+                    history.push('/auth/login');
+                }, 5000)
+                dispatch(clearMessage());
+                console.log("Submit form");
+            }
+        }
+
+    }, [msg, history, dispatch])
+
+    // if(stopPage) {
+    //     return (
+    //         <Loading />
+    //     )
+    // }
 
     return (
         <div className="container">
@@ -153,6 +198,7 @@ const Register = () => {
                         </p>
                     </div>
                 </form>
+                <ToastNotify />
             </div>
         </div>
     )
