@@ -1,25 +1,23 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
 
-// import { useSelector } from 'react-redux'
+import Header from './components/Header';
+import Container from './components/Container';
+import LandingPage from './components/LandingPage';
 
-import Header from './components/Header'
-import Container from './components/Container'
-import LandingPage from './components/LandingPage'
-
-import Login from './components/Auth/Login'
-import Register from './components/Auth/Register'
-import Profile from './components/Profile'
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Profile from './components/Profile';
 
 
-import About from './components/About'
-import Footer from './components/Footer'
-import Error from './components/Error'
-import CreateItem from './components/CreateItem'
+import About from './components/About';
+import Footer from './components/Footer';
+import Error from './components/Error';
+import CreateItem from './components/CreateItem';
 
-import Admin from './components/Admin/Admin'
+import Admin from './components/Admin/Admin';
 
 function App() {
   return (
@@ -57,5 +55,3 @@ function App() {
   )
 }
 export default App;
-
-// last_modified

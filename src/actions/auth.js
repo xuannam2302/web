@@ -5,6 +5,7 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     SET_MESSAGE,
+    RESEND_VERIFY,
 } from "../constants/actionType";
 
 import AuthService from "../services/auth.service";
@@ -52,7 +53,7 @@ export const login = (username, password) => (dispatch) => {
                 type: LOGIN_SUCCESS,
                 payload: { user: data },
             });
-            
+
             dispatch({
                 type: SET_MESSAGE,
                 payload: data.msg,
@@ -67,6 +68,7 @@ export const login = (username, password) => (dispatch) => {
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+
             dispatch({
                 type: LOGIN_FAIL,
             });
@@ -88,3 +90,30 @@ export const logout = () => (dispatch) => {
         type: LOGOUT,
     });
 };
+
+export const resendVerify = (username) => (dispatch) => {
+    return AuthService.resend_verify(username).then(
+        (data) => {
+            dispatch({
+                type: RESEND_VERIFY,
+            });
+
+            dispatch({ type: SET_MESSAGE, payload: data.msg })
+
+            return Promise.resolve();
+        },
+        (error) => {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({ type: SET_MESSAGE, payload: message });
+
+            return Promise.reject();
+        }
+    )
+
+}

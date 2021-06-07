@@ -680,6 +680,21 @@ img {
     .form-another-link strong:hover {
       text-decoration: underline; }
 
+.resend-verify {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 3rem; }
+  .resend-verify button {
+    padding: 8px;
+    color: white;
+    border-radius: 2px;
+    background: #3d7981; }
+
 .register-form {
   align-items: center;
   justify-content: center;

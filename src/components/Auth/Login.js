@@ -9,24 +9,33 @@ import { clearMessage } from '../../actions/message';
 
 import { login } from "../../actions/auth";
 
-// import Loading from '../Loading';
 import Toast from "../Toast";
 import { toast } from 'react-toastify';
 import ToastNotify from '../../util/ToastNotify';
 
+import ResendVerify from './ResendVerify';
+
 
 const Login = () => {
     // Global variables
-    // const stopPage = localStorage.getItem('user') !== null;
+    const stopPage = localStorage.getItem('user') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
     const msg = useSelector(state => state.message);
     console.log(msg);
 
+    const isResendVerify = msg && msg.msg === 'This account is not verified';
+
     // Toast message
     const loginSuccessful = () => toast.success(<Toast state="Successfully" desc="Đăng nhập thành công" />);
-    const error = () => toast.error(<Toast state="Error" desc="Tên đăng nhập hoặc mật khẩu không chính xác" />);
+    const error = () => toast.error(<Toast state="Error" desc="Tên đăng nhập hoặc mật khẩu không chính xác" />, {
+        autoClose: 5000
+    });
     const warningVerified = () => toast.warn(<Toast state="Warning" desc="Tài khoản chưa được xác thực" />);
+    const successVerify = () => toast.success(
+        <Toast state="Successfully" desc="Đã gửi xác nhận vui lòng kiểm tra email" />, {
+        autoClose: 5000
+    });
 
     // Component State
     const [username, setUserName] = useState("");
@@ -101,21 +110,26 @@ const Login = () => {
             }
             else if (msg.msg === 'Incorrect Username or Password') {
                 error();
-                dispatch(clearMessage());
+                // dispatch(clearMessage());
             }
             else if (msg.msg === 'This account is not verified') {
                 warningVerified();
+                // dispatch(clearMessage());
+            }
+            else if(msg.msg === 'This account is verified') {
+                successVerify();
                 dispatch(clearMessage());
             }
         }
 
     }, [msg, history, dispatch]);
 
-    // if(stopPage) {
-    //     return (
-    //         <Loading />
-    //     )
-    // }
+    useEffect(() => {
+        if (stopPage) {
+            history.push("/");
+        }
+    }, [stopPage, history]);
+
 
     return (
         <div className="containr">
@@ -155,6 +169,7 @@ const Login = () => {
                             Đăng nhập
                         </button>
                     </div>
+                    {isResendVerify && <ResendVerify username={username} />}
                     <div className="form-another-link">
                         <p className="form-another-link-text">
                             Chưa có tài khoản?
