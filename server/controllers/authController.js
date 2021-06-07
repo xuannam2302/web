@@ -2,7 +2,6 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
 var sendgrid = require('nodemailer-sendgrid-transport');
-var crypto = require('crypto');
 
 var {secret_key, sendgrid_api_key} = require('../config/config');
 var User = require('../models/user');

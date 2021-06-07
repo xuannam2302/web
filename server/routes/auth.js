@@ -13,3 +13,4 @@ router.post('/resend_verify', auth_controller.resend_verify);
 router.post('/login', auth_controller.login);
 
 module.exports = router;
+
