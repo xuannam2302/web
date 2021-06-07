@@ -57,3 +57,20 @@ export const deleteItem = (id) => async (dispatch) => {
 export const resetState = () => (dispatch) => {
     return dispatch({ type: RESET_STATE, payload: {} });
 }
+
+// export const bought_item = (book_id, amount) => (dispatch) => {
+//     try {
+//         [
+//             {
+//                 id: book_id,
+//                 amount: amount
+//             },
+//             {
+                
+//             }
+//         ]
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// }

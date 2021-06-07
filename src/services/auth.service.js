@@ -25,6 +25,12 @@ class AuthService {
             password,
         });
     }
+
+    resend_verify(username) {
+        return axios.post(API_URL + "/resend_verify", {
+            username
+        })
+    }
 }
 
 export default new AuthService();

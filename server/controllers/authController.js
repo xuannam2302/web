@@ -60,7 +60,7 @@ exports.confirmation = function(req, res, next) {
 
 exports.resend_verify = function(req, res, next) {
     User.findOne({username: req.body.username}).exec((err, user) => {
-        if(err) return res.send({msg: err.message});
+        if(err) return res.status(400).json({status: 400, message: err.message});
         if(user) {
             var token = jwt.sign({id: user.id}, secret_key, {
                 expiresIn: 3 * 60 * 60
@@ -73,7 +73,7 @@ exports.resend_verify = function(req, res, next) {
         }));
         var mailOptions = { from: 'thuhuonghv1978@gmail.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link\nhttp:\/\/' + req.headers.host + '\/auth\/confirmation\/' + token + '\n' };
         transporter.sendMail(mailOptions, function (err) {
-            if (err) { return res.send({ send_mail: err.message }); }
+            if (err) { return res.status(400).json({status: 400, message: err.message}); }
             res.send('A verification email has been sent to ' + user.email + '.');
         });
         return;
@@ -83,18 +83,18 @@ exports.resend_verify = function(req, res, next) {
 exports.login = function(req, res, next) {
     User.findOne({username: req.body.username}).exec((err, user) => {
         if(!user) {
-            res.status(404).send({msg: "Incorrect Username or Password"});
-            return;
+            // res.status(400).send({msg: "Incorrect Username or Password"});
+            return res.status(400).json({status: 400, message: "Incorrect Username or Password"});
         }
         var password_check = bcrypt.compareSync(req.body.password, user.password);
         if(!password_check) {
-            res.status(401).send({access_token: null, msg: "Incorrect Username or Password"});
-            return;
+            return res.status(400).json({status: 400, message: "Incorrect Username or Password"});
         }
         //have not verified email
         if(!user.verified) {
-            res.status(401).send({access_token: null, msg: "This account is not verified"});
-            return;
+            // res.status(401).send({access_token: null, msg: "This account is not verified"});
+            // return;
+            return res.status(400).json({status: 400, message: "This account is not verified"});
         }
         var token = jwt.sign({id: user.id}, secret_key, {
             expiresIn: 3 * 60 * 60

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { isRequired, isEmail, minLength, getErrorTag } from '../../util/Validator'
+import { isRequired, isEmail, minLength, getErrorTag } from '../../util/Validator';
 
-import { register } from '../../actions/auth'
+import { register } from '../../actions/auth';
 
 import { clearMessage } from '../../actions/message';
 
@@ -15,9 +15,8 @@ import ToastNotify from "../../util/ToastNotify";
 
 
 const Register = () => {
-
     // Global variables
-    // const stopPage = localStorage.getItem('user') !== null;
+    const stopPage = localStorage.getItem('user') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -29,7 +28,7 @@ const Register = () => {
     const successfullyRegister = () => toast.success(
         <Toast state="Success" desc="Đăng ký thành công, vui lòng xác nhận email" />,
         {
-            autoClose: 5000,
+            autoClose: 3000,
         }
     );
 
@@ -113,17 +112,17 @@ const Register = () => {
         if (msg !== undefined) {
             if (msg.msg === 'Username is already in use') {
                 warningUserName();
-                dispatch(clearMessage());
+                // dispatch(clearMessage());
             }
             else if (msg.msg === 'Email is already in use') {
                 warningEmail();
-                dispatch(clearMessage());
+                // dispatch(clearMessage());
             }
             else if (msg.msg === 'User was registered successfully') {
                 successfullyRegister();
                 setTimeout(() => {
                     history.push('/auth/login');
-                }, 5000)
+                }, 3000)
                 dispatch(clearMessage());
                 console.log("Submit form");
             }
@@ -131,11 +130,11 @@ const Register = () => {
 
     }, [msg, history, dispatch])
 
-    // if(stopPage) {
-    //     return (
-    //         <Loading />
-    //     )
-    // }
+    useEffect(() => {
+        if(stopPage) {
+           history.push("/");
+        }
+    }, [stopPage, history])
 
     return (
         <div className="container">
@@ -204,4 +203,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Register;

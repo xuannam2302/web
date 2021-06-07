@@ -19,7 +19,7 @@ const StyledContainer = styled(ToastContainer).attrs({
     }
 `;
 
-const ToastNotify = ({autoCloseAfter = 1800}) => {
+const ToastNotify = ({autoCloseAfter = 2000}) => {
     return (
         <StyledContainer
             autoClose={autoCloseAfter}
