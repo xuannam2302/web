@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import { findLandingPage } from '../actions/books'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { findLandingPage } from '../actions/books';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import Loading from '../components/Loading'
-import Error from '../components/Error'
-import Rating from '@material-ui/lab/Rating';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
+import RatingStar from '../util/RatingStar';
 
 const LandingPage = () => {
     // Global Variables
@@ -16,7 +16,7 @@ const LandingPage = () => {
     // Component State
     const [amount, setAmount] = useState(1);
     const { _id } = useParams();
-    
+
     // Debug
     console.log(item);
 
@@ -25,17 +25,30 @@ const LandingPage = () => {
         setAmount(amount + 1);
     }
     const handleAmountMinus = () => {
-        if(amount > 1)
+        if (amount > 1)
             setAmount(amount - 1);
     }
-
+    const handleMouseMove = (e) => {
+        const zoomElement = document.querySelector('.landing_page-zoom');
+        const { left, top, width, height } = e.target.getBoundingClientRect();
+        console.log(e);
+        const x = (e.pageX - left) / width * 100
+        const y = (e.pageY - top) / height * 100
+        console.log(x, y);
+        zoomElement.style.display = 'block';
+        zoomElement.style.backgroundPosition = `${x}% ${y}%`
+    }
+    const handleMouseLeave = () => {
+        const zoomElement = document.querySelector('.landing_page-zoom');
+        zoomElement.style.display = 'none';
+    }
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
 
     // Render
     if (!item) {
-        if(!item._id) {
+        if (!item._id) {
             return (
                 <Error />
             )
@@ -47,8 +60,11 @@ const LandingPage = () => {
     return (
         <div className="container">
             <div className="landing_page">
-                <div className="landing_page-img">
+                <div className="landing_page-img" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                     <img src={item.image} alt={item.category}  />
+                    <div className="landing_page-zoom" style={{backgroundImage: `url(${item.image})`}}>
+
+                    </div>
                 </div>
                 <div className="landing_page-content">
                     <div className="landing_page-control">
@@ -63,7 +79,7 @@ const LandingPage = () => {
                     </div>
                     <div className="landing_page-control">
                         <div className="landing_page-rating">
-                            {item.book_depository_stars !== undefined ? <Rating name="half-rating-read" value={item.book_depository_stars} precision={0.5} readOnly /> : <></>}
+                            {item.book_depository_stars !== undefined ? <RatingStar value={item.book_depository_stars} /> : <></>}
                         </div>
                         <div className="landing_page-comment">
                             (300 nhận xét)

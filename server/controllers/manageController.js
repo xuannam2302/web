@@ -13,11 +13,12 @@ MongoClient.connect(uri, function (err, result) {
 });
 
 exports.book_manage = function (req, res, next) {
+    db = client.db('web');
     db.collection('book').find().sort({ 'last_modified': -1 }).toArray(function (err, results) {
         if (!err) {
             var msg;
             if (results.length == 0) msg = "No book required!";
-            res.send({ msg, url, results });
+            res.send({ results });
         }
     });
 };

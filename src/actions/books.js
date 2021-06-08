@@ -1,5 +1,14 @@
 import axios from 'axios'
-import { SEARCH, LANDING_PAGE, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM, RESET_STATE } from '../constants/actionType'
+import {
+    SEARCH,
+    LANDING_PAGE,
+    CREATE_ITEM,
+    UPDATE_ITEM,
+    DELETE_ITEM,
+    RESET_STATE,
+    DISPLAY_ALL,
+
+} from '../constants/actionType';
 
 const url = 'http://localhost:5000';
 
@@ -58,19 +67,12 @@ export const resetState = () => (dispatch) => {
     return dispatch({ type: RESET_STATE, payload: {} });
 }
 
-// export const bought_item = (book_id, amount) => (dispatch) => {
-//     try {
-//         [
-//             {
-//                 id: book_id,
-//                 amount: amount
-//             },
-//             {
-                
-//             }
-//         ]
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// }
+export const displayAll = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get(`${url}/manage`);
+        dispatch({ type: DISPLAY_ALL, payload: data });
+    }
+    catch (err) {
+        console.log(err);
+    }
+}

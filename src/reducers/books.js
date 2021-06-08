@@ -1,4 +1,12 @@
-import { SEARCH, LANDING_PAGE, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM, RESET_STATE } from '../constants/actionType'
+import {
+    SEARCH,
+    LANDING_PAGE,
+    CREATE_ITEM,
+    UPDATE_ITEM,
+    DELETE_ITEM,
+    RESET_STATE,
+    DISPLAY_ALL,
+} from '../constants/actionType'
 
 const books = (state = { books: [] }, action) => {
     switch (action.type) {
@@ -13,13 +21,6 @@ const books = (state = { books: [] }, action) => {
                 message: action.payload.msg,
                 limit: action.payload.count
             }
-        // case CREATE_ITEM: {
-        //     return {
-        //         msg: action.payload.msg,
-        //         item: action.payload.results,
-        //         books: [...state.books, action.payload.results]
-        //     }
-        // }
         default:
             return state;
     }
@@ -49,4 +50,15 @@ const item = (state = {}, action) => {
     }
 }
 
-export { books, item };
+const data = (state = { books: [] }, action) => {
+    switch (action.type) {
+        case DISPLAY_ALL:
+            return { books: action.payload.results }
+
+        default:
+            return state;
+    }
+
+}
+
+export { books, item, data };

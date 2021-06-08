@@ -18,7 +18,8 @@ exports.display_all = function (req, res, next) {
     db.collection('book').find({}).collation({ locale: "en" }).sort({ 'last_modified': -1 }).toArray(function (err, results) {
         if (!err) {
             var msg;
-            res.render('index', { books: results });
+            // res.render('index', { books: results });
+            res.send({ books: results });
         }
     });
 };
@@ -42,13 +43,13 @@ exports.search = function (req, res, next) {
                 { $or: [{ "name": { '$regex': search_str, '$options': 'i' } }, { "author": { '$regex': search_str, '$options': 'i' } }] },
                 { $and: [{ price: { $gte: Number(lower_price) } }, { price: { $lte: Number(upper_price) } }] }
             ]
-        }).collation({ locale: "en" }).sort({'last_modified': -1}).toArray(function(err, results) {
-            if(!err) {
+        }).collation({ locale: "en" }).sort({ 'last_modified': -1 }).toArray(function (err, results) {
+            if (!err) {
                 var msg;
                 var count = results.length;
-                if(results.length == 0) msg = "No book required!";
+                if (results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
-                res.send({msg, url, results, count});
+                res.send({ msg, url, results, count });
             }
         })
     }
@@ -62,9 +63,9 @@ exports.search = function (req, res, next) {
             if (!err) {
                 var msg;
                 var count = results.length;
-                if(results.length == 0) msg = "No book required!";
+                if (results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
-                res.send({msg, url, results, count});
+                res.send({ msg, url, results, count });
             }
         });
     }
@@ -78,9 +79,9 @@ exports.search = function (req, res, next) {
             if (!err) {
                 var msg;
                 var count = results.length;
-                if(results.length == 0) msg = "No book required!";
+                if (results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
-                res.send({msg, url, results, count});
+                res.send({ msg, url, results, count });
             }
         });
     }
@@ -94,9 +95,9 @@ exports.search = function (req, res, next) {
             if (!err) {
                 var msg;
                 var count = results.length;
-                if(results.length == 0) msg = "No book required!";
+                if (results.length == 0) msg = "No book required!";
                 else results = results.slice((page - 1) * limit, page * limit);
-                res.send({msg, url, results, count});
+                res.send({ msg, url, results, count });
             }
         });
     }

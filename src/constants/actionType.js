@@ -1,4 +1,5 @@
 // Product
+export const DISPLAY_ALL = 'DISPLAY_ALL';
 export const SEARCH = 'SEARCH';
 export const LANDING_PAGE = 'LANDING_PAGE';
 export const CREATE_ITEM = 'CREATE_ITEM';

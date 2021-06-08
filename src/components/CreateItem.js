@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createItem, resetState } from '../actions/books';
 
 import Error from './Error';
-import Toast from '../components/Toast';
 import { toast } from 'react-toastify';
 import ToastNotify from '../util/ToastNotify';
+import Toast from '../util/Toast';
 
 
-import { isRequired, isNumber, getErrorTag, isLower, isHigher } from '../util/Validator'
+import { isRequired, isNumber, getErrorTag, isLower, isHigher } from '../util/Validator';
 
 
 const CreateItem = () => {
@@ -172,13 +172,13 @@ const CreateItem = () => {
         const starsElement = formElement.querySelector("#stars");
 
         let check = 
-            handleName(nameElement) ||
-            handleAuthor(authorElement) ||
-            handleImage(imageElement) ||
-            handleISBN(isbnElement) ||
-            handlePrice(priceElement) ||
-            handleOld_Price(old_priceElement) ||
-            handleStars(starsElement) ||
+            (handleName(nameElement) +
+            handleAuthor(authorElement) +
+            handleImage(imageElement) +
+            handleISBN(isbnElement) +
+            handlePrice(priceElement) +
+            handleOld_Price(old_priceElement) +
+            handleStars(starsElement)) ||
             handleCheckPrice(priceElement, old_priceElement);
         if (!check) {
             const newItem = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Rating from '@material-ui/lab/Rating';
+
+import RatingStar from '../util/RatingStar';
 
 const Item = ({ data }) => {
     return (
@@ -21,12 +22,7 @@ const Item = ({ data }) => {
                         </div>
                         <div className="item-control">
                             <div className="item-rating">
-                                <Rating 
-                                    name="half-rating-read" 
-                                    value={data.book_depository_stars} 
-                                    precision={0.5} 
-                                    readOnly 
-                                />
+                                <RatingStar value={data.book_depository_stars}/>
                             </div>
                             <div className="item-comment">
                                 (300 nhận xét)
