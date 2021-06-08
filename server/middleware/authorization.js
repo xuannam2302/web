@@ -10,7 +10,7 @@ exports.verify_token = function(req, res, next) {
     }
     jwt.verify(token, secret_key, (err, decoded) => {
         if(err) {
-            return res.status(401).send('Unaccessible');
+            return res.status(401).json({msg: err});
         }    
         req.user_id = decoded.id;
         next();
