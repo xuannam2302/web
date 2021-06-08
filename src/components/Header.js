@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { searchFunction } from '../actions/books'
@@ -44,12 +44,13 @@ const Header = () => {
             <div className="container">
                 <div className="header-container">
                     <div className="header-logo">
-                        <img
-                            src={url_icon}
-                            alt="Logo"
-                            className="header-logo-img"
-                            onClick={returnHomePage}
-                        />
+                        <Link to="/">
+                            <img
+                                src={url_icon}
+                                alt="Logo"
+                                className="header-logo-img"
+                            />
+                        </Link>
                     </div>
                     <div className="header-search">
                         <input

@@ -1,5 +1,5 @@
 .landing_page {
-    padding: 8rem 5rem;
+    padding: 8rem 4rem 10rem;
     position: relative;
     &:before {
         @include absoluteCenter('top');
@@ -11,9 +11,11 @@
     }
     @include flexbox(stretch);
     &-img {
+        padding-right: 4rem;
         width: 25rem;
+        @include flexbox(center, center);
         img {
-            height: 32rem;
+            @include size(25rem, 32rem);
         }
     }
     &-content {
@@ -93,11 +95,14 @@
     }
     &-amount {
         @include flexbox(center);
-        margin-top: 2rem;
+        margin-top: 3rem;
         font-size: 1.5rem;
         &-control {
             @include flexbox(stretch);
             margin-left: 2rem;
+            button {
+                color: rgb(102, 96, 96);
+            }
         }
         &-btn, &-label {
             font-weight: 400;
@@ -119,9 +124,10 @@
         }
     }
     &-shopping {
-        margin-top: 2rem;
+        width: 30rem;
+        margin-top: 4rem;
         padding: 1.5rem 5px;
-        @include bg(tomato);
+        @include bg(rgb(255,57,69));
         border-radius: 2px;
         text-align: center;
         opacity: 0.9;
@@ -134,5 +140,17 @@
             font-size: 1.5rem;
             color: white;
         }
+    }
+    &-zoom {
+        position: absolute;
+        @include size(25rem, 32rem);
+        top: 2rem;
+        right: 6rem;
+        border: 1px solid rgb(24, 158, 255);
+        background-repeat: no-repeat;
+        background-size: 80rem;
+        z-index: 100;
+        object-fit: contain;
+        display: none;
     }
 }

@@ -8,10 +8,9 @@ import { register } from '../../actions/auth';
 
 import { clearMessage } from '../../actions/message';
 
-// import Loading from '../Loading';
-import Toast from "../Toast";
 import { toast } from 'react-toastify';
 import ToastNotify from "../../util/ToastNotify";
+import Toast from "../../util/Toast";
 
 
 const Register = () => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Toast = ({ state, desc }) => {
     return (
@@ -9,4 +9,4 @@ const Toast = ({ state, desc }) => {
     )
 }
 
-export default Toast
+export default Toast;

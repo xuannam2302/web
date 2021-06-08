@@ -9,9 +9,9 @@ import { clearMessage } from '../../actions/message';
 
 import { login } from "../../actions/auth";
 
-import Toast from "../Toast";
 import { toast } from 'react-toastify';
 import ToastNotify from '../../util/ToastNotify';
+import Toast from '../../util/Toast';
 
 import ResendVerify from './ResendVerify';
 
