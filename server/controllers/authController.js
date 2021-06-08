@@ -4,7 +4,7 @@ var nodemailer = require('nodemailer');
 var sendgrid = require('nodemailer-sendgrid-transport');
 var randtoken = require('rand-token');
 
-var {secret_key, sendgrid_api_key} = require('../config/config');
+var {secret_key, refresh_key, sendgrid_api_key} = require('../config/config');
 var User = require('../models/user');
 var Trader = require('../models/trader').Trader;
 var LocalStorage = require('node-localstorage').LocalStorage;
@@ -102,7 +102,7 @@ exports.login = function(req, res, next) {
         var token = jwt.sign({id: user.id}, secret_key, {
             expiresIn: 60
         });
-        var refresh_token = randtoken.uid(256);
+        var refresh_token = jwt.sign({id: user.id}, refresh_key);
         // res.cookie('access_token', token, {
         //     maxAge: 1000 * 3 * 60 * 60,  
         //     httpOnly: false, 
@@ -132,8 +132,14 @@ exports.refresh_token = function(req, res, next) {
         var token = jwt.sign({id: req.body.id}, secret_key, {
             expiresIn: 60,
         });
+        delete refresh_tokens[refresh_token];
+        refresh_token = jwt.sign({id: req.body.id}, refresh_key);
+        refresh_tokens[refresh_token] = req.body.id;
+        localStorage.clear();
         localStorage.setItem('access_token', token);
-        res.json({token: token})
+        localStorage.setItem('refresh_token', refresh_token);
+        res.json({token: token, refresh_token: refresh_token});
+        return;
     };
     res.status(401).json({msg: 'No refresh token provided'});
 }
