@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { displayAll } from '../../actions/books';
 import { deleteItem, updateItem } from '../../actions/books';
 
 import { makeStyles } from '@material-ui/styles';
@@ -70,10 +69,6 @@ const AdminContent = () => {
     const { books } = data;
 
     console.log("Books admin", books);
-
-    useEffect(() => {
-        dispatch(displayAll());
-    }, [dispatch]);
 
     const handleEdit = (el) => {
         console.log(el);
@@ -237,6 +232,7 @@ const AdminContent = () => {
             </div>
         )
     }
+    
     return (
         <Loading />
     )

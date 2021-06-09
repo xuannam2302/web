@@ -8,10 +8,10 @@ var compression = require('compression');
 var helmet = require('helmet');
 var cors = require('cors');
 var mongoose = require('mongoose');
-
 displayRouter = require('./routes/display');
 manageRouter = require('./routes/manage');
 authRouter = require('./routes/auth');
+tradeRouter = require('./routes/trade');
 
 var app = express();
 
@@ -31,6 +31,7 @@ app.use(cors());
 app.use('/', displayRouter);
 app.use('/manage', manageRouter);
 app.use('/auth', authRouter);
+app.use('/trade', tradeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

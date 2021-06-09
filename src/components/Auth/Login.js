@@ -22,7 +22,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const msg = useSelector(state => state.message);
-    console.log(msg);
+    // console.log(msg);
 
     const isResendVerify = msg && msg.msg === 'This account is not verified';
 

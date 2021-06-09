@@ -1,3 +1,4 @@
+const { Double } = require('bson');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://localhost:27017/web';
 const options = {
@@ -35,6 +36,10 @@ const User = mongoose.model(
             type: Boolean,
             default: false
         },
+        money: {
+            type: Number,
+            default: 0,
+        }
     }),
     "users"
 );

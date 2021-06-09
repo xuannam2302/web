@@ -31,6 +31,7 @@
     "nodemailer": "^6.6.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "pug": "^3.0.2",
+    "rand-token": "^1.0.1",
     "validator": "^13.6.0"
   },
   "devDependencies": {

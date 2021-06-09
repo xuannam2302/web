@@ -12,4 +12,11 @@ router.post('/resend_verify', auth_controller.resend_verify);
 
 router.post('/login', auth_controller.login);
 
+router.post('/refresh_token', auth_controller.refresh_token);
+
+router.post('/refresh_token/delete', auth_controller.delete_refresh_token);
+
+router.get('/information', authorization.verify_token ,auth_controller.get_information);
+
 module.exports = router;
+

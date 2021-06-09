@@ -7,10 +7,11 @@ import {
     DELETE_ITEM,
     RESET_STATE,
     DISPLAY_ALL,
+    SET_MESSAGE,
 
 } from '../constants/actionType';
 
-import authHeader from '../services/auth-header'; 
+import AuthService from '../services/auth.service';
 
 const url = 'http://localhost:5000';
 
@@ -69,12 +70,27 @@ export const resetState = () => (dispatch) => {
     return dispatch({ type: RESET_STATE, payload: {} });
 }
 
-export const displayAll = () => async (dispatch) => {
-    try {
-        const { data } = await axios.get(`${url}/manage`, {headers: authHeader()});
-        dispatch({ type: DISPLAY_ALL, payload: data });
-    }
-    catch (err) {
-        console.log(err);
-    }
+export const displayAll = () => (dispatch) => {
+    return AuthService.display_all()
+        .then(
+            (data) => {
+                console.log("success");
+                dispatch({ type: DISPLAY_ALL, payload: data })
+
+                return Promise.resolve();
+            },
+            (error) => {
+                const message =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                console.log(message);
+                dispatch({ type: SET_MESSAGE, payload: message });
+
+                return Promise.reject();
+            
+            })
 }
