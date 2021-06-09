@@ -3,8 +3,8 @@ var jwt = require('jsonwebtoken');
 var {secret_key} = require('../config/config');
 
 exports.verify_token = function(req, res, next) {
-    //var token = req.headers.authorization.split(' ')[1];
-    var token = localStorage.getItem('access_token');
+    //var token = localStorage.getItem('access_token');
+    var token = req.headers['x-access-token'];
     if(!token) {
         return res.status(403).send('No token provided');
     }

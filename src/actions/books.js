@@ -10,6 +10,7 @@ import {
 
 } from '../constants/actionType';
 
+import authHeader from '../services/auth-header';
 const url = 'http://localhost:5000';
 
 export const searchFunction = (search = '', sort = '', lower_price = '', upper_price = '', page = 1) => async (dispatch) => {
@@ -69,7 +70,7 @@ export const resetState = () => (dispatch) => {
 
 export const displayAll = () => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${url}/manage`);
+        const { data } = await axios.get(`${url}/manage`, {headers: authHeader()});
         dispatch({ type: DISPLAY_ALL, payload: data });
     }
     catch (err) {

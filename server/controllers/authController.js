@@ -111,17 +111,20 @@ exports.login = function(req, res, next) {
         localStorage.setItem('access_token', token);
         localStorage.setItem('refresh_token', refresh_token)
         refresh_tokens[refresh_token] = user.id;
-        console.log(refresh_tokens);
-        res.send({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            user: user.user,
-            admin: user.admin,
-            manager: user.manager,
-            token: token,
-            refresh_token: refresh_token,
-            msg: 'Successfully logged in'
+        res.json({
+            send_back: {
+                id: user.id,
+                token: token,
+                refresh_token: refresh_token,
+            },
+            unsend_back: {
+                username: user.username,
+                email: user.email,
+                user: user.user,
+                admin: user.admin,
+                manager: user.manager,
+                msg: 'Successfully logged in',
+            }          
         });
     });
 };
@@ -151,4 +154,18 @@ exports.delete_refresh_token = function(req, res, next) {
     }
     localStorage.clear();
     res.json({msg: 'Logged out'});
+}
+
+exports.get_information = function(req, res, next) {
+    User.findById(req.user_id).exec((err, user) => {
+        if(err) return res.status(400).json({msg: err});
+        if(!user) return res.status(500).json({msg: 'No user found'});
+        res.json({
+            username: user.username,
+            email: user.email,
+            user: user.user,
+            admin: user.admin,
+            manager: user.manager,
+        })
+    })
 }
