@@ -464,16 +464,18 @@ img {
     left: 30rem;
     height: 100%; }
   .landing_page-img {
-    padding-right: 4rem;
     width: 25rem;
+    height: 32rem;
+    padding: 2rem;
+    padding-right: 4rem;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     display: flex;
     flex-wrap: nowrap; }
     .landing_page-img img {
-      width: 25rem;
-      height: 32rem; }
+      width: 22rem;
+      height: 28rem; }
   .landing_page-content {
     padding-left: 4rem; }
   .landing_page-title {
@@ -601,9 +603,8 @@ img {
     right: 6rem;
     border: 1px solid #189eff;
     background-repeat: no-repeat;
-    background-size: 80rem;
     z-index: 100;
-    object-fit: contain;
+    background-size: 60rem;
     display: none; }
 
 .form-create {

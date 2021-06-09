@@ -3,6 +3,9 @@ import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
 
+// import {useDispatch} from "react-redux";
+// import {login} from "./actions/auth"
+
 import Header from './components/Header';
 import Container from './components/Container';
 import LandingPage from './components/LandingPage';
@@ -20,6 +23,11 @@ import CreateItem from './components/CreateItem';
 import Admin from './components/Admin/Admin';
 
 function App() {
+  // const dispatch = useDispatch();
+  // const user = localStorage.getItem('user');
+  // const {}
+  // setInterval(() => dispatch(), 60000);
+
   return (
     <Router>
       <div className="App">

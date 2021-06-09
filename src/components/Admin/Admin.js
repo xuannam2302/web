@@ -8,7 +8,7 @@ import Error from '../Error';
 
 const Admin = () => {
     const user = useSelector(state => state.auth.user);
-    console.log(user);
+    // console.log(user);
     if (user === undefined || !user.admin) {
         return (
             <Error />
