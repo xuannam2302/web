@@ -18,17 +18,19 @@ exports.Trader = mongoose.model(
             ref: 'users',
         },
         items: [{
+            _id: false, 
             book_id: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'book',
             },
             quantity: {
                 type: Number, 
+                default: 0
             },
             status: {
                 type: String,
                 enum: ['added_to_cart', 'ordered', 'delivered', 'cancelled'],
-                default: 'add_to_cart', 
+                default: 'added_to_cart', 
             }
         }]
     }),

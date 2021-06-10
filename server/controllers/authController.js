@@ -8,6 +8,7 @@ var {secret_key, refresh_key, sendgrid_api_key} = require('../config/config');
 var User = require('../models/user');
 var Trader = require('../models/trader').Trader;
 var LocalStorage = require('node-localstorage').LocalStorage;
+const { gridColumnsTotalWidthSelector } = require('@material-ui/data-grid');
 localStorage = new LocalStorage('./scratch');
 
 exports.register = function(req, res) {
@@ -25,7 +26,7 @@ exports.register = function(req, res) {
         var token = jwt.sign({id: user.id}, secret_key, {
             expiresIn: 3 * 60 * 60
         });
-        //localStorage.setItem('access_token', token);
+        localStorage.setItem('access_token', token);
         if(user) {
             var transporter = nodemailer.createTransport(sendgrid({
                 auth: {
@@ -100,16 +101,11 @@ exports.login = function(req, res, next) {
             return res.status(400).json({status: 400, message: "This account is not verified"});
         }
         var token = jwt.sign({id: user.id}, secret_key, {
-            expiresIn: 60
+            expiresIn: 60 * 60 * 12
         });
         var refresh_token = jwt.sign({id: user.id}, refresh_key);
-        // res.cookie('access_token', token, {
-        //     maxAge: 1000 * 3 * 60 * 60,  
-        //     httpOnly: false, 
-        //     secure: false,
-        // });
-        //localStorage.setItem('access_token', token);
-        //localStorage.setItem('refresh_token', refresh_token)
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', refresh_token)
         refresh_tokens[refresh_token] = user.id;
         res.json({
             send_back: {
@@ -130,31 +126,32 @@ exports.login = function(req, res, next) {
 };
 
 exports.refresh_token = function(req, res, next) {
-    //var refresh_token = localStorage.getItem('refresh_token');
-    var refresh_token = req.body.refresh_token;
+    var refresh_token = localStorage.getItem('refresh_token');
+    //var refresh_token = req.body.refresh_token;
     if((refresh_token in refresh_tokens) && (refresh_tokens[refresh_token] == req.body.id)) {
         var token = jwt.sign({id: req.body.id}, secret_key, {
-            expiresIn: 60,
+            expiresIn: 60 * 60 * 12,
         });
         delete refresh_tokens[refresh_token];
         refresh_token = jwt.sign({id: req.body.id}, refresh_key);
         refresh_tokens[refresh_token] = req.body.id;
-        //localStorage.clear();
-        //localStorage.setItem('access_token', token);
-        //localStorage.setItem('refresh_token', refresh_token);
-        res.json({token: token, refresh_token: refresh_token});
-        return;
+        localStorage.clear();
+        localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', refresh_token);
+        console.log('abc');
+        return res.json({token: token, refresh_token: refresh_token});
+        
     };
     res.status(401).json({msg: 'No refresh token provided'});
 }
 
 exports.delete_refresh_token = function(req, res, next) {
-    //var refresh_token = localStorage.getItem('refresh_token');
-    var refresh_token = req.body.refresh_token;
+    var refresh_token = localStorage.getItem('refresh_token');
+    //var refresh_token = req.body.refresh_token;
     if(refresh_token in refresh_tokens) {
         delete refresh_tokens[refresh_token];
     }
-    //localStorage.clear();
+    localStorage.clear();
     res.json({msg: 'Logged out'});
 }
 
