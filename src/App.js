@@ -5,7 +5,6 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { getInformation, refreshToken } from './actions/auth';
-// import {clearMessage} from './actions/message'
 
 import Header from './components/Header';
 import Container from './components/Container';
@@ -14,7 +13,6 @@ import LandingPage from './components/LandingPage';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Profile from './components/Profile';
-
 
 import About from './components/About';
 import Footer from './components/Footer';
@@ -30,9 +28,8 @@ function App() {
   
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token-verify'));
-    console.log(token);
+    // console.log(token);
     if (token) {
-      console.log("Run.......");
       dispatch(getInformation(token.token));
     }
   });

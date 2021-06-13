@@ -138,3 +138,8 @@
         opacity: 1;
     }
 }
+
+.MuiPagination-root > .MuiPagination-ul > li > .Mui-selected {
+    color: white;
+    @include bg(rgb(24,158,255));
+}

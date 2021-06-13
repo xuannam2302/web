@@ -15,7 +15,7 @@ const Header = () => {
 
     // Component State
     const auth = useSelector(state => state.auth);
-    console.log(auth);
+    // console.log(auth);
     const { isLoggedIn, user } = auth;
 
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
@@ -30,7 +30,7 @@ const Header = () => {
     }
     const handleSearch = () => {
         console.log(m_search, sort, lower_price, upper_price);
-        dispatch(searchFunction(m_search, sort, lower_price, upper_price));
+        dispatch(searchFunction(m_search, sort, lower_price, upper_price, 1));
     }
     const linkToLogin = () => {
         history.push('/auth/login');
@@ -62,7 +62,7 @@ const Header = () => {
                             onChange={(e) => setM_Search(e.target.value)}
                         />
                         <div className="header-search-icon" onClick={handleSearch}>
-                            <i class="fas fa-search"></i>
+                            <i className="fas fa-search"></i>
                         </div>
                     </div>
                     <ul className="header-menu">
@@ -75,7 +75,7 @@ const Header = () => {
                             onClick={changeToAbout}>Về chúng tôi
                         </li>
                         <li className="header-item header-indentify">
-                            <i class="fas fa-user-circle"></i>
+                            <i className="fas fa-user-circle"></i>
                             {isLoggedIn === false ?
                                 <>
                                     <button
@@ -98,7 +98,7 @@ const Header = () => {
                                             {user.username}
                                         </h3>
                                         <div className="header-setting">
-                                            <i class="fas fa-cog header-config"></i>
+                                            <i className="fas fa-cog header-config"></i>
                                             <Menu user={user}/>
                                         </div>
                                     </div>

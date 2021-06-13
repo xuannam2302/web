@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItem, updateItem } from '../../actions/books';
+import { deleteItem, updateItem, displayAll } from '../../actions/books';
 
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
@@ -54,28 +54,24 @@ function renderRating(params) {
 }
 
 const AdminContent = () => {
+    const data = useSelector(state => state.data);
 
     const deleteBook = () => toast.success(<Toast state="Successfully" desc="Xóa thành công" />);
 
-    // const exist = () => toast.warn(<Toast state="Warning" desc="Đã tồn tại" />)
-
-    // const create = () => toast.success(<Toast state="Successfully" desc="Tạo thành công"/>)
-
     const dispatch = useDispatch();
     const classes = useStyles();
-    const data = useSelector(state => state.data);
-    // const item = useSelector(state => state.item);
 
     const { books } = data;
 
     console.log("Books admin", books);
 
     const handleEdit = (el) => {
-        console.log(el);
         dispatch(updateItem(el._id, el));
+        dispatch(displayAll());
     }
     const handleDelete = (id) => {
         dispatch(deleteItem(id));
+        dispatch(displayAll());
         deleteBook();
     }
 
@@ -83,6 +79,7 @@ const AdminContent = () => {
         books.forEach((book, index) => {
             book.id = index + 1;
         })
+        
         const columns = [
             {
                 field: 'id',
@@ -214,7 +211,7 @@ const AdminContent = () => {
                 }
             }
         ];
-        console.log(books);
+        
         return (
             <div className={`admin-content ${classes.root}`} style={{ height: 800, width: '100%' }}>
                 <DataGrid

@@ -74,10 +74,14 @@
                 border: 1px solid rgba(black, 0.5);
                 @include bg(#e5e5e5);
                 position: absolute;
-                padding: 2px 5px;
+                padding: 3px 5px;
                 right: 0;
                 margin-top: 1rem;
-                // border-radius: 2px;
+                border-radius: 2px;
+                opacity: 0.8;
+                &:hover {
+                    opacity: 1;
+                }
             }
         }
     }
@@ -86,6 +90,7 @@
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 2rem 1rem;
+        width: 100%;
     }
     &-pagination {
         margin-top: 3rem;

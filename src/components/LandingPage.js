@@ -32,10 +32,9 @@ const LandingPage = () => {
     const handleMouseMove = (e) => {
         const zoomElement = document.querySelector('.landing_page-zoom');
         const { left, top, width, height } = e.target.getBoundingClientRect();
-        console.log(e);
-        const x = (e.pageX - left) / width * 100
-        const y = (e.pageY - top) / height * 100
-        console.log(x, y);
+        const x = (e.pageX - left) / width * 100;
+        const y = (e.pageY - top) / height * 100;
+        
         zoomElement.style.display = 'block';
         zoomElement.style.backgroundPosition = `${x}% ${y}%`
 
@@ -44,14 +43,25 @@ const LandingPage = () => {
         const zoomElement = document.querySelector('.landing_page-zoom');
         zoomElement.style.display = 'none';
     }
-
+    const handleAmountChange = (e) => {
+        const valueSring = e.target.value;
+        if(valueSring === '' || isNaN(valueSring)) {
+            setAmount('');
+        }
+        else {
+            setAmount(parseInt(e.target.value));
+        }
+    }
+    const handleKBlurAmount = (e) => {
+        const valueString = e.target.value;
+        console.log(valueString);
+        if(valueString === '' || parseInt(valueString) === 0) {
+            setAmount(1);
+        }
+    }
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
-
-
-
-
 
     // Render
     if (!item) {
@@ -119,12 +129,18 @@ const LandingPage = () => {
                     <div className="landing_page-amount">
                         <p className="landing_page-amount-number">Số lượng:</p>
                         <div className="landing_page-amount-control">
-                            <button className="landing_page-amount-btn" onClick={handleAmountMinus}>
-                                <i class="fas fa-minus"></i>
+                            <button className={`landing_page-amount-btn ${amount === 1 ? "landing_page-amount-btn--disable" : null}`} onClick={handleAmountMinus}>
+                                <i className="fas fa-minus"></i>
                             </button>
-                            <p className="landing_page-amount-label">{amount}</p>
+                            <input 
+                                className="landing_page-amount-label" 
+                                value={amount} 
+                                onChange={handleAmountChange}
+                                onBlur={handleKBlurAmount}
+                                required
+                            />
                             <button className="landing_page-amount-btn" onClick={handleAmountPlus}>
-                                <i class="fas fa-plus"></i>
+                                <i className="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>

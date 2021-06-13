@@ -11,7 +11,8 @@ import {
 
 } from '../constants/actionType';
 
-import AuthService from '../services/auth.service';
+import AdminService from '../services/admin.service';
+import showErrorMessage from './general'
 
 const url = 'http://localhost:5000';
 
@@ -35,62 +36,77 @@ export const findLandingPage = (id) => async (dispatch) => {
     }
 }
 
-export const createItem = (newItem) => async (dispatch) => {
-    try {
-        const { data } = await axios.post(`${url}/manage/create`, newItem);
-        console.log(232);
-        dispatch({ type: CREATE_ITEM, payload: data })
-    }
-    catch (err) {
-        console.log(err.message);
-    }
+export const createItem = (newItem) => (dispatch) => {
+    return AdminService.create_item(newItem).then(
+        (data) => {
+            dispatch({ type: CREATE_ITEM, payload: data });
+
+            return Promise.resolve()
+        },
+        (error, dispatch) => {
+            const message = showErrorMessage(error);
+
+            console.log(message);
+            dispatch({ type: SET_MESSAGE, payload: message });
+
+            return Promise.reject();
+        }
+    )
 }
 
-export const updateItem = (id, newItem) => async (dispatch) => {
-    try {
-        const { data } = await axios.post(`${url}/manage/update/${id}`, newItem);
-        dispatch({ type: UPDATE_ITEM, payload: data })
-    }
-    catch (err) {
-        console.log(err.message);
-    }
+export const updateItem = (id, newItem) => (dispatch) => {
+    return AdminService.update_item(id, newItem).then(
+        (data) => {
+            dispatch({ type: UPDATE_ITEM, payload: data });
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+
+            console.log(message);
+            dispatch({ type: SET_MESSAGE, payload: message });
+
+            return Promise.reject();
+        }
+    )
 }
 
-export const deleteItem = (id) => async (dispatch) => {
-    try {
-        const { data } = await axios.post(`${url}/manage/delete/${id}`);
-        dispatch({ type: DELETE_ITEM, payload: data })
-    }
-    catch (err) {
-        console.log(err.message);
-    }
-}
+export const deleteItem = (id) => (dispatch) => {
+    return AdminService.delete_item(id).then(
+        (data) => {
+            dispatch({ type: DELETE_ITEM, payload: data });
 
-export const resetState = () => (dispatch) => {
-    return dispatch({ type: RESET_STATE, payload: {} });
+            return Promise.resolve();
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+
+            console.log(message);
+            dispatch({ type: SET_MESSAGE, payload: message });
+
+            return Promise.reject();
+        }
+    )
 }
 
 export const displayAll = () => (dispatch) => {
-    return AuthService.display_all()
+    return AdminService.display_all()
         .then(
             (data) => {
-                console.log("success");
                 dispatch({ type: DISPLAY_ALL, payload: data })
 
                 return Promise.resolve();
             },
             (error) => {
-                const message =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                const message = showErrorMessage(error);
 
                 console.log(message);
                 dispatch({ type: SET_MESSAGE, payload: message });
 
                 return Promise.reject();
-            
+
             })
+}
+
+export const resetState = () => (dispatch) => {
+    dispatch({ type: RESET_STATE, payload: {} });
 }

@@ -28,12 +28,12 @@ const Menu = ({ user }) => {
         <ul className="header-dropdown-menu">
             <li className="header-dropdown-item header-dropdown-item-1" onClick={linkToProfile}>
                 <span>Hồ sơ của tôi</span>
-                <i class="fas fa-id-badge"></i>
+                <i className="fas fa-id-badge"></i>
             </li>
             {isAdmin ?
                 <li className="header-dropdown-item header-dropdown-item-1" onClick={linkToAdminPage}>
                     <span>Admin Page</span>
-                    <i class="fas fa-file-alt"></i>
+                    <i className="fas fa-file-alt"></i>
                 </li>
                 :
                 <>
@@ -42,7 +42,7 @@ const Menu = ({ user }) => {
 
             <li className="header-dropdown-item header-dropdown-item-3 header-item-logout" onClick={handleLogout}>
                 <span>Đăng xuất</span>
-                <i class="fas fa-sign-out-alt"></i>
+                <i className="fas fa-sign-out-alt"></i>
             </li>
         </ul>
     )

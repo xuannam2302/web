@@ -285,6 +285,10 @@ img {
   100% {
     transform: scale(1);
     opacity: 1; } }
+.MuiPagination-root > .MuiPagination-ul > li > .Mui-selected {
+  color: white;
+  background: #189eff; }
+
 .container-main {
   padding: 5rem 0;
   padding-bottom: 9rem;
@@ -365,14 +369,19 @@ img {
     border: 1px solid rgba(0, 0, 0, 0.5);
     background: #e5e5e5;
     position: absolute;
-    padding: 2px 5px;
+    padding: 3px 5px;
     right: 0;
-    margin-top: 1rem; }
+    margin-top: 1rem;
+    border-radius: 2px;
+    opacity: 0.8; }
+    .container-option-select-input-submit:hover {
+      opacity: 1; }
 .container-list {
   margin-top: 4rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 2rem 1rem; }
+  grid-gap: 2rem 1rem;
+  width: 100%; }
 .container-pagination {
   margin-top: 3rem;
   position: absolute;
@@ -477,10 +486,12 @@ img {
       width: 22rem;
       height: 28rem; }
   .landing_page-content {
+    max-width: 40%;
     padding-left: 4rem; }
   .landing_page-title {
     font-size: 1.8rem;
-    font-weight: bold; }
+    font-weight: bold;
+    line-height: 1.2; }
   .landing_page-author {
     margin-top: 1.3rem;
     font-size: 1.3rem;
@@ -518,6 +529,7 @@ img {
     padding: 8px 1.2rem;
     border: 1px solid blue;
     border-radius: 2px;
+    max-width: 37.5rem;
     align-items: stretch;
     justify-content: space-between;
     flex-direction: row;
@@ -566,14 +578,25 @@ img {
       margin-left: 2rem; }
       .landing_page-amount-control button {
         color: #666060; }
+    .landing_page-amount-btn {
+      font-size: 1.2rem;
+      min-width: 4rem; }
+    .landing_page-amount-btn--disable {
+      opacity: 0.8;
+      cursor: default; }
     .landing_page-amount-btn, .landing_page-amount-label {
       font-weight: 400;
-      font-size: 1.4rem;
       padding: 0.8rem;
       background: rgba(229, 229, 229, 0.7);
       text-align: center; }
     .landing_page-amount-label {
-      min-width: 4rem; }
+      max-width: 4rem;
+      font-size: 1rem;
+      font-size: 1.4rem;
+      border: 1px solid rgba(221, 221, 221, 0.5);
+      transition: all 0.1s ease-in-out; }
+    .landing_page-amount-label:focus {
+      border: 1px solid #189eff; }
     .landing_page-amount-btn:nth-child(1) {
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px; }
@@ -913,8 +936,9 @@ img {
       background: #b8b8ec; }
 
 .footer {
+  margin-top: 3rem;
   text-align: center;
-  padding: 3rem;
+  padding: 3rem 0;
   background: #e5e5e5;
   font-size: 1.5rem; }
 

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 import { searchFunction } from '../actions/books'
+
 import url from '../assets/error.webp'
 const Error = () => {
     // Global variables
@@ -12,7 +13,7 @@ const Error = () => {
     // Function handler
     const returnHomePage = () => {
         history.push('/');
-        dispatch(searchFunction('', 'name', '', ''));
+        dispatch(searchFunction());
     }
     const changeToAbout = () => {
         history.push('/about')
@@ -22,15 +23,23 @@ const Error = () => {
     return (
         <div className="error">
             <h2 className="error-title">Không tìm thấy kết quả</h2>
-            <img src={url} alt="Error Page" className="error-img" />
+            <img 
+                src={url} 
+                alt="Error Page" 
+                className="error-img" 
+            />
             <ul className="error-list">
                 <li 
                     className="error-item" 
-                    onClick={returnHomePage}>Trang chủ
+                    onClick={returnHomePage}
+                >
+                    Trang chủ
                 </li>
                 <li 
                     className="error-item" 
-                    onClick={changeToAbout}>Về chúng tôi
+                    onClick={changeToAbout}
+                >
+                    Về chúng tôi
                 </li>
             </ul>
         </div>

@@ -25,6 +25,7 @@ const Profile = () => {
         if (authorityManager)
             return "Manager";
     }
+    
     return (
         <div className="container">
             <div className="profile">

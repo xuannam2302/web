@@ -11,6 +11,7 @@ import {
 } from "../constants/actionType";
 
 import AuthService from "../services/auth.service";
+import showErrorMessage from './general'
 
 export const register = (username, email, password) => (dispatch) => {
     return AuthService.register(username, email, password).then(
@@ -27,12 +28,7 @@ export const register = (username, email, password) => (dispatch) => {
             return Promise.resolve();
         },
         (error) => {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+            const message = showErrorMessage(error);
 
             dispatch({
                 type: REGISTER_FAIL,
@@ -67,12 +63,7 @@ export const login = (username, password) => (dispatch) => {
             return Promise.resolve();
         },
         (error) => {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+            const message = showErrorMessage(error);
 
             dispatch({
                 type: LOGIN_FAIL,
@@ -109,29 +100,20 @@ export const resendVerify = (username) => (dispatch) => {
                 return Promise.resolve();
             },
             (error) => {
-                const message =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                const message = showErrorMessage(error);
 
                 dispatch({ type: SET_MESSAGE, payload: message });
 
-            }
-        ).catch(error => console.log(error.message))
+            })
+        .catch(error => console.log(error.message))
 }
 
 export const getInformation = () => (dispatch) => {
     return AuthService.get_information()
         .then(
             (data) => {
-
-                console.log(data);
-
-
+                // console.log(data);
                 dispatch({
-                    // type: LOGIN_SUCCESS,
                     type: GET_INFORMATION,
                     payload: { user: data },
                 });
@@ -139,15 +121,7 @@ export const getInformation = () => (dispatch) => {
                 return Promise.resolve();
             },
             (error) => {
-
-                const message =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-
+                const message = showErrorMessage(error);
                 console.log(message);
 
                 dispatch({ type: SET_MESSAGE, payload: message });
@@ -161,50 +135,18 @@ export const refreshToken = (id, refresh_token) => (dispatch) => {
     return AuthService.refresh_token(id, refresh_token)
         .then(
             (data) => {
-
-                console.log(data);
-
                 localStorage.removeItem('token-verify');
-
                 localStorage.setItem('token-verify', JSON.stringify(data));
 
                 return Promise.resolve();
             })
         .catch(
             (error) => {
+                const message = showErrorMessage(error);
+                console.log(message);
 
-                console.log(error);
+                dispatch({ type: SET_MESSAGE, payload: message });
 
                 return Promise.reject();
             })
 }
-
-// export const checkToken = () => (dispatch) => {
-//     return AuthService.check_token().then(
-//         (data) => {
-
-//             console.log(data);
-
-//             dispatch({type: SET_MESSAGE, payload: data})
-
-//             return Promise.resolve();
-//         },
-//         (error) => {
-
-            
-//             const message =
-//             (error.response &&
-//                 error.response.data &&
-//                 error.response.data.message) ||
-//             error.message ||
-//             error.toString();
-
-
-//         console.log(message);
-
-//         dispatch({ type: SET_MESSAGE, payload: message });
-
-//             return Promise.reject();
-//         }
-//     )
-// }

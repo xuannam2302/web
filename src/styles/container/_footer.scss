@@ -1,6 +1,7 @@
 .footer {
+    margin-top: 3rem;
     text-align: center;
-    padding: 3rem;
+    padding: 3rem 0;
     @include bg(#e5e5e5);
     font-size: 1.5rem;
 }
