@@ -1,4 +1,3 @@
-const { Double } = require('bson');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://localhost:27017/web';
 const options = {
@@ -15,24 +14,42 @@ exports.Trader = mongoose.model(
     new mongoose.Schema({
         user_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'users',
+            ref: 'User',
         },
-        items: [{
-            _id: false, 
+        added_items: [{
             book_id: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'book',
+                ref: 'Book',
             },
             quantity: {
                 type: Number, 
                 default: 0
             },
-            status: {
-                type: String,
-                enum: ['added_to_cart', 'ordered', 'delivered', 'cancelled'],
-                default: 'added_to_cart', 
-            }
-        }]
+            create_at: Date,
+            update_at: Date,
+        }],
+        ordered_items: [{
+            book_id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book',
+            },
+            quantity: {
+                type: Number, 
+                default: 0
+            },
+            create_at: Date,
+        }],
+        delivered_items: [{
+            _id: false, 
+            book_id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book',
+            },
+            quantity: {
+                type: Number, 
+                default: 0
+            },
+        }],
     }),
     'traders'
 );

@@ -1,4 +1,3 @@
-const { Double } = require('bson');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://localhost:27017/web';
 const options = {

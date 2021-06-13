@@ -15,7 +15,7 @@ import Toast from "../../util/Toast";
 
 const Register = () => {
     // Global variables
-    const stopPage = localStorage.getItem('user') !== null;
+    const stopPage = localStorage.getItem('token-verify') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
 

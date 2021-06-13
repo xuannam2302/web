@@ -8,6 +8,7 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 import RatingStar from '../util/RatingStar';
 
+
 const LandingPage = () => {
     // Global Variables
     const dispatch = useDispatch();
@@ -37,14 +38,20 @@ const LandingPage = () => {
         console.log(x, y);
         zoomElement.style.display = 'block';
         zoomElement.style.backgroundPosition = `${x}% ${y}%`
+
     }
     const handleMouseLeave = () => {
         const zoomElement = document.querySelector('.landing_page-zoom');
         zoomElement.style.display = 'none';
     }
+
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
+
+
+
+
 
     // Render
     if (!item) {
@@ -63,9 +70,8 @@ const LandingPage = () => {
                 <div className="landing_page-img" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
                     <img src={item.image} alt={item.category}  />
                     <div className="landing_page-zoom" style={{backgroundImage: `url(${item.image})`}}>
-
                     </div>
-                </div>
+                </div>  
                 <div className="landing_page-content">
                     <div className="landing_page-control">
                         <h4 className="landing_page-title">

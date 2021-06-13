@@ -15,6 +15,7 @@ const Header = () => {
 
     // Component State
     const auth = useSelector(state => state.auth);
+    console.log(auth);
     const { isLoggedIn, user } = auth;
 
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);

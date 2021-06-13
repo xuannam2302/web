@@ -1,23 +1,24 @@
 import axios from "axios";
 
+import authHeader from "./auth-header";
+
 const API_URL = "http://localhost:5000/auth";
 
 class AuthService {
     login(username, password) {
         return axios
-        .post(API_URL + "/login", { username, password })
+            .post(API_URL + "/login", { username, password })
             .then((response) => {
-                if (response.data.token) {
-                    localStorage.setItem("user", JSON.stringify(response.data));
-                }
                 return response.data;
             });
     }
-    
+
     logout() {
-        localStorage.removeItem("user");
+        const token = localStorage.getItem('token-verify');
+        axios.post(API_URL + '/refresh_token/delete', token.refresh_token);
+        localStorage.removeItem("token-verify");
     }
-    
+
     register(username, email, password) {
         return axios.post(API_URL + "/register", {
             username,
@@ -30,6 +31,34 @@ class AuthService {
         return axios.post(API_URL + "/resend_verify", {
             username
         })
+    }
+
+    get_information() {
+        return axios
+            .get(API_URL + "/information", {
+                headers: authHeader()
+            })
+            .then((response) => {
+                return response.data;
+            })
+    }
+
+    refresh_token(id, refresh_token) {
+        return axios
+            .post(API_URL + "/refresh_token", {
+                id,
+                refresh_token
+            })
+            .then(response => response.data)
+            .catch(console.log("Error "))
+    }
+
+    display_all() {
+        return axios
+            .get('http://localhost:5000/manage', {
+                headers: authHeader()
+            })
+            .then((response) => response.data)
     }
 }
 

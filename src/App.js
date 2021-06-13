@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getInformation, refreshToken } from './actions/auth';
+// import {clearMessage} from './actions/message'
 
 import Header from './components/Header';
 import Container from './components/Container';
@@ -20,6 +24,31 @@ import CreateItem from './components/CreateItem';
 import Admin from './components/Admin/Admin';
 
 function App() {
+
+  const dispatch = useDispatch();
+  const message = useSelector(state => state.message);
+  
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token-verify'));
+    console.log(token);
+    if (token) {
+      console.log("Run.......");
+      dispatch(getInformation(token.token));
+    }
+  });
+  
+  
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token-verify'));
+    console.log("message", message);
+    if(message && token) {
+      if(message.msg === 'Token is expired') {
+        dispatch(refreshToken(token.id, token.refresh_token));
+      }
+    }
+  }, [dispatch, message]);
+
+
   return (
     <Router>
       <div className="App">

@@ -18,11 +18,11 @@ import ResendVerify from './ResendVerify';
 
 const Login = () => {
     // Global variables
-    const stopPage = localStorage.getItem('user') !== null;
+    const stopPage = localStorage.getItem('token-verify') !== null;
     const dispatch = useDispatch();
     const history = useHistory();
     const msg = useSelector(state => state.message);
-    console.log(msg);
+    // console.log(msg);
 
     const isResendVerify = msg && msg.msg === 'This account is not verified';
 

@@ -57,6 +57,7 @@ exports.book_create_post = function(req, res, next)  {
 }
 
 
+
 exports.book_update_post = (req, res, next) => {
     console.log(req.body);
     const errors = validationResult(req);
@@ -101,3 +102,4 @@ exports.book_delete_post = function (req, res, next) {
         res.send({ msg: 'Object deleted' });
     })
 }
+

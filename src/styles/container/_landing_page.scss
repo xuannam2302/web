@@ -11,11 +11,12 @@
     }
     @include flexbox(stretch);
     &-img {
+        @include size(25rem, 32rem);
+        padding: 2rem;
         padding-right: 4rem;
-        width: 25rem;
         @include flexbox(center, center);
         img {
-            @include size(25rem, 32rem);
+            @include size(22rem, 28rem);
         }
     }
     &-content {
@@ -148,9 +149,8 @@
         right: 6rem;
         border: 1px solid rgb(24, 158, 255);
         background-repeat: no-repeat;
-        background-size: 80rem;
         z-index: 100;
-        object-fit: contain;
+        background-size: 60rem;
         display: none;
     }
 }
