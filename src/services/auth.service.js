@@ -52,14 +52,6 @@ class AuthService {
             .then(response => response.data)
             .catch(console.log("Error "))
     }
-
-    display_all() {
-        return axios
-            .get('http://localhost:5000/manage', {
-                headers: authHeader()
-            })
-            .then((response) => response.data)
-    }
 }
 
 export default new AuthService();

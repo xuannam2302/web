@@ -187,7 +187,7 @@ const CreateItem = () => {
                 image,
                 book_depository_stars,
                 price,
-                old_price,
+                old_price,  
                 isbn
             }
             dispatch(createItem(newItem));

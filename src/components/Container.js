@@ -10,17 +10,13 @@ import Error from './Error'
 const Container = () => {
     // Global Variables
     const dispatch = useDispatch();
-    
-    const elements = document.querySelectorAll('.container-option-select');
     const data = useSelector(state => state.books);
-    const { search, 
-            sort, 
-            lower_price, 
-            upper_price, 
-            books, 
-            msg, 
-            limit 
-        } = data;
+    const { search,
+        sort,
+        books,
+        msg,
+        limit
+    } = data;
 
     console.log(data); // Debug
     // -- Content -- //
@@ -29,31 +25,38 @@ const Container = () => {
     const [m_upper_price, setM_UpperPrice] = useState('');
     const [page, setPage] = useState(1);
     const handleSelect = (e) => {
-        setM_Sort(e.target.getAttribute('value'));
+        const value = e.target.getAttribute('value');
+        setM_Sort(value);
         setPage(1);
+        dispatch(searchFunction(search, value, m_lower_price, m_upper_price, 1));
     }
     const handlePrice = () => {
-        dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price, page));
+        setPage(1);
+        dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price, 1));
     }
     const handleChangePage = (e) => {
-        setPage(parseInt(e.target.innerText))
+        const value = parseInt(e.target.innerText);
+        setPage(parseInt(e.target.innerText));
+        dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price, value));
     }
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [page])
+
     useEffect(() => {
-        if (m_sort !== undefined) {
-            elements.forEach(item => {
-                item.classList.remove('container-option-select-active');
-                if (item.getAttribute('value') === m_sort) {
-                    item.classList.add('container-option-select-active');
-                }
-            })
-        }
-    }, [elements, m_sort])
+        const elements = document.querySelectorAll('.container-option-select');
+        elements.forEach(item => {
+            item.classList.remove('container-option-select-active');
+            if (item.getAttribute('value') === m_sort) {
+                item.classList.add('container-option-select-active');
+            }
+        })
+    }, [m_sort])
+
     useEffect(() => {
-        dispatch(searchFunction(search, m_sort, lower_price, upper_price, page));
-    }, [dispatch, search, m_sort, lower_price, upper_price, page])
+        dispatch(searchFunction());
+    }, [dispatch])
+
     if (!books.length) {
         if (msg === 'No book required!') {
             return (
@@ -73,17 +76,17 @@ const Container = () => {
                         <div className="container-option">
                             <p className="container-option-title">Đề mục</p>
                             <div className="container-option-group">
-                                <div 
-                                    className="container-option-select container-option-select-active" 
+                                <div
+                                    className="container-option-select container-option-select-active"
                                     value="" onClick={handleSelect}>Mới nhất
                                 </div>
-                                <div 
-                                    className="container-option-select" 
+                                <div
+                                    className="container-option-select"
                                     value="name" onClick={handleSelect}>Tên sách
                                 </div>
-                                <div 
-                                    className="container-option-select" 
-                                    value="author" 
+                                <div
+                                    className="container-option-select"
+                                    value="author"
                                     onClick={handleSelect}>Tên tác giả
                                 </div>
                             </div>
@@ -91,14 +94,14 @@ const Container = () => {
                         <div className="container-option">
                             <p className="container-option-title">Giá</p>
                             <div className="container-option-group">
-                                <div 
-                                    className="container-option-select" 
-                                    value="price" 
+                                <div
+                                    className="container-option-select"
+                                    value="price"
                                     onClick={handleSelect}>Từ thấp đến cao
                                 </div>
-                                <div 
-                                    className="container-option-select" 
-                                    value="price" 
+                                <div
+                                    className="container-option-select"
+                                    value="price"
                                     onClick={handleSelect}>Từ cao đến thấp
                                 </div>
                                 <div className="container-option-select-input">
@@ -118,8 +121,8 @@ const Container = () => {
                                             onChange={(e) => setM_UpperPrice(e.target.value)}
                                         />
                                     </div>
-                                    <button 
-                                        className="container-option-select-input-submit" 
+                                    <button
+                                        className="container-option-select-input-submit"
                                         onClick={handlePrice}>Tìm kiếm
                                     </button>
                                 </div>
@@ -135,17 +138,16 @@ const Container = () => {
                     })}
                 </div>
                 <div className="container-pagination">
-                    <Pagination 
+                    <Pagination
                         count={Math.floor(limit / 20)}
-                        hidePrevButton 
-                        hideNextButton 
-                        page={page} 
-                        onChange={handleChangePage} 
+                        hidePrevButton
+                        hideNextButton
+                        page={page}
+                        onChange={handleChangePage}
                     />
                 </div>
             </div>
         </div>
-
     )
 }
 

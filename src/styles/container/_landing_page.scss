@@ -20,11 +20,13 @@
         }
     }
     &-content {
+        max-width: 40%;
         padding-left: 4rem;
     }
     &-title {
         font-size: 1.8rem;
         font-weight: bold;
+        line-height: 1.2;
     }
     &-author {
         margin-top: 1.3rem;
@@ -67,6 +69,7 @@
         padding: 8px 1.2rem;
         border: 1px solid blue;
         border-radius: 2px;
+        max-width: 37.5rem;
         @include flexbox(stretch, space-between);
     }
     &-code:not(:first-child) {
@@ -105,15 +108,29 @@
                 color: rgb(102, 96, 96);
             }
         }
+        &-btn {
+            font-size: 1.2rem;
+            min-width: 4rem;
+        }
+        &-btn--disable {
+            opacity: 0.8;
+            cursor: default;
+        }
         &-btn, &-label {
             font-weight: 400;
-            font-size: 1.4rem;
             padding: 0.8rem;
             @include bg(rgba(#e5e5e5, 0.7));
             text-align: center;
         }
         &-label {
-            min-width: 4rem;
+            max-width: 4rem;
+            font-size: 1rem;
+            font-size: 1.4rem;
+            border: 1px solid rgba(#ddd, 0.5);
+            transition: all 0.1s ease-in-out;
+        }
+        &-label:focus {
+            border: 1px solid rgb(24,158,255);
         }
         &-btn:nth-child(1) {
             border-top-left-radius: 2px;
