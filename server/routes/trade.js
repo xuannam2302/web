@@ -4,7 +4,7 @@ var trade_controller = require('../controllers/tradeController');
 var authentication = require('../middleware/authentication');
 var authorization = require('../middleware/authorization');
 
-router.get('/cart', authorization.verify_token, authorization.check_user, trade_controller.cart);
+router.get('/cart', trade_controller.cart);
 
 router.post('/add_to_cart', trade_controller.add_to_cart);
 

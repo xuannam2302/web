@@ -18,7 +18,7 @@ exports.book_manage = function (req, res, next) {
         if (!err) {
             var msg;
             if (results.length == 0) msg = "No book required!";
-            res.send({ results });
+            res.send({ token: req.token_info, results });
         }
     });
 };
@@ -42,8 +42,7 @@ exports.book_create_post = function(req, res, next)  {
                         old_price: Number(req.body.old_price), price: Number(req.body.price), last_modified: new Date().toTimeString()});
                     db.collection('book').find({isbn: req.body.isbn}).collation({ locale: "en" }).toArray(function (err, results) {
                         if (!err) {
-                            
-                            res.send({results, msg});
+                            res.send({ results, msg});
                         }
                     });
                 }
@@ -55,8 +54,6 @@ exports.book_create_post = function(req, res, next)  {
         });
     }
 }
-
-
 
 exports.book_update_post = (req, res, next) => {
     console.log(req.body);
