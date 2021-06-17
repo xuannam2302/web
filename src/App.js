@@ -4,7 +4,8 @@ import {
 } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getInformation, refreshToken } from './actions/auth';
+import { getInformation, refreshToken, logout } from './actions/auth';
+import {getCart} from './actions/cart'
 
 import Header from './components/Header';
 import Container from './components/Container';
@@ -20,31 +21,40 @@ import Error from './components/Error';
 import CreateItem from './components/CreateItem';
 
 import Admin from './components/Admin/Admin';
+import Cart from './components/Cart/Cart';
+import CartCheckout from './components/Cart/CartCheckout';
 
 function App() {
 
   const dispatch = useDispatch();
   const message = useSelector(state => state.message);
-  
+
+  const token = JSON.parse(localStorage.getItem('token-verify'));
+  // console.log(message);
+
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token-verify'));
     // console.log(token);
     if (token) {
       dispatch(getInformation(token.token));
-    }
-  });
-  
-  
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token-verify'));
-    console.log("message", message);
-    if(message && token) {
-      if(message.msg === 'Token is expired') {
+      if (message.msg === 'Token is expired') {
         dispatch(refreshToken(token.id, token.refresh_token));
       }
+      else if (message.msg === 'Invalid refresh token') {
+        dispatch(logout());
+      }
     }
-  }, [dispatch, message]);
+  }, [dispatch, token, message]);
 
+  useEffect(() => {
+    dispatch(getCart());
+  }, [dispatch])
+
+  // useEffect(() => {
+  //   // console.log("message ", message);
+  //   if(message && token) {
+
+  //   }
+  // }, [dispatch, message, token]);
 
   return (
     <Router>
@@ -52,6 +62,12 @@ function App() {
         <div className="wrapper">
           <Header />
           <Switch>
+            <Route path="/cart/checkout">
+              <CartCheckout />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
             <Route path="/admin/create">
               <CreateItem />
             </Route>

@@ -12,6 +12,7 @@ const Header = () => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
+    const amount = useSelector(state => state.added_cart.amount);
 
     // Component State
     const auth = useSelector(state => state.auth);
@@ -38,7 +39,9 @@ const Header = () => {
     const linkToRegister = () => {
         history.push('/auth/register');
     }
-
+    const linkToCart = () => {
+        history.push('/cart');
+    }
     // Render
     return (
         <div className="header">
@@ -98,12 +101,19 @@ const Header = () => {
                                             {user.username}
                                         </h3>
                                         <div className="header-setting">
-                                            <i className="fas fa-cog header-config"></i>
-                                            <Menu user={user}/>
+                                            <i className="fas fa-caret-down header-config"></i>
+                                            <Menu user={user} />
                                         </div>
                                     </div>
                                 </>
                             }
+                        </li>
+                        <li
+                            className="header-item-cart"
+                            onClick={linkToCart}
+                        >
+                            <i className="fas fa-shopping-cart"></i>
+                            <span className="header-item-cart-amount">{amount}</span>
                         </li>
                     </ul>
                 </div>

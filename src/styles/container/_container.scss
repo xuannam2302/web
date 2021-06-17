@@ -6,10 +6,9 @@
         @include flexbox(flex-start);
     }
     &-filter {
-        min-height: 50rem;
         border-radius: 2px;
         max-width: 30rem;
-        padding: 2rem;
+        padding: 2rem 2rem 4rem;
         @include bg(rgba(#e5e5e5, 0.7));
         margin-top: 5rem;
         margin-right: 2rem;
@@ -63,7 +62,12 @@
                 margin-bottom: 1rem;
                 input {
                     max-width: 10rem;
-                    padding: 5px;
+                    padding: 5px 8px;
+                    border: 1px solid transparent;
+                    transition: all 0.2s ease-in-out;
+                }
+                input:focus {
+                    border: 1px solid rgb(13, 228, 228);
                 }
                 p {
                     margin: 0 4px;
@@ -73,11 +77,10 @@
             &-submit {
                 border: 1px solid rgba(black, 0.5);
                 @include bg(#e5e5e5);
-                position: absolute;
                 padding: 3px 5px;
-                right: 0;
                 margin-top: 1rem;
                 border-radius: 2px;
+                float: right; // Fix something on here ??
                 opacity: 0.8;
                 &:hover {
                     opacity: 1;

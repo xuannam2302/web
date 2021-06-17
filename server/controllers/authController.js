@@ -144,10 +144,14 @@ exports.refresh_token = function(req, res, next) {
         //localStorage.clear();
         //localStorage.setItem('access_token', token);
         //localStorage.setItem('refresh_token', refresh_token);
-        //console.log('abc');
-        return res.json({token: token, refresh_token: refresh_token});
+        return res.json({token: token, refresh_token: refresh_token, id: req.body.id});
     };
-    res.status(401).json({msg: 'No refresh token provided'});
+    if(!refresh_token) {
+        res.status(401).json({msg: 'No refresh token provided'});
+    }
+    else {
+        res.status(401).json({msg: 'Invalid refresh token'})
+    }
 }
 
 exports.delete_refresh_token = function(req, res, next) {

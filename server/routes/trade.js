@@ -6,7 +6,7 @@ var authorization = require('../middleware/authorization');
 
 router.get('/cart', authorization.verify_token, authorization.check_user, trade_controller.cart);
 
-router.post('/add_to_cart', trade_controller.add_to_cart);
+router.post('/add_to_cart', authorization.verify_token, authorization.check_user, trade_controller.add_to_cart);
 
 router.post('/remove_from_cart', authorization.verify_token, authorization.check_user, trade_controller.remove_from_cart);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import RatingStar from '../util/RatingStar';
+import {changeToLocalePrice} from '../util/ChangeUnit'
 
 const Item = ({ data }) => {
     return (
@@ -31,7 +32,7 @@ const Item = ({ data }) => {
                         <div className="item-control">
                             <div className="item-price">
                                 Giá: <strong>{data.price === null ? 0 : 
-                                data.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                                changeToLocalePrice(data.price)}
                             </strong>
                             </div>
                             {data.old_price !== undefined && data.old_price !== null ? <div className="item-discount">

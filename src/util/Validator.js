@@ -28,4 +28,13 @@ const isLower = (value, lower, currency = "") => {
     return parseFloat(value) < parseFloat(lower) ? `Trường này có giá trị tối thiểu là ${lower} ${currency}` : undefined;
 }
 
-export { isRequired, isEmail, minLength, getErrorTag, isNumber, isLower, isHigher }
+// Input amount in product
+const checkValidAmountOnBlur = (value) => {
+    return (value === '' || parseInt(value) === 0) ? 1 : parseInt(value);
+}
+
+const checkValidAmountOnChange = (value) => {
+    return (value === '' || isNaN(value)) ? '' : parseInt(value);
+}
+
+export { isRequired, isEmail, minLength, getErrorTag, isNumber, isLower, isHigher, checkValidAmountOnBlur, checkValidAmountOnChange }

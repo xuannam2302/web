@@ -112,7 +112,7 @@ export const getInformation = () => (dispatch) => {
     return AuthService.get_information()
         .then(
             (data) => {
-                // console.log(data);
+                console.log(data);
                 dispatch({
                     type: GET_INFORMATION,
                     payload: { user: data },
@@ -135,6 +135,9 @@ export const refreshToken = (id, refresh_token) => (dispatch) => {
     return AuthService.refresh_token(id, refresh_token)
         .then(
             (data) => {
+
+                console.log("refresh token here");
+
                 localStorage.removeItem('token-verify');
                 localStorage.setItem('token-verify', JSON.stringify(data));
 

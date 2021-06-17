@@ -29,7 +29,7 @@ exports.add_to_cart = function(req, res, next) {
                 Trader.updateOne(
                     {user_id: req.user_id},
                     {
-                        $addToSet: {
+                        $push: {
                             'added_items': {
                                 'book_id': book.book_id,
                                 'quantity': book.quantity,
@@ -37,7 +37,9 @@ exports.add_to_cart = function(req, res, next) {
                             }
                         }
                     },
-                    (err, results) => {}
+                    (err, results) => {
+                        console.log(1, err, results)
+                    }
                 )
             }
             else {
@@ -47,7 +49,9 @@ exports.add_to_cart = function(req, res, next) {
                         $inc: {'added_items.$.quantity': book.quantity},
                         $set: {'added_items.$.update_at': new Date()}
                     },
-                    (err, results) => {}
+                    (err, results) => {
+                        console.log(2, err, results)
+                    }
                 )
             }
         })

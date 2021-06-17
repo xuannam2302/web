@@ -4,15 +4,25 @@ import { findLandingPage } from '../actions/books';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import {addToCart} from '../actions/cart'
+
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import RatingStar from '../util/RatingStar';
 
+import { checkValidAmountOnBlur, checkValidAmountOnChange } from '../util/Validator'
+import {changeToLocalePrice } from '../util/ChangeUnit'
+
+import { toast } from 'react-toastify';
+import ToastNotify from '../util/ToastNotify';
+import Toast from '../util/Toast'
 
 const LandingPage = () => {
     // Global Variables
     const dispatch = useDispatch();
     const item = useSelector(state => state.item);
+
+    const successAddToCart = ()  => toast.success(<Toast state="Successfully" desc="Thêm vào giỏ hàng thành công"/>)
 
     // Component State
     const [amount, setAmount] = useState(1);
@@ -34,7 +44,7 @@ const LandingPage = () => {
         const { left, top, width, height } = e.target.getBoundingClientRect();
         const x = (e.pageX - left) / width * 100;
         const y = (e.pageY - top) / height * 100;
-        
+
         zoomElement.style.display = 'block';
         zoomElement.style.backgroundPosition = `${x}% ${y}%`
 
@@ -44,20 +54,18 @@ const LandingPage = () => {
         zoomElement.style.display = 'none';
     }
     const handleAmountChange = (e) => {
-        const valueSring = e.target.value;
-        if(valueSring === '' || isNaN(valueSring)) {
-            setAmount('');
-        }
-        else {
-            setAmount(parseInt(e.target.value));
-        }
+        setAmount(checkValidAmountOnChange(e.target.value));
     }
-    const handleKBlurAmount = (e) => {
-        const valueString = e.target.value;
-        console.log(valueString);
-        if(valueString === '' || parseInt(valueString) === 0) {
-            setAmount(1);
-        }
+    const handleBlurAmount = (e) => {
+        setAmount(checkValidAmountOnBlur(e.target.value));
+    }
+    const handleAddToCart = () => {
+        const item = {book_id: _id, quantity: amount};
+        const send_request = [];
+        send_request.push(item);
+
+        dispatch(addToCart(send_request));
+        successAddToCart();
     }
     useEffect(() => {
         dispatch(findLandingPage(_id));
@@ -78,10 +86,10 @@ const LandingPage = () => {
         <div className="container">
             <div className="landing_page">
                 <div className="landing_page-img" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-                    <img src={item.image} alt={item.category}  />
-                    <div className="landing_page-zoom" style={{backgroundImage: `url(${item.image})`}}>
+                    <img src={item.image} alt={item.category} />
+                    <div className="landing_page-zoom" style={{ backgroundImage: `url(${item.image})` }}>
                     </div>
-                </div>  
+                </div>
                 <div className="landing_page-content">
                     <div className="landing_page-control">
                         <h4 className="landing_page-title">
@@ -103,10 +111,10 @@ const LandingPage = () => {
                     </div>
                     <div className="landing_page-control">
                         <div className="landing_page-new-price">
-                            Giá: <strong>{item.price === undefined ? 0 : item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong>
+                            Giá: <strong>{item.price === undefined ? 0 : changeToLocalePrice(item.price)}</strong>
                         </div>
                         {item.old_price !== undefined && item.old_price !== null ? <div className="landing_page-old-price">
-                            {item.old_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                            {changeToLocalePrice(item.old_price)}
                         </div> : <></>}
                         {item.old_price !== undefined && item.old_price !== null ? <div className="landing_page-discount">
                             <strong>-{Math.ceil((1 - item.price / item.old_price) * 100)}%</strong>
@@ -132,11 +140,11 @@ const LandingPage = () => {
                             <button className={`landing_page-amount-btn ${amount === 1 ? "landing_page-amount-btn--disable" : null}`} onClick={handleAmountMinus}>
                                 <i className="fas fa-minus"></i>
                             </button>
-                            <input 
-                                className="landing_page-amount-label" 
-                                value={amount} 
+                            <input
+                                className="landing_page-amount-label"
+                                value={amount}
                                 onChange={handleAmountChange}
-                                onBlur={handleKBlurAmount}
+                                onBlur={handleBlurAmount}
                                 required
                             />
                             <button className="landing_page-amount-btn" onClick={handleAmountPlus}>
@@ -144,13 +152,14 @@ const LandingPage = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="landing_page-shopping">
+                    <div className="landing_page-shopping" onClick={handleAddToCart}>
                         <button className="landing_page-shopping-btn">
                             Chọn mua
                         </button>
                     </div>
                 </div>
             </div>
+            <ToastNotify />
         </div>
     )
 }
