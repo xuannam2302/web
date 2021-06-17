@@ -84,8 +84,8 @@ exports.resend_verify = function(req, res, next) {
 
 var refresh_tokens = {};
 
-exports.login = function(req, res, next) {
-    User.findOne({username: req.body.username}).exec((err, user) => {
+exports.login = async(req, res, next) => {
+    User.findOne({username: req.body.username}).exec(async(err, user) => {
         if(!user) {
             // res.status(400).send({msg: "Incorrect Username or Password"});
             return res.status(400).json({status: 400, message: "Incorrect Username or Password"});
@@ -107,12 +107,13 @@ exports.login = function(req, res, next) {
         //localStorage.setItem('access_token', token);
         //localStorage.setItem('refresh_token', refresh_token)
         refresh_tokens[refresh_token] = user.id;
-        Trader.findOneAndUpdate(
-            {user_id: user.id},
-            {},
-            {upsert: true}, 
-            (err, trader) => {}
-        )
+        var trader = await Trader.findOne({user_id: user.id});
+        if(!trader) {
+            trader = new Trader({
+                user_id: user.id
+            });
+            await trader.save();
+        }
         res.json({
             send_back: {
                 id: user.id,

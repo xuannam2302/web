@@ -48,20 +48,18 @@ exports.deliver_list = function(req, res, next) {
     })   
 }
 
-exports.quantity = function(req, res, next) {
-    Trader.aggregate([
-        { 
-            "$project": {
-                "user_id": req.user_id,
-                "count": {
-                    "$sum": "$added_items.quantity"
-                }
+exports.quantity = async(req, res, next) => {
+    var trader = await Trader.aggregate([
+        {$match: {user_id: new ObjectId(req.user_id)}},
+        {$unwind: '$added_items'},
+        {
+            $group: {
+                _id: null,
+                count: {$sum: '$added_items.quantity'}
             }
-        }
-    ]).exec((err, result) => {
-        if(err) return res.json(err);
-        return res.json({quantity: result[0].count});
-    }) 
+        }        
+    ])
+    res.json({quantity: trader[0].count});
 }
 
 exports.add_to_cart = async(req, res, next) => {
