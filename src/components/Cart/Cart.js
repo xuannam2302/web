@@ -12,8 +12,10 @@ const Cart = () => {
 
     const dispatch = useDispatch();
     const added_cart = useSelector(state => state.added_cart);
+    // const price_temp = useSelector(state => state.price_temp);
 
-    const { amount, cart, total_price, discount_price } = added_cart;
+    // const {} = price_temp;
+    const { discount_price, total_price, amount, cart } = added_cart;
 
     useEffect(() => {
         dispatch(getCart());

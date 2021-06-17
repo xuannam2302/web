@@ -4,12 +4,21 @@ import authHeader from './auth-header'
 const API_URL = 'http://localhost:5000/trade'
 
 class CartService {
+    // Added Cart
     get_cart() {
         return axios
             .get(API_URL + '/cart', {
                 headers: authHeader()
             })
             .then(response => response.data);
+    }
+    // Order cart
+    get_ordered_cart() {
+        return axios
+                .get(API_URL + '/order_list', { 
+                    headers: authHeader()
+                })
+                .then(response => response.data);
     }
 
     add_to_cart(book_list) {

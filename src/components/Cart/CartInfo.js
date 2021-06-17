@@ -4,6 +4,16 @@ import CartAddress from './CartAddress'
 
 
 const CartInfo = ({ total_price, discount_price, handleOrderCart, isOrder }) => {
+
+    if (isOrder) {
+        return (
+            <div className="cart-info">
+                <CartAddress />
+                <CartCast total_price={total_price} discount_price={discount_price} isOrder={isOrder} />
+            </div>
+        )
+    }
+
     return (
         <div className="cart-info">
             <CartAddress />

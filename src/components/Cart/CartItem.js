@@ -1,6 +1,12 @@
 import React, { useState, useRef } from 'react'
 
-import { CHANGE_AMOUNT, GET_PSEUDO_CART, REMOVE_FROM_CART } from '../../constants/actionType'
+import {
+    CHANGE_AMOUNT,
+    GET_PSEUDO_CART,
+    REMOVE_CHECKED,
+    REMOVE_FROM_CART,
+
+} from '../../constants/actionType'
 
 import { changeToLocalePrice } from '../../util/ChangeUnit'
 import { checkValidAmountOnBlur, checkValidAmountOnChange } from '../../util/Validator'
@@ -8,11 +14,12 @@ import { useDispatch } from 'react-redux'
 
 import { addToCart, removeFromCart } from '../../actions/cart'
 
-const CartItem = ({ item, isOrder }) => {
+const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
     const dispatch = useDispatch();
 
     const [amount, setAmount] = useState(item.quantity);
     const amountRef = useRef(item.quantity);
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleMinus = () => {
         if (amount > 1) {
@@ -21,7 +28,8 @@ const CartItem = ({ item, isOrder }) => {
             const bookList = [{ book_id: item._id, quantity: -1 }];
             dispatch(addToCart(bookList));
             dispatch({ type: CHANGE_AMOUNT, payload: { _id: item._id, quantity: -1 } });
-            dispatch({ type: GET_PSEUDO_CART });
+
+            dispatch({ type: GET_PSEUDO_CART })
         }
     }
     const handlePlus = () => {
@@ -30,7 +38,8 @@ const CartItem = ({ item, isOrder }) => {
         const bookList = [{ book_id: item._id, quantity: 1 }];
         dispatch(addToCart(bookList));
         dispatch({ type: CHANGE_AMOUNT, payload: { _id: item._id, quantity: 1 } });
-        dispatch({ type: GET_PSEUDO_CART });
+
+        dispatch({ type: GET_PSEUDO_CART })
     }
     const handleAmountChange = (e) => {
         const value = checkValidAmountOnChange(e.target.value);
@@ -39,23 +48,40 @@ const CartItem = ({ item, isOrder }) => {
     const handleAmountBlur = (e) => {
         const value = checkValidAmountOnBlur(e.target.value);
         setAmount(value);
+
         const bookList = [{ book_id: item._id, quantity: value - amountRef.current }];
         dispatch(addToCart(bookList));
         dispatch({ type: CHANGE_AMOUNT, payload: { _id: item._id, quantity: value - amountRef.current } });
-        dispatch({ type: GET_PSEUDO_CART });
-        console.log(value - amountRef.current);
+
+        dispatch({ type: GET_PSEUDO_CART })
+
         amountRef.current = value;
     }
     const handleDelete = () => {
         const bookList = [{ book_id: item._id }];
-        dispatch(removeFromCart(bookList));
-        dispatch({ type: REMOVE_FROM_CART, payload: item._id });
+        // dispatch(removeFromCart(bookList));
+        dispatch({ type: REMOVE_FROM_CART, payload: bookList });
+        dispatch({ type: REMOVE_CHECKED, payload: [item._id] });
         dispatch({ type: GET_PSEUDO_CART });
     }
 
     return (
         <div className="cart-item">
             <div className="cart-item-container">
+                {!isOrder ?
+                    <input
+                        type="checkbox"
+                        className="cart-item-choose"
+                        id={item._id}
+                        name="items[]"
+                        value={amount}
+                        checked={isChecked}
+                        onChange={() => { setIsChecked(!isChecked); handleCheckboxItem() }}
+                    />
+                    :
+                    <>
+                    </>
+                }
                 <img
                     src={item.image}
                     alt={item.name}
@@ -107,10 +133,10 @@ const CartItem = ({ item, isOrder }) => {
                     <div className="cart-item-control-handle">
                         <button className="cart-item-control-delete" onClick={handleDelete}>
                             Xóa
-                    </button>
+                        </button>
                         <button className="cart-item-control-shop-later">
                             Để dành mua sau
-                    </button>
+                        </button>
                     </div>
                 </div>
 

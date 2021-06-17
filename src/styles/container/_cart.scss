@@ -28,11 +28,28 @@
             }
         }
     }
+    &-choose-option {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        @include flexbox(center, space-between);
+        padding: 1.2rem 1rem;
+        border: 2px solid #e5e5e5;
+        border-radius: 1rem;
+        max-width: 66%;
+    }
+    &-choose-all {
+        @include flexbox(center, center);
+        padding-left: 1rem;
+        cursor: pointer;
+    }
+    &-choose-all-text {
+        margin-left: 2rem;
+    }
     &-container {
         @include flexbox();
     }
     &-list {
-        padding: 5rem 3rem 5rem 4rem;
+        padding: 5rem 3rem 5rem 2rem;
         border-radius: 1rem;
         border: 2px solid #e5e5e5;
         flex: 2;
@@ -47,8 +64,13 @@
             @include flexbox(flex-start);
             width: 60%;
         }
+        &-choose {
+            align-self: center;
+            margin-right: 2rem;
+        }
         &-img {
             @include size(15rem, 20rem);
+            margin-left: 2rem;
             margin-right: 4rem;
         }
         &-content {

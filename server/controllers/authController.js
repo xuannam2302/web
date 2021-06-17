@@ -101,7 +101,7 @@ exports.login = function(req, res, next) {
             return res.status(400).json({status: 400, message: "This account is not verified"});
         }
         var token = jwt.sign({id: user.id}, secret_key, {
-            expiresIn: 60 * 60 * 12
+            expiresIn: 60 * 60 *12,
         });
         var refresh_token = jwt.sign({id: user.id}, refresh_key);
         //localStorage.setItem('access_token', token);
@@ -132,7 +132,6 @@ exports.login = function(req, res, next) {
 };
 
 exports.refresh_token = function(req, res, next) {
-    //var refresh_token = localStorage.getItem('refresh_token');
     var refresh_token = req.body.refresh_token;
     if((refresh_token in refresh_tokens) && (refresh_tokens[refresh_token] == req.body.id)) {
         var token = jwt.sign({id: req.body.id}, secret_key, {
@@ -141,16 +140,13 @@ exports.refresh_token = function(req, res, next) {
         delete refresh_tokens[refresh_token];
         refresh_token = jwt.sign({id: req.body.id}, refresh_key);
         refresh_tokens[refresh_token] = req.body.id;
-        //localStorage.clear();
-        //localStorage.setItem('access_token', token);
-        //localStorage.setItem('refresh_token', refresh_token);
         return res.json({token: token, refresh_token: refresh_token, id: req.body.id});
-    };
-    if(!refresh_token) {
-        res.status(401).json({msg: 'No refresh token provided'});
+    }
+    else if(!refresh_token) {
+        return res.json({msg: 'No refresh token provided'});
     }
     else {
-        res.status(401).json({msg: 'Invalid refresh token'})
+        return res.json({msg: 'Invalid refresh token'});
     }
 }
 
@@ -177,3 +173,5 @@ exports.get_information = function(req, res, next) {
         })
     })
 }
+
+exports.refresh_tokens = refresh_tokens;

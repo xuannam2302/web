@@ -19,12 +19,16 @@ export const REFRESH_TOKEN = "REFRESH_TOKEN";
 
 // Cart
 export const GET_ADDED_CART = "GET_ADDED_CART";
+export const GET_ORDERED_CART = "GET_ORDERED_CART"
 export const GET_PSEUDO_CART = "GET_PSEUDO_CART";
 export const CHANGE_AMOUNT = "CHANGE_AMOUNT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const CART_ORDER = "CART_ORDER";
 export const CANCEL_ORDER = "CANCEL_ORDER"; 
+
+export const CHECKED_ITEM = "CHECKED_ITEM";
+export const REMOVE_CHECKED = "REMOVE_CHECKED";
 
 // Message
 export const SET_MESSAGE = "SET_MESSAGE";

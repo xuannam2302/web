@@ -40,7 +40,6 @@ exports.Trader = mongoose.model(
             create_at: Date,
         }],
         delivered_items: [{
-            _id: false, 
             book_id: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Book',
@@ -49,6 +48,7 @@ exports.Trader = mongoose.model(
                 type: Number, 
                 default: 0
             },
+            create_at: Date,
         }],
     }),
     'traders'
