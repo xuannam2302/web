@@ -53,3 +53,4 @@ exports.Trader = mongoose.model(
     }),
     'traders'
 );
+
