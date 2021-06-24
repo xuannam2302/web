@@ -2,11 +2,11 @@ import CartService from '../services/cart.service'
 
 import {
     GET_ADDED_CART,
-    REMOVE_FROM_CART,
-    CART_ORDER,
     CANCEL_ORDER,
     SET_MESSAGE,
     GET_ORDERED_CART,
+    GET_QUANTITY,
+    RESET_QUANTITY,
 } from '../constants/actionType'
 
 import showErrorMessage from './general'
@@ -37,8 +37,8 @@ export const getOrderedCart = () => (dispatch) => {
         (data) => {
 
             console.log(data);
-            dispatch({ type: GET_ORDERED_CART, payload: data});
-            
+            dispatch({ type: GET_ORDERED_CART, payload: data });
+
             return Promise.resolve();
         },
         (error) => {
@@ -55,6 +55,10 @@ export const addToCart = (bookList) => (dispatch) => {
         (data) => {
 
             console.log(data);
+
+            const { quantity } = data;
+
+            dispatch({ type: GET_QUANTITY, payload: quantity })
 
             return Promise.resolve();
         },
@@ -101,5 +105,31 @@ export const orderedCart = (bookList) => (dispatch) => {
 
             return Promise.reject();
         }
+    )
+}
+
+export const getQuantity = () => (dispatch) => {
+    return CartService.get_quantity().then(
+        (data) => {
+            console.log(data);
+            
+            if(data) {
+                const { quantity } = data;
+                dispatch({ type: GET_QUANTITY, payload: quantity });
+            }
+            else {
+                dispatch({ type: RESET_QUANTITY})
+            }
+
+            return Promise.resolve();
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+
+            dispatch({ type: SET_MESSAGE, payload: message })
+
+            return Promise.reject();
+        }
+
     )
 }

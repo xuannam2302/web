@@ -5,7 +5,6 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { getInformation, refreshToken, logout } from './actions/auth';
-import {getCart} from './actions/cart'
 
 import Header from './components/Header';
 import Container from './components/Container';
@@ -20,41 +19,35 @@ import Footer from './components/Footer';
 import Error from './components/Error';
 import CreateItem from './components/CreateItem';
 
+import LuckyDraw from './components/Promotion/LuckyDraw';
+import UserWheel from './components/Promotion/UserWheel';
+import FireWork from './components/Promotion/FireWork';
+
 import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
+import { RESET_QUANTITY } from './constants/actionType';
 
 function App() {
 
   const dispatch = useDispatch();
   const message = useSelector(state => state.message);
 
-  const token = JSON.parse(localStorage.getItem('token-verify'));
   // console.log(message);
 
   useEffect(() => {
-    // console.log(token);
+    const token = JSON.parse(localStorage.getItem('token-verify'));
     if (token) {
       dispatch(getInformation(token.token));
       if (message.msg === 'Token is expired') {
         dispatch(refreshToken(token.id, token.refresh_token));
       }
-      else if (message.msg === 'Invalid refresh token') {
+      if (message.msg === 'Invalid refresh token') {
         dispatch(logout());
+        dispatch({ type: RESET_QUANTITY });
       }
     }
-  }, [dispatch, token, message]);
-
-  useEffect(() => {
-    dispatch(getCart());
-  }, [dispatch])
-
-  // useEffect(() => {
-  //   // console.log("message ", message);
-  //   if(message && token) {
-
-  //   }
-  // }, [dispatch, message, token]);
+  }, [dispatch, message]);
 
   return (
     <Router>
@@ -62,6 +55,15 @@ function App() {
         <div className="wrapper">
           <Header />
           <Switch>
+            <Route path="/promotion/firework">
+              <FireWork />
+            </Route>
+            <Route path="/promotion/luckydraw">
+              <LuckyDraw />
+            </Route>
+            <Route path="/promotion/wheel">
+              <UserWheel />
+            </Route>
             <Route path="/cart/checkout">
               <CartCheckout />
             </Route>

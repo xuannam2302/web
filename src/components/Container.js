@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { searchFunction } from '../actions/books'
+
 import Item from './Item'
 import Loading from './Loading'
-import Pagination from '@material-ui/lab/Pagination';
 import Error from './Error'
+import Slider from './Sliders/Slider'
+
+import Pagination from '@material-ui/lab/Pagination';
 
 const Container = () => {
     // Global Variables
@@ -69,6 +72,7 @@ const Container = () => {
     }
     return (
         <div className="container">
+            <Slider />
             <div className="container-main">
                 <div className="container-filter">
                     <p className="container-label">Sắp xếp theo</p>

@@ -1,0 +1,230 @@
+.box-1 {
+    background: red;
+}
+
+.box-2 {
+    background: yellow;
+}
+
+.box-3 {
+    background: rgb(145, 226, 219);
+}
+
+.box-4 {
+    background: blue;
+}
+
+.box-5 {
+    background: deeppink;
+}
+
+.box-6 {
+    background: rgb(86, 255, 71);
+}
+
+#box {
+    width: 200px;
+    min-height: 4rem;
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: bold;
+    @include flexbox(center, center);
+    border: 1px solid #e5e5e5;
+    background: rgb(238, 255, 0);
+    will-change: transform;
+
+    // position: relative;
+    // &:before {
+    //     content: "";
+    //     position: absolute;
+    //     height: 4rem;
+    //     width: 2px;
+    //     background: red;
+    //     right: -17px;
+    //     bottom: -12px;
+    //     transform-style: preserve-3d;
+    //     transform: rotate(0deg, 0deg, -60deg);
+    //     z-index: 2;
+    // }
+}
+
+.box-container {
+    position: relative;
+    list-style: none;
+    height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.luckydraw-container {
+    padding: 8rem 0;
+    position: relative;
+    @include flexbox();
+}
+
+.tear-container {
+    // position: absolute;
+    // top: 40%;
+    margin-bottom: 3rem;
+    margin-left: 20rem;
+    transform: rotate(-90deg);
+    will-change: transform;
+    // animation: tear-move 0.5s linear infinite, tear-move 1s 3s 1, tear-stop 0.5s 4s linear infinite;
+}
+
+.tear-lucky {
+    clip-path: polygon(50% 0%, 13% 100%, 89% 100%);
+    @include size(5rem);
+    @include bg(red);
+}
+
+.tear-lucky-down {
+    clip-path: circle(38% at 51% 100%);
+    @include size(5rem);
+    @include bg(red);
+    transform: rotate(180deg);
+    margin-left: 1px;
+}
+
+.btn-control {
+    @include size(10rem);
+    margin-top: 15rem;
+}
+
+.luckydraw-btn {
+    clip-path: circle(50% at 50% 50%);
+    @include size(5rem);
+    font-weight: bold;
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.btn-start {
+    @include bg(rgb(0, 225, 255));
+}
+
+.btn-stop {
+    @include bg(tomato);
+}
+
+@keyframes tear-move {
+    0% {
+        transform: rotate(-90deg);
+    }
+    25% {
+        transform: rotate(-95deg);
+    }
+    50% {
+        transform: rotate(-100deg);
+    }
+    75% {
+        transform: rotate(-95deg);
+    }
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes tear-slow {
+    0% {
+        transform: rotate(-95deg);
+    }
+    50% {
+        transform: rotate(-97.5deg);
+    }
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes tear-stop {
+    0% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
+@keyframes down-1 {
+    0% {
+        transform: translateY(0%);
+    }
+    50% {
+        transform: translateY(2000px);
+    }
+    80% {
+        transform: translateY(2800px);
+    }
+    100% {
+        transform: translateY(3000px);
+    }
+}
+
+.display {
+    &-winner {
+        margin-left: 10rem;
+        border-radius: 1rem;
+        text-align: center;
+        padding: 2rem 3rem;
+        border: 1px solid #e5e5e5;
+    }
+    &-title {
+        margin-top: 2rem;
+        font-weight: bold;
+        font-size: 2rem;
+    }   
+}
+
+.display {
+    @include flexbox(stretch, center);
+}
+
+.first-prize,
+.second-prize,
+.third-prize {
+    @include flexbox(stretch, space-between);
+    margin: 2rem 0;
+    font-size: 1.4rem;
+    .number {
+        font-weight: bold;
+    }
+    .list {
+        @include flexbox(flex-start, space-between, column);
+        span:not(:first-child) {
+            margin-top: 1.2rem;
+        }
+    }
+}
+
+.display-config {
+    margin-top: 5rem;
+    margin-left: 8rem;
+    span {
+        font-size: 2rem;
+        font-weight: bold;
+        color: rgba(255, 0, 0, 0.836);
+        text-shadow: 2px 2px 4px yellow;
+    }
+    &-title {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
+
+.config-prize-control {
+    margin: 2rem 0;
+}
+
+.config {
+    &-text {
+        margin-right: 1.2rem;
+    }
+    &-amount {
+        float: right;
+    }
+}

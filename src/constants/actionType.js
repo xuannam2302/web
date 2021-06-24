@@ -30,6 +30,9 @@ export const CANCEL_ORDER = "CANCEL_ORDER";
 export const CHECKED_ITEM = "CHECKED_ITEM";
 export const REMOVE_CHECKED = "REMOVE_CHECKED";
 
+export const GET_QUANTITY = "GET_QUANTITY";
+export const RESET_QUANTITY = "RESET_QUANTITY";
+
 // Message
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";

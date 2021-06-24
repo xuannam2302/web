@@ -12,14 +12,13 @@ import { changeToLocalePrice } from '../../util/ChangeUnit'
 import { checkValidAmountOnBlur, checkValidAmountOnChange } from '../../util/Validator'
 import { useDispatch } from 'react-redux'
 
-import { addToCart, removeFromCart } from '../../actions/cart'
+import { addToCart, removeFromCart, getQuantity } from '../../actions/cart'
 
 const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
     const dispatch = useDispatch();
 
     const [amount, setAmount] = useState(item.quantity);
     const amountRef = useRef(item.quantity);
-    const [isChecked, setIsChecked] = useState(false);
 
     const handleMinus = () => {
         if (amount > 1) {
@@ -28,7 +27,6 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
             const bookList = [{ book_id: item._id, quantity: -1 }];
             dispatch(addToCart(bookList));
             dispatch({ type: CHANGE_AMOUNT, payload: { _id: item._id, quantity: -1 } });
-
             dispatch({ type: GET_PSEUDO_CART })
         }
     }
@@ -38,7 +36,6 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
         const bookList = [{ book_id: item._id, quantity: 1 }];
         dispatch(addToCart(bookList));
         dispatch({ type: CHANGE_AMOUNT, payload: { _id: item._id, quantity: 1 } });
-
         dispatch({ type: GET_PSEUDO_CART })
     }
     const handleAmountChange = (e) => {
@@ -52,17 +49,23 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
         const bookList = [{ book_id: item._id, quantity: value - amountRef.current }];
         dispatch(addToCart(bookList));
         dispatch({ type: CHANGE_AMOUNT, payload: { _id: item._id, quantity: value - amountRef.current } });
-
         dispatch({ type: GET_PSEUDO_CART })
 
         amountRef.current = value;
     }
     const handleDelete = () => {
         const bookList = [{ book_id: item._id }];
-        // dispatch(removeFromCart(bookList));
+        dispatch(removeFromCart(bookList));
         dispatch({ type: REMOVE_FROM_CART, payload: bookList });
         dispatch({ type: REMOVE_CHECKED, payload: [item._id] });
         dispatch({ type: GET_PSEUDO_CART });
+        dispatch(getQuantity())
+    }
+
+    const changeTime = () => {
+        let date = new Date(item.create_at);
+        const time = date.toISOString().substring(0, 10).split('-').reverse().join('/');
+        return time;
     }
 
     return (
@@ -75,8 +78,7 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
                         id={item._id}
                         name="items[]"
                         value={amount}
-                        checked={isChecked}
-                        onChange={() => { setIsChecked(!isChecked); handleCheckboxItem() }}
+                        onChange={handleCheckboxItem}
                     />
                     :
                     <>
@@ -98,13 +100,24 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
                         <div className="cart-item-new-price">
                             Giá: <strong>{item.price === undefined ? 0 : changeToLocalePrice(item.price)}</strong>
                         </div>
-                        {item.old_price !== undefined && item.old_price !== null ? <div className="cart-item-old-price">
-                            {changeToLocalePrice(item.old_price)}
-                        </div> : <></>}
-                        {item.old_price !== undefined && item.old_price !== null ? <div className="cart-item-discount">
-                            <strong>-{Math.ceil((1 - item.price / item.old_price) * 100)}%</strong>
-                        </div> : <></>}
+                        {!isOrder &&
+                            <>
+                                {item.old_price !== undefined && item.old_price !== null ? <div className="cart-item-old-price">
+                                    {changeToLocalePrice(item.old_price)}
+                                </div> : <></>}
+                                {item.old_price !== undefined && item.old_price !== null ? <div className="cart-item-discount">
+                                    <strong>-{Math.ceil((1 - item.price / item.old_price) * 100)}%</strong>
+                                </div> : <></>}
+
+                            </>
+                        
+                        }
                     </div>
+                    {isOrder &&
+                        <div className="cart-item-order-date" style={{marginTop: '2rem'}}>
+                            <span style={{fontWeight: 'bold'}}>Ngày đặt hàng: </span>{changeTime()}
+                        </div>
+                    }
                 </div>
             </div>
 

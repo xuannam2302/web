@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const CartPayment = () => {
+const CartPayment = ({handleOrderCart}) => {
 
     const [payment, setPayment] = useState('');
     const handleClickPayment = (e) => {
@@ -31,6 +31,7 @@ const CartPayment = () => {
             errorMessageElement.style.display = 'block';
         }
         else {
+            handleOrderCart();
             console.log("Successfully");
         }
     }

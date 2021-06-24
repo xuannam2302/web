@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { searchFunction } from '../actions/books'
+
+import { getQuantity } from '../actions/cart'
 
 import Menu from './Profile/Menu';
 
@@ -12,13 +14,18 @@ const Header = () => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
-    const amount = useSelector(state => state.added_cart.amount);
+    const amount = useSelector(state => state.get_quantity);
 
-    // Component State
     const auth = useSelector(state => state.auth);
-    // console.log(auth);
     const { isLoggedIn, user } = auth;
-
+    
+    useEffect(() => {
+        dispatch(getQuantity());
+    }, [dispatch, isLoggedIn])
+    
+    // console.log(auth);
+    
+    // Component State
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
 

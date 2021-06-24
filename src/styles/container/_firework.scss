@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+.firework-content {
+    @include flexbox(center, center);
+}
+
+.firework-container {
+    background-color: #f0ede5;
+    position: relative;
+    width: 100%;
+    &-hidden {
+        display: none;
+    }
+}
+
+$count: 20;
+$frame-list: firework-sm, firework-md, firework-lg;
+@for $i from 1 through $count {
+    .firework-#{$i} {
+        animation: nth($frame-list, random(3)) 0.8s both 5;
+        animation-delay: #{random($count) * 0.1}s;
+        @if $i % 2 != 0 {
+            top: random(16) * 5% + 20%;
+            left: random(16) * 5% + 20%;
+        }
+        @else {
+            top: random(16) * 5% - 100%;
+            left: random(16) * 5% - 100%;
+        }
+        
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+    }
+}
+
+// dots generator
+@function dots($r) {
+    $result: ();
+    // straight
+    @for $i from 1 through 4 {
+        $x: 0;
+        $y: 0;
+        @if $i <= 2 {
+            $x: $r;
+        } @else {
+            $y: $r;
+        }
+        @if $i % 2 != 0 {
+            $x: -$x;
+            $y: -$y;
+        }
+        $result: append($result, #{$x}rem #{$y}rem 0 tomato, comma);
+    }
+    // diagonal
+    @for $i from 1 through 4 {
+        $dist2: $r * 0.7;
+        $x: $dist2;
+        $y: $dist2;
+        @if $i > 2 {
+            $x: -$x;
+        }
+        @if $i % 2 != 0 {
+            $y: -$y;
+        }
+        $result: append($result, #{$x}rem #{$y}rem 0 rgba(3, 169, 244, 0.5), comma);
+    }
+    @return $result;
+}
+
+// firework animation
+@mixin fireworkSize($name, $r) {
+    @keyframes firework-#{$name} {
+        0%,
+        100% {
+            opacity: 0;
+        }
+        10%,
+        70% {
+            opacity: 1;
+        }
+        100% {
+            box-shadow: dots($r);
+        }
+    }
+}
+@include fireworkSize(sm, 3);
+@include fireworkSize(md, 5);
+@include fireworkSize(lg, 7);

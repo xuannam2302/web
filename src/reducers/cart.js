@@ -6,6 +6,8 @@ import {
     REMOVE_FROM_CART,
     CHECKED_ITEM,
     REMOVE_CHECKED,
+    GET_QUANTITY,
+    RESET_QUANTITY,
 
 } from '../constants/actionType'
 
@@ -116,17 +118,24 @@ const added_cart = (state = initialStateAddedCart, action) => {
         }
         case REMOVE_FROM_CART: {
             const book_list = action.payload;
+            let newCart = [];
+            
             for (let i = 0; i < state.cart.length; i++) {
+                let check = false;
                 for (let j = 0; j < book_list.length; j++) {
                     if (book_list[j].book_id === state.cart[i]._id) {
-                        state.cart.splice(i, 1);
+                        check = true;
                         break;
                     }
                 }
+                if(!check) {
+                    newCart.push(state.cart[i]);
+                }
             }
-            
+
             return {
-                ...state
+                ...state,
+                cart: newCart
             }
         }
         default:
@@ -148,9 +157,10 @@ const ordered_cart = (state = initialStateOrderedCart, action) => {
             const book_list = items;
             const { total_price, discount_price, books } = book_list.reduce((acc, item) => {
                 if (item.book_id) {
-                    const { quantity, book_id } = item;
+                    const { quantity, book_id, create_at } = item;
+                    console.log(item);
                     const { old_price, price, author, name, image, _id } = book_id;
-                    const book = { _id, old_price, price, author, name, image, quantity };
+                    const book = { _id, old_price, price, author, name, image, quantity, create_at };
 
                     acc.books.push(book);
                     acc.discount_price = acc.discount_price + (old_price ? (old_price - price) * quantity : 0);
@@ -178,4 +188,17 @@ const ordered_cart = (state = initialStateOrderedCart, action) => {
     }
 }
 
-export { added_cart, ordered_cart };
+const initialQuantity = 0;
+
+const get_quantity = (state = initialQuantity, action) => {
+    switch(action.type) {
+        case GET_QUANTITY:
+            return action.payload;
+        case RESET_QUANTITY:
+            return 0;
+        default:
+            return state;
+    }
+}
+
+export { added_cart, ordered_cart, get_quantity };

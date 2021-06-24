@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 
 import { logout } from '../../actions/auth'
+import { RESET_QUANTITY } from '../../constants/actionType';
 
 const Menu = ({ user }) => {
 
@@ -15,6 +17,7 @@ const Menu = ({ user }) => {
 
     const handleLogout = () => {
         dispatch(logout());
+        dispatch({ type: RESET_QUANTITY })
         history.push('/');
     }
     const linkToProfile = () => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {
     REMOVE_FROM_CART,
@@ -8,7 +8,7 @@ import {
 
 } from '../../constants/actionType'
 
-import { removeFromCart, orderedCart } from '../../actions/cart'
+import { removeFromCart, orderedCart, getQuantity } from '../../actions/cart'
 
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -67,24 +67,24 @@ const CartContainer = ({ cart, total_price, discount_price, isOrder }) => {
             add_list.push($(item).attr('id'));
         })
 
-        if(isChecked) {
+        if (isChecked) {
             dispatch({ type: CHECKED_ITEM, payload: add_list });
         }
         else {
-            dispatch({ type: REMOVE_CHECKED, payload: add_list})
+            dispatch({ type: REMOVE_CHECKED, payload: add_list })
         }
 
-        dispatch({ type: GET_PSEUDO_CART})
+        dispatch({ type: GET_PSEUDO_CART })
 
     }
 
     const handleCheckboxItem = () => {
         const checkboxAllElement = $('#cart-choose-checkbox-all');
         const productItem = $('input[name="items[]"]');
-        
+
         const isCheckedAll = productItem.length === $('input[name="items[]"]:checked').length;
         checkboxAllElement.prop('checked', isCheckedAll);
-        
+
         let add_list = [];
         Array.from(productItem).forEach(product => {
             if ($(product).prop('checked')) {
@@ -92,11 +92,28 @@ const CartContainer = ({ cart, total_price, discount_price, isOrder }) => {
             }
         })
 
-        dispatch({type: CHECKED_ITEM, payload: add_list});
-
+        dispatch({ type: CHECKED_ITEM, payload: add_list });
         dispatch({ type: GET_PSEUDO_CART });
 
     }
+
+    const handleDeleteAll = () => {
+        const isSubmit = $('input[name="items[]"]:checked');
+
+        let list_remove = [];
+        Array.from(isSubmit).forEach(item => {
+            const book = { book_id: $(item).attr('id'), quantity: $(item).attr('value') };
+            list_remove.push(book);
+        })
+        dispatch({ type: REMOVE_FROM_CART, payload: list_remove });
+        dispatch(removeFromCart(list_remove))
+        dispatch({ type: GET_PSEUDO_CART })
+        dispatch(getQuantity())
+    }
+
+    useEffect(() => {
+        dispatch(getQuantity())
+    }, [dispatch])
 
     if (isOrder) {
         return (
@@ -126,7 +143,7 @@ const CartContainer = ({ cart, total_price, discount_price, isOrder }) => {
                     <label htmlFor="cart-choose-checkbox-all" className="cart-choose-all-text">Tất cả</label>
                 </div>
                 <div className="cart-choose-action-all">
-                    <button className="cart-choose-action-delete">
+                    <button className="cart-choose-action-delete" onClick={handleDeleteAll}>
                         <i className="fas fa-trash"></i>
                     </button>
                 </div>

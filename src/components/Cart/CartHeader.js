@@ -1,6 +1,10 @@
 import React from 'react'
+import {useSelector} from 'react-redux'
 
-const CartHeader = ({ amount, isOrder }) => {
+const CartHeader = ({ isOrder }) => {
+
+    const amount = useSelector(state => state.get_quantity);
+
     if (isOrder) {
         return (
             <div className="cart-header">

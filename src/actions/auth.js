@@ -112,7 +112,7 @@ export const getInformation = () => (dispatch) => {
     return AuthService.get_information()
         .then(
             (data) => {
-                console.log(data);
+                console.log(data);  
                 dispatch({
                     type: GET_INFORMATION,
                     payload: { user: data },

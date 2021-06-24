@@ -1,6 +1,6 @@
 .container {
     &-main {
-        padding: 5rem 0;
+        padding: 5rem 0 0;
         padding-bottom: 9rem;
         position: relative;
         @include flexbox(flex-start);

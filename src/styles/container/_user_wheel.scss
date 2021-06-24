@@ -1,0 +1,171 @@
+.promotion-wheel {
+    padding: 5rem 0;
+    min-height: 80vh;
+    @include flexbox(stretch, space-between);
+    &-main {
+        position: relative;
+    }
+    &-item:nth-child(1) {
+        @include bg(red);
+        @include rotateWheel(0);
+    }
+    &-item:nth-child(2) {
+        @include bg(yellow);
+        @include rotateWheel(1);
+    }
+    &-item:nth-child(3) {
+        @include bg(blue);
+        @include rotateWheel(2);
+    }
+    &-item:nth-child(4) {
+        @include bg(green);
+        @include rotateWheel(3);
+    }
+    &-item:nth-child(5) {
+        @include bg(tomato);
+        @include rotateWheel(4);
+    }
+    &-item:nth-child(6) {
+        @include bg(purple);
+        @include rotateWheel(5);
+    }
+    &-item:nth-child(7) {
+        @include bg(deeppink);
+        @include rotateWheel(6);
+    }
+    &-item:nth-child(8) {
+        @include bg(chartreuse);
+        @include rotateWheel(7);
+    }
+    &-item:nth-child(9) {
+        @include bg(darkSeaGreen);
+        @include rotateWheel(8);
+    }
+    &-item:nth-child(10) {
+        @include bg(IndianRed);
+        @include rotateWheel(9);
+    }
+    &-item:nth-child(11) {
+        @include bg(Lime);
+        @include rotateWheel(10);
+    }
+    &-item:nth-child(12) {
+        @include bg(NavajoWhite);
+        @include rotateWheel(11);
+    }
+    &-container {
+        @include size(25rem);
+        border: 1px solid black;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+    &-item {
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include size(50%);
+        transform-origin: 0% 100%;
+    }
+    &-item > div {
+        position: absolute;
+        left: -100%;
+        @include size(200%);
+        text-align: center;
+        display: block;
+        transform: skewY(60deg) rotate(15deg);
+        padding-top: 2rem;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    &-arrow {
+        border-left: 1rem solid transparent;
+        border-right: 1rem solid transparent;
+        border-top: 3rem solid black;
+        position: absolute;
+        left: 50%;
+        z-index: 1;
+        top: -1.5rem;
+    }
+    &-arrow-start {
+        animation: arrow-move 0.5s linear infinite
+    }
+    &-spin {
+        text-transform: uppercase;
+        display: block;
+        margin-left: 6.2rem;
+        @include size(12rem, 4rem);
+        @include bg(blue);
+        border-radius: 3rem;
+        margin-top: 4rem;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0px 0px 10px 2px rgb(134, 131, 131);
+        will-change: transform;
+        &:active {
+            animation: spinOnClick 0.5s ease-in-out 1;
+        }
+    }
+    &-spin:disabled {
+        opacity: 0.6;
+        cursor: default;
+        box-shadow: none;
+    }
+    &-container-spin-start {
+        animation: start-rotate 1s linear infinite;
+    }
+    &-container-spin-stop {
+        animation-play-state: paused;
+    }
+    // Prize
+    &-prize {
+        &-board {
+            min-width: 50rem;
+            font-size: 1.4rem;
+            padding: 2rem 4rem 4rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 5px;        
+        }
+        &-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        &-list {
+            margin-top: 2rem;
+        }
+        &-item {
+            padding: 1rem 0;
+            strong {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+@keyframes spinOnClick {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.9);
+        box-shadow: 0px 0px 10px 15px rgba(134, 131, 131, 0.8);
+    }
+}
+
+@keyframes start-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes arrow-move {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-30deg)
+    }
+}
