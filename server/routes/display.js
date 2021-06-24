@@ -26,4 +26,6 @@ router.post('/book/:id/:comment_id/like', authorization.verify_token, authorizat
 
 router.post('/book/:id/:comment_id/unlike', authorization.verify_token, authorization.check_user, evaluation_controller.unlike, evaluation_controller.update_likes);
 
+router.post('/book/:id/filter_comment', evaluation_controller.filter_comment);
+
 module.exports = router;

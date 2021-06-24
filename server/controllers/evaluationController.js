@@ -279,4 +279,23 @@ exports.update_likes = async(req, res, next) => {
     res.json('Complete')
 }
 
-
+exports.filter_comment = async(req, res, next) => {
+    var id = new ObjectId(req.params.id);
+    var rating_list = req.body.rating_list;
+    var result = await Evaluation.aggregate([
+        {$match: {'book_id': id}},
+        {
+            $project: {
+                _id: null,
+                'comments': {
+                    $filter: {
+                        'input': '$comments',
+                        'as': 'comment',
+                        'cond': {$in: ['$$comment.rating', rating_list]}
+                    }
+                },
+            }
+        }
+    ]);
+    res.json(result)
+}

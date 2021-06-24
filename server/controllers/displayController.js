@@ -119,5 +119,5 @@ exports.display_book = async(req, res, next) => {
     evaluation = await Evaluation.findOne({book_id: id}).populate('rating.user_id', 'username evaluations likes')
                                  .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
                                  .populate('comments.likes.user_id', 'username');
-    res.json({book: book, evaluation: evaluation});
+    res.json(book);
 };
