@@ -1,10 +1,8 @@
-var mongoose = require('mongoose');
 var User = require('../models/user');
 var Trader = require('../models/trader').Trader;
 var Book = require('../models/book');
 var ObjectId = require('mongodb').ObjectId;
 var async = require('async');
-var moment = require('moment-timezone');
 
 exports.cart = function(req, res, next) {
     async.parallel({

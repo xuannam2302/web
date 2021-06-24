@@ -38,7 +38,9 @@ const User = mongoose.model(
         money: {
             type: Number,
             default: 0,
-        }
+        },
+        evaluations: Number,
+        likes: Number, 
     }),
     "users"
 );

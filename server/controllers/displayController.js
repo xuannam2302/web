@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var url_link = require('url');
+var async = require('async');
+var Evaluation = require('../models/evaluation');
+var Book = require('../models/book');
 //const uri = "mongodb+srv://xuannam:xuannamt81@web.qpw3q.mongodb.net";
 const uri = "mongodb://localhost:27017/";
 var client;
@@ -103,10 +106,18 @@ exports.search = function (req, res, next) {
     }
 }
 
-exports.display_book = function (req, res, next) {
-    var db = client.db('web');
+exports.display_book = async(req, res, next) => {
     var id = new ObjectId(req.params.id);
-    db.collection('book').find({ _id: id }).toArray(function (err, results) {
-        res.send(results[0]);
-    });
+    var evaluation = await Evaluation.findOne({book_id: id});
+    if(!evaluation) {
+        evaluation = new Evaluation({
+            book_id: id
+        });
+        await evaluation.save();
+    }
+    var book = await Book.findById(id);
+    evaluation = await Evaluation.findOne({book_id: id}).populate('rating.user_id', 'username evaluations likes')
+                                 .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
+                                 .populate('comments.likes.user_id', 'username');
+    res.json({book: book, evaluation: evaluation});
 };
