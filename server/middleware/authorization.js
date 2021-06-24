@@ -14,8 +14,8 @@ exports.verify_and_refresh_token = function(req, res, next) {
     if(!refresh_token) return json({msg: 'No refresh token provided'});
     jwt.verify(token, secret_key, (err, decoded) => {
         if(err) {
-            if(err.name == "TokenExpiredError") {
-                if((refresh_token in refresh_tokens) && (refresh_tokens[refresh_token] == req.body.id)) {
+            if(err.name === "TokenExpiredError") {
+                if((refresh_token in refresh_tokens) && (refresh_tokens[refresh_token] === req.body.id)) {
                     var token = jwt.sign({id: req.body.id}, secret_key, {
                         expiresIn: 60 * 60 * 12,
                     });
@@ -45,7 +45,7 @@ exports.verify_and_refresh_token = function(req, res, next) {
 exports.verify_token = function(req, res, next) {
     var token = req.headers['x-access-token'];
     if(!token) {
-        return res.status(403).send('No token provided');
+        return res.status(403).json({msg: 'No token provided'});
     }
     jwt.verify(token, secret_key, (err, decoded) => {
         if(err) return res.json({msg: 'Token is expired'});

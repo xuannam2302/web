@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { searchFunction } from '../actions/books'
+
+import { getQuantity } from '../actions/cart'
 
 import Menu from './Profile/Menu';
 
@@ -12,12 +14,18 @@ const Header = () => {
     // Global Variavles
     const history = useHistory();
     const dispatch = useDispatch();
+    const amount = useSelector(state => state.get_quantity);
 
-    // Component State
     const auth = useSelector(state => state.auth);
-    // console.log(auth);
     const { isLoggedIn, user } = auth;
-
+    
+    useEffect(() => {
+        dispatch(getQuantity());
+    }, [dispatch, isLoggedIn])
+    
+    // console.log(auth);
+    
+    // Component State
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
 
@@ -38,7 +46,9 @@ const Header = () => {
     const linkToRegister = () => {
         history.push('/auth/register');
     }
-
+    const linkToCart = () => {
+        history.push('/cart');
+    }
     // Render
     return (
         <div className="header">
@@ -98,12 +108,19 @@ const Header = () => {
                                             {user.username}
                                         </h3>
                                         <div className="header-setting">
-                                            <i className="fas fa-cog header-config"></i>
-                                            <Menu user={user}/>
+                                            <i className="fas fa-caret-down header-config"></i>
+                                            <Menu user={user} />
                                         </div>
                                     </div>
                                 </>
                             }
+                        </li>
+                        <li
+                            className="header-item-cart"
+                            onClick={linkToCart}
+                        >
+                            <i className="fas fa-shopping-cart"></i>
+                            <span className="header-item-cart-amount">{amount}</span>
                         </li>
                     </ul>
                 </div>

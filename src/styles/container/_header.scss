@@ -19,13 +19,19 @@
             padding: 1.3rem;
             min-width: 50rem;
         }
+        input:focus::-webkit-input-placeholder {
+            font-size: 1.2rem;
+            transform-origin: left center;
+            transition: all 0.25s ease-in-out;
+        }
         &-icon {
+            text-align: center;
             cursor: pointer;
-            border-radius: 5px;
             margin-left: -4rem;
-            padding: 5px;
-            padding-left: 7px;
-            border: 1px solid #e5e5e5;
+            padding: 4px;
+            padding-left: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
     }
     &-menu {
@@ -37,9 +43,9 @@
         font-weight: bold;
         cursor: pointer;
         margin-right: 2rem;
+        transition: all 0.1s ease-in-out;
         &:hover {
             color: rgba(0, 60, 255, 0.815);
-            text-decoration: underline;
         }
     }
     &-indentify {
@@ -55,9 +61,26 @@
     &-item-log-in {
         margin: 0 5px;
     }
+    &-item-cart {
+        cursor: pointer;
+        position: relative;
+        i {
+            font-size: 2rem;
+        }
+    }
+    &-item-cart-amount {
+        color: white;
+        position: absolute;
+        right: -1.2rem;
+        top: -1.5rem;
+        clip-path: circle(38.4% at 50% 50%);
+        font-size: 1.2rem;
+        background: #ffc93e;
+        padding: 0.7rem;
+    }
     &-info {
         margin-left: 1rem;
-        @include flexbox();
+        @include flexbox(center, center);
     }
     &-setting {
         position: relative;
@@ -66,7 +89,6 @@
             height: 1rem;
             width: 10rem;
             content: "";
-            // @include bg(red);
             top: 1.2rem;
             right: -1rem;
         }
@@ -141,5 +163,5 @@
 
 .MuiPagination-root > .MuiPagination-ul > li > .Mui-selected {
     color: white;
-    @include bg(rgb(24,158,255));
+    @include bg(rgb(24, 158, 255));
 }

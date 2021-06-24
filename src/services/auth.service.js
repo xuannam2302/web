@@ -39,7 +39,7 @@ class AuthService {
                 headers: authHeader()
             })
             .then((response) => {
-                return response.data;
+                return response.data
             })
     }
 

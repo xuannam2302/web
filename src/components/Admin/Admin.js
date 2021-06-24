@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import AdminList from './AdminList';
 import AdminContent from './AdminContent';
 
-import { refreshToken } from '../../actions/auth'
 import { displayAll } from '../../actions/books'
 
 import Error from '../Error';
@@ -12,20 +11,11 @@ import Error from '../Error';
 const Admin = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
-    const message = useSelector(state => state.message);
-
-    useEffect(() => {
-        if (message) {
-            const token = JSON.parse(localStorage.getItem('token-verify'));
-            if (message.msg === 'Token is expired') {
-                dispatch(refreshToken(token.id, token.refresh_token));
-            }
-        }
-    }, [dispatch, message])
+    const token = JSON.parse(localStorage.getItem('token-verify'));
 
     useEffect(() => {
         dispatch(displayAll());
-    }, [dispatch]);
+    }, [dispatch, token.refresh_token]);
 
     if (!user || !user.admin) {
         return (

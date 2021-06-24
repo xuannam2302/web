@@ -101,38 +101,8 @@
     @include absoluteCenter('left');
 }
 
-@mixin boxMessege ($signal) {
-    $color : red;
-    @if $signal == 'success' {
-        $color: rgb(59, 183, 92);
-    }
-    @if $signal == 'error' {
-        $color: tomato;
-    }
-    .box-message {
-        border: 1px solid rgba($color, 0.5);
-        @include bg(rgba($color, 0.1));
-        &-content {
-            @include flexbox(center);
-            color: $title-color;
-            font-size: 1.5rem;
-            color: $color;
-            margin-bottom: 1rem;
-        }
-        &-title {
-            font-weight: bold;
-            margin-left: 1.5rem;
-        }
-        &-text {
-            font-size: 1.3rem;
-        }
-        &-close {
-            color: $title-color;
-            position: absolute;
-            top: 20%;
-            right: 5%;
-        }
-    }
+@mixin rotateWheel ($num) {
+    transform: rotate($num * 30deg) skewY(-60deg);
 }
 
 @keyframes rightToLeft {

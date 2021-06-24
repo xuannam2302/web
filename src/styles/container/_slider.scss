@@ -1,0 +1,25 @@
+.slider {
+    &-container {
+        position: relative;
+        padding: 5rem 0 0;
+        width: 100%;
+        @include flexbox(stretch, space-between, row, flex, wrap);
+    }
+    &-content {
+        max-width: 65%;
+    }
+    &-img {
+        object-fit: contain;
+        min-width: 100%;
+    }
+    &-extra {
+        margin-bottom: 2rem;
+        width: 35%;
+        background: url("https://salt.tikicdn.com/cache/w408/ts/banner/69/9a/36/dcff148edf2a3918a8ac974d4b75cb20.png") no-repeat center;
+    }
+}
+
+.slick-slider > .slick-dots {
+    position: relative;
+    z-index: 2;
+}
