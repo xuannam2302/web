@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import {convertVND} from '../../util/ChangeUnit'
+import { convertVND } from '../../util/ChangeUnit'
+
+import Error from '../../components/Error'
 
 const LuckyDraw = () => {
+
+    const user = useSelector(state => state.auth.user);
 
     // Function handler for button and lucky draw
     var timeOut;
@@ -69,12 +74,17 @@ const LuckyDraw = () => {
         }
     }
 
-
     // State of component
     const [isDisable, setIsDisable] = useState(false);
-    const [thewinner, setTheWinner] = useState([1,2,3,4,5,6]);
+    const [thewinner, setTheWinner] = useState([1, 2, 3, 4, 5, 6]);
 
     // Render
+    if (!user?.admin) {
+        return (
+            <Error />
+        )
+    }
+    
     return (
         <div className="container">
             <div className="luckydraw-container">
@@ -128,8 +138,8 @@ const LuckyDraw = () => {
                     <div className="display-winner">
                         <h3 className="display-title">Danh sách trúng thưởng</h3>
                         <h3 className="first-prize">
-                        <span className="number">
-                                1 giải nhất: 
+                            <span className="number">
+                                1 giải nhất:
                             </span>
                             <div className="list">
                                 <span>{thewinner[0]}</span>
@@ -137,7 +147,7 @@ const LuckyDraw = () => {
                         </h3>
                         <h3 className="second-prize">
                             <span className="number">
-                                2 giải nhì: 
+                                2 giải nhì:
                             </span>
                             <div className="list">
                                 <span>{thewinner[1]}</span>
@@ -145,8 +155,8 @@ const LuckyDraw = () => {
                             </div>
                         </h3>
                         <h3 className="third-prize">
-                        <span className="number">
-                                3 giải ba: 
+                            <span className="number">
+                                3 giải ba:
                             </span>
                             <div className="list">
                                 <span>{thewinner[3]}</span>
