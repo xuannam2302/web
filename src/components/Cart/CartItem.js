@@ -8,7 +8,7 @@ import {
 
 } from '../../constants/actionType'
 
-import { changeToLocalePrice } from '../../util/ChangeUnit'
+import { changeToLocalePrice, changeTimeStamp } from '../../util/ChangeUnit'
 import { checkValidAmountOnBlur, checkValidAmountOnChange } from '../../util/Validator'
 import { useDispatch } from 'react-redux'
 
@@ -62,12 +62,6 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
         dispatch(getQuantity())
     }
 
-    const changeTime = () => {
-        let date = new Date(item.create_at);
-        const time = date.toISOString().substring(0, 10).split('-').reverse().join('/');
-        return time;
-    }
-
     return (
         <div className="cart-item">
             <div className="cart-item-container">
@@ -115,7 +109,7 @@ const CartItem = ({ item, isOrder, handleCheckboxItem, updateTempPrice }) => {
                     </div>
                     {isOrder &&
                         <div className="cart-item-order-date" style={{marginTop: '2rem'}}>
-                            <span style={{fontWeight: 'bold'}}>Ngày đặt hàng: </span>{changeTime()}
+                            <span style={{fontWeight: 'bold'}}>Ngày đặt hàng: </span>{changeTimeStamp(item.create_at)}
                         </div>
                     }
                 </div>

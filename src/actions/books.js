@@ -8,6 +8,7 @@ import {
     RESET_STATE,
     DISPLAY_ALL,
     SET_MESSAGE,
+    GET_EVALUATION,
 
 } from '../constants/actionType';
 
@@ -29,7 +30,12 @@ export const searchFunction = (search = '', sort = '', lower_price = '', upper_p
 export const findLandingPage = (id) => async (dispatch) => {
     try {
         const { data } = await axios.get(`${url}/book/${id}`);
-        dispatch({ type: LANDING_PAGE, payload: data })
+        const { book, evaluation } = data;
+        console.log(data);
+
+        dispatch({ type: LANDING_PAGE, payload: book });
+        dispatch({ type: GET_EVALUATION, payload: evaluation })
+
     }
     catch (err) {
         console.log(err.message);

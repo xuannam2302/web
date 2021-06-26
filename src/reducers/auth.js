@@ -5,10 +5,12 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     GET_INFORMATION,
-    REFRESH_TOKEN,
+    REFRESH_USER,
 } from "../constants/actionType";
 
-const Auth = (state = { isLoggedIn: false, user: {} }, action) => {
+const initialState = { isLoggedIn: false, user: {} }
+
+const Auth = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
@@ -47,11 +49,9 @@ const Auth = (state = { isLoggedIn: false, user: {} }, action) => {
                 isLoggedIn: false,
                 user: null,
             };
-        case REFRESH_TOKEN: {
-            return {
-
-            }
-        }
+        case REFRESH_USER:
+            
+        return initialState;
         default:
             return state;
     }

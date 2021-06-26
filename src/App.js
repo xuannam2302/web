@@ -26,7 +26,7 @@ import FireWork from './components/Promotion/FireWork';
 import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
-import { RESET_QUANTITY } from './constants/actionType';
+import { LOGOUT, RESET_QUANTITY } from './constants/actionType';
 
 function App() {
 
@@ -40,9 +40,11 @@ function App() {
     if (token) {
       dispatch(getInformation(token.token));
       if (message.msg === 'Token is expired') {
+        console.log("Start refresh_token");
         dispatch(refreshToken(token.id, token.refresh_token));
       }
       if (message.msg === 'Invalid refresh token') {
+        console.log("Log out here");
         dispatch(logout());
         dispatch({ type: RESET_QUANTITY });
       }

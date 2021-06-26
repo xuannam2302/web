@@ -41,6 +41,7 @@ class AuthService {
             .then((response) => {
                 return response.data
             })
+            .catch(error => console.log(error.message || error.msg))
     }
 
     refresh_token(id, refresh_token) {

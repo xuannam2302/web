@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import {addToCart} from '../actions/cart'
 
+import Evaluation from './Evaluation/Evaluation'
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import RatingStar from '../util/RatingStar';
@@ -21,6 +22,7 @@ const LandingPage = () => {
     // Global Variables
     const dispatch = useDispatch();
     const item = useSelector(state => state.item);
+    const evaluation = useSelector(state => state.getEvaluation);
 
     const successAddToCart = ()  => toast.success(<Toast state="Successfully" desc="Thêm vào giỏ hàng thành công"/>)
 
@@ -159,6 +161,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
+            <Evaluation evaluation={evaluation} />
             <ToastNotify />
         </div>
     )
