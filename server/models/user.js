@@ -51,7 +51,10 @@ const User = mongoose.model(
                 }
             }]
         },
-        likes: Number,        
+        likes: {
+            type: Number,
+            default: 0,
+        },        
     }),
     "users"
 );

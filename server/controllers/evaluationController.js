@@ -235,7 +235,7 @@ exports.update_rating = async(req, res, next) => {
             }
         )
     }
-    res.json('Complete');
+    res.json({user_id: req.user_id});
 }
 
 exports.update_likes = async(req, res, next) => {
