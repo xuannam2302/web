@@ -24,6 +24,7 @@ const Book = mongoose.model(
         category: String,
         img_paths: String,
         quantity: Number,
+        evaluations: Number,
     }),
     "book"
 );

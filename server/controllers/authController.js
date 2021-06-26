@@ -85,7 +85,7 @@ exports.resend_verify = function(req, res, next) {
 var refresh_tokens = {};
 
 exports.login = async(req, res, next) => {
-    User.findOne({username: req.body.username}).exec(async(err, user) => {
+    await User.findOne({username: req.body.username}).exec(async(err, user) => {
         if(!user) {
             // res.status(400).send({msg: "Incorrect Username or Password"});
             return res.status(400).json({status: 400, message: "Incorrect Username or Password"});

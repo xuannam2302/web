@@ -13,7 +13,7 @@ exports.post_comment = async(req, res, next) => {
     if(!comment_id) {
         var evaluation = await Evaluation.findOne({book_id: id, 'comments.user_id': req.user_id});
         if(!evaluation) {
-            await Evaluation.findOneAndUpdate(
+            var result = await Evaluation.findOneAndUpdate(
                 {book_id: id},
                 {
                     $push: {
@@ -22,37 +22,45 @@ exports.post_comment = async(req, res, next) => {
                             $sort: {'create_at': -1}
                         }
                     }
-                }
+                },
+                {returnOriginal: false}
             );
+            comment_id = result.comments.filter((comment) => {return (comment.user_id == req.user_id)})[0]._id
+            if(comment_id) {
+                var result = await User.findByIdAndUpdate(
+                    req.user_id,
+                    {
+                        $push: {
+                            'evaluations.comments': {
+                                'book_id': id,
+                                'comment_id': comment_id,
+                            }
+                        }
+                    }
+                )
+            }
         }
         else {
             await Evaluation.findOneAndUpdate(
                 {book_id: id, 'comments.user_id': req.user_id},
                 {
-                    $pull: {
-                        'comments': {
-                            'user_id': req.user_id
+                    $set: {
+                        'comments.$': {
+                            'user_id': req.user_id,
+                            'content': comment,
+                            'rating': rating_stars,
+                            'create_at': new Date(),
+                            'answers': [],
+                            'likes': [],
                         }
                     },
-                }
+                },
             )
-            console.log('here');
-            await Evaluation.findOneAndUpdate(
-                {book_id: id},
-                {
-                    $push: {
-                        'comments': {
-                            $each: [{user_id: req.user_id, content: comment, rating: rating_stars, create_at: new Date(),}],
-                            $sort: {'create_at': -1}
-                        }
-                    }
-                }
-            );
         }
     }
     else {
         await Evaluation.findOneAndUpdate(
-            {book_id: id, 'comments._id': new ObjectId(comment_id)},
+            {book_id: id, 'comments._id': new ObjectId(comment_id), 'comments.user_id': req.user_id},
             {
                 $set: {
                     'comments.$.content': comment,
@@ -68,11 +76,21 @@ exports.delete_comment = async(req, res, next) => {
     var id = new ObjectId(req.params.id);
     var comment_id = req.body.comment_id;
     await Evaluation.findOneAndUpdate(
-        {book_id: id, 'comments._id': new ObjectId(comment_id)},
+        {book_id: id, 'comments.user_id': req.user_id, 'comments._id': new ObjectId(comment_id)},
         {
             $pull: {
                 'comments': {
                     '_id': new ObjectId(comment_id)
+                }
+            }
+        }
+    )
+    await User.findByIdAndUpdate(
+        req.user_id,
+        {
+            $pull: {
+                'evaluations.comments': {
+                    'comment_id': new ObjectId(comment_id)
                 }
             }
         }
@@ -103,7 +121,8 @@ exports.delete_answer = async(req, res, next) => {
     var comment_id = req.params.comment_id;
     var answer_id = req.body.answer_id;
     await Evaluation.findOneAndUpdate(
-        {book_id: id, 'comments.answers._id': new ObjectId(answer_id), 'comments._id': new ObjectId(comment_id)},
+        {book_id: id, $or: [{'comments.answers.user': req.user_id}, {'comments.user_id': req.user_id}]
+        , 'comments.answers._id': new ObjectId(answer_id), 'comments._id': new ObjectId(comment_id)},
         {
             $pull: {
                 'comments.$.answers': {
@@ -197,45 +216,26 @@ exports.update_rating = async(req, res, next) => {
             }
         }
     ]);
-    await Book.findByIdAndUpdate(
-        id, 
-        {
-            $set: {
-                'book_depository_stars': rating[0].average
-            }
-        }
-    )
-    res.json('Complete');
-}
-
-exports.update_evaluations = async(req, res, next) => {
     var evaluations = await Evaluation.aggregate([
-        {$match: {'comments.user_id': new ObjectId(req.user_id)}},
+        {$match: {book_id: id}},
         {
-            $count: 'total'
+            $project: {
+                'count': {$size: '$comments'}
+            }
         }
     ]);
-    if(evaluations[0]) {
-        await User.findByIdAndUpdate(
-            req.user_id,
+    if(rating[0] && evaluations[0]) {
+        await Book.findByIdAndUpdate(
+            id, 
             {
                 $set: {
-                    'evaluations': evaluations[0].total
+                    'book_depository_stars': rating[0].average,
+                    'evaluations': evaluations[0].count,
                 }
             }
-        );
+        )
     }
-    else {
-        await User.findByIdAndUpdate(
-            req.user_id,
-            {
-                $set: {
-                    'evaluations': 0
-                }
-            }
-        );
-    }
-    next();
+    res.json('Complete');
 }
 
 exports.update_likes = async(req, res, next) => {
@@ -297,5 +297,6 @@ exports.filter_comment = async(req, res, next) => {
             }
         }
     ]);
-    res.json(result)
+    res.json({evaluation: result[0]})
 }
+

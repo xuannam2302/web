@@ -57,7 +57,8 @@ exports.quantity = async(req, res, next) => {
             }
         }        
     ])
-    res.json({quantity: trader[0].count});
+    if(trader[0]) return res.json({quantity: trader[0].count});
+    else return res.json({quantity: 0});
 }
 
 exports.add_to_cart = async(req, res, next) => {

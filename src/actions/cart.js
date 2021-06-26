@@ -113,7 +113,7 @@ export const getQuantity = () => (dispatch) => {
         (data) => {
             console.log(data);
             
-            if(data) {
+            if (data && data?.msg !== 'Token is expired') {
                 const { quantity } = data;
                 dispatch({ type: GET_QUANTITY, payload: quantity });
             }
