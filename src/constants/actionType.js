@@ -36,3 +36,5 @@ export const RESET_QUANTITY = "RESET_QUANTITY";
 // Message
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+export const REFRESH_USER = "REFRESH_USER";

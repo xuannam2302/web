@@ -117,15 +117,16 @@ export const getQuantity = () => (dispatch) => {
                 const { quantity } = data;
                 dispatch({ type: GET_QUANTITY, payload: quantity });
             }
-            else {
-                dispatch({ type: RESET_QUANTITY})
+            else if (data?.msg === 'Token is expired') {
+                dispatch({ type: RESET_QUANTITY });
+                dispatch({ type: SET_MESSAGE, payload: data.msg });
             }
 
             return Promise.resolve();
         },
         (error) => {
             const message = showErrorMessage(error);
-
+            console.log('1')
             dispatch({ type: SET_MESSAGE, payload: message })
 
             return Promise.reject();

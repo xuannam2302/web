@@ -26,7 +26,7 @@ import FireWork from './components/Promotion/FireWork';
 import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
-import { RESET_QUANTITY } from './constants/actionType';
+import { RESET_QUANTITY, REFRESH_USER } from './constants/actionType';
 
 function App() {
 
@@ -45,6 +45,7 @@ function App() {
       if (message.msg === 'Invalid refresh token') {
         dispatch(logout());
         dispatch({ type: RESET_QUANTITY });
+        dispatch({ type: REFRESH_USER });
       }
     }
   }, [dispatch, message]);
