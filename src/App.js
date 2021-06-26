@@ -26,14 +26,12 @@ import FireWork from './components/Promotion/FireWork';
 import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
-import { LOGOUT, RESET_QUANTITY } from './constants/actionType';
+import { RESET_QUANTITY } from './constants/actionType';
 
 function App() {
 
   const dispatch = useDispatch();
   const message = useSelector(state => state.message);
-
-  // console.log(message);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token-verify'));
@@ -44,7 +42,6 @@ function App() {
         dispatch(refreshToken(token.id, token.refresh_token));
       }
       if (message.msg === 'Invalid refresh token') {
-        console.log("Log out here");
         dispatch(logout());
         dispatch({ type: RESET_QUANTITY });
       }

@@ -119,5 +119,6 @@ exports.display_book = async(req, res, next) => {
     evaluation = await Evaluation.findOne({book_id: id}).populate('rating.user_id', 'username evaluations likes')
                                  .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
                                  .populate('comments.likes.user_id', 'username');
-    res.json({book: book, evaluation: evaluation});
+    evaluation.comments = evaluation.comments.sort((comment1, comment2) => {return (comment2.create_at - comment1.create_at)})
+    res.json({book: book, evaluation: evaluation, user_id: req.user_id});
 };

@@ -112,7 +112,7 @@ export const getQuantity = () => (dispatch) => {
         (data) => {
             console.log(data);
 
-            if (data?.msg !== 'Token is expired') {
+            if (data && data?.msg !== 'Token is expired') {
                 const { quantity } = data;
                 dispatch({ type: GET_QUANTITY, payload: quantity });
             }
@@ -120,13 +120,12 @@ export const getQuantity = () => (dispatch) => {
                 dispatch({ type: RESET_QUANTITY });
                 dispatch({ type: SET_MESSAGE, payload: data.msg });
             }
-            else if(data?.msg === '')
 
             return Promise.resolve();
         },
         (error) => {
             const message = showErrorMessage(error);
-
+            console.log('1')
             dispatch({ type: SET_MESSAGE, payload: message })
 
             return Promise.reject();

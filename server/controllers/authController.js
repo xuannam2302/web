@@ -85,7 +85,7 @@ exports.resend_verify = function(req, res, next) {
 var refresh_tokens = {};
 
 exports.login = async(req, res, next) => {
-    User.findOne({username: req.body.username}).exec(async(err, user) => {
+    await User.findOne({username: req.body.username}).exec(async(err, user) => {
         if(!user) {
             // res.status(400).send({msg: "Incorrect Username or Password"});
             return res.status(400).json({status: 400, message: "Incorrect Username or Password"});
@@ -101,7 +101,7 @@ exports.login = async(req, res, next) => {
             return res.status(400).json({status: 400, message: "This account is not verified"});
         }
         var token = jwt.sign({id: user.id}, secret_key, {
-            expiresIn: 20,
+            expiresIn: 20
         });
         var refresh_token = jwt.sign({id: user.id}, refresh_key);
         //localStorage.setItem('access_token', token);
@@ -147,8 +147,7 @@ exports.refresh_token = function(req, res, next) {
         return res.json({msg: 'No refresh token provided'});
     }
     else {
-        console.log(123);
-        return res.json({msg: 'Invalid refresh token'});
+        return res.status(401).json({msg: 'Invalid refresh token'});
     }
 }
 

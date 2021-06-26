@@ -18,7 +18,7 @@ const Header = () => {
 
     const auth = useSelector(state => state.auth);
     const { isLoggedIn, user } = auth;
-    
+    console.log(auth);
     useEffect(() => {
         dispatch(getQuantity());
     }, [dispatch, isLoggedIn])

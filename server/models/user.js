@@ -39,8 +39,22 @@ const User = mongoose.model(
             type: Number,
             default: 0,
         },
-        evaluations: Number,
-        likes: Number, 
+        evaluations: {
+            comments: [{
+                book_id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Book',
+                },
+                comment_id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Evaluation.comments'
+                }
+            }]
+        },
+        likes: {
+            type: Number,
+            default: 0,
+        },        
     }),
     "users"
 );
