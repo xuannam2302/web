@@ -16,6 +16,19 @@ exports.verify_token = function(req, res, next) {
     })
 }
 
+exports.take_user_id = function(req, res, next) {
+    var token = req.headers['x-access-token'];
+    if(!token) {
+        console.log('0');
+        return next();
+    }
+    jwt.verify(token, secret_key, (err, decoded) => {
+        if(err) return res.json({msg: 'Token is expired'});
+        req.user_id = decoded.id;
+        next();
+    })
+}
+
 exports.check_user = function(req, res, next) {
     User.findById(req.user_id).exec((err, user) => {
         if(err) {
