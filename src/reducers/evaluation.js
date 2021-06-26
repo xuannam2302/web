@@ -8,17 +8,18 @@ import {
 const getEvaluation = (state = { book_id: undefined, comments: [] }, action) => {
     switch (action.type) {
         case GET_EVALUATION:
+            console.log(action.payload);
             return action.payload;
         case POST_COMMENT: {
             const { book_id, comment_id, ratingStars, newComment } = action.payload;
             console.log(book_id, ratingStars, newComment);
-            // return state;
+            return state;
         }
 
-        case POST_ANSWER: {
+        // case POST_ANSWER: {
 
-            // return state;
-        }
+        //     return state;
+        // }
         default:
             return state;
     }

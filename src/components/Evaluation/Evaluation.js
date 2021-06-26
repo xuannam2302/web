@@ -9,7 +9,7 @@ import { getAvatarFromUserName } from '../../util/ChangeUnit';
 import RatingFeedback from '../../util/RatingFeedback'
 import { isRequired } from '../../util/Validator';
 
-import {postComment} from '../../actions/evaluation';
+import { postComment } from '../../actions/evaluation';
 
 import {
     POST_COMMENT,
@@ -20,7 +20,7 @@ const Evaluation = ({ evaluation }) => {
     const dispatch = useDispatch();
 
     const { comments, book_id } = evaluation;
-    const {comment_id} = comments;
+    const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
 
     const [canCommnet, setCanComment] = useState(true);
@@ -34,14 +34,14 @@ const Evaluation = ({ evaluation }) => {
         let check = handleNewComment(element);
         if (!check) {
             const newCommnet = {
-                book_id, 
-                newComment, 
-                ratingStars, 
+                book_id,
+                newComment,
+                ratingStars,
                 comment_id,
             }
-            
+
             dispatch(postComment(book_id, newComment, ratingStars, comment_id));
-            dispatch({ type: POST_COMMENT, payload: newCommnet});
+            dispatch({ type: POST_COMMENT, payload: newCommnet });
 
         }
         else {
@@ -84,7 +84,7 @@ const Evaluation = ({ evaluation }) => {
                     )
                 })}
             </div>
-            {user !== undefined && canCommnet &&
+            {user && canCommnet &&
                 <div className="evaluation-new-comment">
                     <div className="evaluation-new-comment-avatar">
                         <span>{getAvatarFromUserName(user.username)}</span>
@@ -104,14 +104,14 @@ const Evaluation = ({ evaluation }) => {
                         </p>
                         <div className="evaluation-new-comment-content-rating">
                             <span className="evaluation-new-comment-content-rating-text">Độ hài lòng đối với sản phẩm</span>
-                            <RatingFeedback 
+                            <RatingFeedback
                                 ratingStars={ratingStars}
                                 setRatingStars={setRatingStars}
                             />
                         </div>
                     </div>
-                    <button 
-                        className="evaluation-new-comment-submit" 
+                    <button
+                        className="evaluation-new-comment-submit"
                         onClick={handlePostComment}
                     >
                         Submit

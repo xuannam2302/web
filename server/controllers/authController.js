@@ -101,7 +101,7 @@ exports.login = async(req, res, next) => {
             return res.status(400).json({status: 400, message: "This account is not verified"});
         }
         var token = jwt.sign({id: user.id}, secret_key, {
-            expiresIn: 20
+            expiresIn: 60 * 60 * 12
         });
         var refresh_token = jwt.sign({id: user.id}, refresh_key);
         //localStorage.setItem('access_token', token);
@@ -136,7 +136,7 @@ exports.refresh_token = function(req, res, next) {
     var refresh_token = req.body.refresh_token;
     if((refresh_token in refresh_tokens) && (refresh_tokens[refresh_token] == req.body.id)) {
         var token = jwt.sign({id: req.body.id}, secret_key, {
-            expiresIn: 20,
+            expiresIn: 60 * 60 * 12,
         });
         delete refresh_tokens[refresh_token];
         refresh_token = jwt.sign({id: req.body.id}, refresh_key);

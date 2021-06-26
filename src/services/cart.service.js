@@ -11,9 +11,8 @@ class CartService {
                 headers: authHeader()
             })
             .then(response => response.data)
-            .catch(err => {
-                console.log(err.msg);
-            })
+            .catch(error => Promise.reject(error));
+
     }
     // Added Cart
     get_cart() {
@@ -22,7 +21,7 @@ class CartService {
                 headers: authHeader()
             })
             .then(response => response.data)
-            .catch(console.log("Error in get_cart"))
+            .catch(error => Promise.reject(error));
     }
     // Order cart
     get_ordered_cart() {
@@ -30,7 +29,9 @@ class CartService {
             .get(API_URL + '/order_list', {
                 headers: authHeader()
             })
-            .then(response => response.data);
+            .then(response => response.data)
+            .catch(error => Promise.reject(error));
+            
     }
 
     add_to_cart(book_list) {
@@ -43,6 +44,8 @@ class CartService {
                     headers: authHeader()
                 })
             .then(response => response.data)
+            .catch(error => Promise.reject(error));
+
     }
 
     remove_from_cart(book_list) {
@@ -54,7 +57,9 @@ class CartService {
                 {
                     headers: authHeader()
                 })
-            .then(response => response.data);
+            .then(response => response.data)
+            .catch(error => Promise.reject(error));
+
     }
 
     add_to_cart_ordered(book_list) {
@@ -68,6 +73,8 @@ class CartService {
                     headers: authHeader()
                 })
             .then(response => response.data)
+            .catch(error => Promise.reject(error));
+
     }
 
     cancle_order(book_list) {
@@ -77,6 +84,8 @@ class CartService {
                 headers: authHeader()
             })
             .then(response => response.data)
+            .catch(error => Promise.reject(error));
+
     }
 }
 

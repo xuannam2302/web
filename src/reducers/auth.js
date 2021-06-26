@@ -8,7 +8,7 @@ import {
     REFRESH_USER,
 } from "../constants/actionType";
 
-const initialState = { isLoggedIn: false, user: {} }
+const initialState = { isLoggedIn: false, user: null }
 
 const Auth = (state = initialState, action) => {
     const { type, payload } = action;

@@ -45,38 +45,39 @@ export const register = (username, email, password) => (dispatch) => {
 };
 
 export const login = (username, password) => (dispatch) => {
-    return AuthService.login(username, password).then(
-        (data) => {
-            const { send_back, unsend_back } = data;
-            localStorage.setItem('token-verify', JSON.stringify(send_back));
+    return AuthService.login(username, password)
+        .then(
+            (data) => {
+                const { send_back, unsend_back } = data;
+                localStorage.setItem('token-verify', JSON.stringify(send_back));
 
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: { user: unsend_back },
-            });
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: { user: unsend_back },
+                });
 
-            dispatch({
-                type: SET_MESSAGE,
-                payload: unsend_back.msg,
-            });
+                dispatch({
+                    type: SET_MESSAGE,
+                    payload: unsend_back.msg,
+                });
 
-            return Promise.resolve();
-        },
-        (error) => {
-            const message = showErrorMessage(error);
+                return Promise.resolve();
+            },
+            (error) => {
+                const message = showErrorMessage(error);
 
-            dispatch({
-                type: LOGIN_FAIL,
-            });
+                dispatch({
+                    type: LOGIN_FAIL,
+                });
 
-            dispatch({
-                type: SET_MESSAGE,
-                payload: message,
-            });
+                dispatch({
+                    type: SET_MESSAGE,
+                    payload: message,
+                });
 
-            return Promise.reject();
-        }
-    )
+                return Promise.reject();
+            }
+        )
 };
 
 export const logout = () => (dispatch) => {
@@ -105,7 +106,6 @@ export const resendVerify = (username) => (dispatch) => {
                 dispatch({ type: SET_MESSAGE, payload: message });
 
             })
-        .catch(error => console.log(error.message))
 }
 
 export const getInformation = () => (dispatch) => {
@@ -113,7 +113,7 @@ export const getInformation = () => (dispatch) => {
         .then(
             (data) => {
                 console.log(data);
-                
+
                 dispatch({
                     type: GET_INFORMATION,
                     payload: { user: data },
@@ -130,25 +130,26 @@ export const getInformation = () => (dispatch) => {
                 return Promise.reject();
             }
         )
+
 }
 
 export const refreshToken = (id, refresh_token) => (dispatch) => {
     return AuthService.refresh_token(id, refresh_token)
         .then(
             (data) => {
-
+                console.log(data);
                 localStorage.removeItem('token-verify');
                 localStorage.setItem('token-verify', JSON.stringify(data));
 
                 return Promise.resolve();
-            })
-        .catch(
-            (error) => {
-                const message = showErrorMessage(error);
-                console.log(message);
+            },
+        (error) => {
+            const message = showErrorMessage(error);
+            console.log(message);
 
-                dispatch({ type: SET_MESSAGE, payload: message });
+            dispatch({ type: SET_MESSAGE, payload: message });
 
-                return Promise.reject();
-            })
+            return Promise.reject();
+        })
+
 }

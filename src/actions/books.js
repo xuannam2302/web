@@ -13,6 +13,7 @@ import {
 } from '../constants/actionType';
 
 import AdminService from '../services/admin.service';
+import authHeader from '../services/auth-header';
 import showErrorMessage from './general'
 
 const url = 'http://localhost:5000';
@@ -29,7 +30,9 @@ export const searchFunction = (search = '', sort = '', lower_price = '', upper_p
 
 export const findLandingPage = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${url}/book/${id}`);
+        const { data } = await axios.get(`${url}/book/${id}`, {
+            headers: authHeader()
+        });
         const { book, evaluation } = data;
         console.log(data);
 
@@ -37,8 +40,11 @@ export const findLandingPage = (id) => async (dispatch) => {
         dispatch({ type: GET_EVALUATION, payload: evaluation })
 
     }
-    catch (err) {
-        console.log(err.message);
+    catch (error) {
+        const message = showErrorMessage(error);
+        console.log(message);
+
+        dispatch({ type: SET_MESSAGE, payload: message})
     }
 }
 

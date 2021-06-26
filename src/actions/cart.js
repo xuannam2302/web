@@ -110,22 +110,28 @@ export const orderedCart = (bookList) => (dispatch) => {
 export const getQuantity = () => (dispatch) => {
     return CartService.get_quantity().then(
         (data) => {
-            console.log(data);
 
-            if (data && data?.msg !== 'Token is expired') {
+            if(data) {
                 const { quantity } = data;
                 dispatch({ type: GET_QUANTITY, payload: quantity });
             }
-            else if (data?.msg === 'Token is expired') {
+            else {
                 dispatch({ type: RESET_QUANTITY });
-                dispatch({ type: SET_MESSAGE, payload: data.msg });
             }
+
+            // if (data && data?.msg !== 'Token is expired') {
+            //     const { quantity } = data;
+            //     dispatch({ type: GET_QUANTITY, payload: quantity });
+            // }
+            // else if (data?.msg === 'Token is expired') {
+            //     dispatch({ type: RESET_QUANTITY });
+            //     dispatch({ type: SET_MESSAGE, payload: data.msg });
+            // }
 
             return Promise.resolve();
         },
         (error) => {
             const message = showErrorMessage(error);
-            console.log('1')
             dispatch({ type: SET_MESSAGE, payload: message })
 
             return Promise.reject();

@@ -10,7 +10,7 @@ var authorization = require('../middleware/authorization');
 /* GET home page. */
 router.get('/', display_controller.display_all);
 router.post('/search', display_controller.search);
-router.get('/book/:id', authorization.verify_token, display_controller.display_book);
+router.get('/book/:id', display_controller.display_book);
 
 // router.post('/book/:id/rating', authorization.verify_token, authorization.check_user, evaluation_controller.rating);
 

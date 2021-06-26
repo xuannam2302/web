@@ -22,8 +22,8 @@ function checkRatingStar(value) {
 }
 
 const Comment = ({ comment, book_id }) => {
-    const { _id, user_id, content, rating, create_at, answers, like } = comment;
-    const { username, evaluations, likes } = user_id;
+    const { _id, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
+    const { username, evaluations, likes: user_like  } = user_id;
     const [isRepComment, setIsRepComment] = useState(false);
 
 
@@ -36,11 +36,11 @@ const Comment = ({ comment, book_id }) => {
                 </h3>
                 <div className="evaluation-comment-item-info-control">
                     <i className="fas fa-pen"></i>
-                    <span>Đã viết: {evaluations || 0} đánh giá</span>
+                    <span>Đã viết: {evaluations.comments.length} đánh giá</span>
                 </div>
                 <div className="evaluation-comment-item-info-control">
                     <i className="fas fa-thumbs-up"></i>
-                    <span>Đã nhận: {likes || 0} lượt cảm ơn</span>
+                    <span>Đã nhận: {user_like || 0} lượt cảm ơn</span>
                 </div>
             </div>
             <div className="evaluation-comment-item-content">
@@ -64,7 +64,7 @@ const Comment = ({ comment, book_id }) => {
                         <button
                             className="evaluation-comment-item-content-container-react-like"
                         >
-                            <span>Thích</span>
+                            <span>Thích ({comment_likes.length})</span>
                             <i className="far fa-thumbs-up"></i>
                         </button>
                         <button

@@ -2,10 +2,6 @@ import axios from "axios";
 
 import authHeader from "./auth-header";
 
-import { SET_MESSAGE } from '../constants/actionType'
-
-import { showErrorMessage } from '../actions/general'
-
 const API_URL = "http://localhost:5000/auth";
 
 class AuthService {
@@ -14,7 +10,8 @@ class AuthService {
             .post(API_URL + "/login", { username, password })
             .then((response) => {
                 return response.data;
-            });
+            })
+            .catch(error => Promise.reject(error)); 
     }
 
     logout() {
@@ -45,10 +42,7 @@ class AuthService {
             .then((response) => {
                 return response.data
             })
-            .catch(error => {
-                
-                return Promise.reject(error);
-            })
+            .catch(error => Promise.reject(error))
     }
 
     refresh_token(id, refresh_token) {
@@ -58,7 +52,6 @@ class AuthService {
                 refresh_token
             })
             .then(response => response.data)
-            .catch(console.log("Error "))
     }
 }
 
