@@ -2,7 +2,6 @@ import CartService from '../services/cart.service'
 
 import {
     GET_ADDED_CART,
-    CANCEL_ORDER,
     SET_MESSAGE,
     GET_ORDERED_CART,
     GET_QUANTITY,
@@ -112,7 +111,7 @@ export const getQuantity = () => (dispatch) => {
     return CartService.get_quantity().then(
         (data) => {
             console.log(data);
-            
+
             if (data && data?.msg !== 'Token is expired') {
                 const { quantity } = data;
                 dispatch({ type: GET_QUANTITY, payload: quantity });

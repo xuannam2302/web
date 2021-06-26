@@ -1341,10 +1341,10 @@ img {
     display: none; }
 
 .firework-1 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 1.1s;
-  top: 35%;
-  left: 55%;
+  animation: firework-md 0.8s both 5;
+  animation-delay: 1.6s;
+  top: 50%;
+  left: 100%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1352,8 +1352,8 @@ img {
 
 .firework-2 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 2s;
-  top: -55%;
+  animation-delay: 1.7s;
+  top: -80%;
   left: -65%;
   position: absolute;
   width: 5px;
@@ -1362,19 +1362,19 @@ img {
 
 .firework-3 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 1.6s;
-  top: 80%;
-  left: 95%;
+  animation-delay: 0.8s;
+  top: 95%;
+  left: 25%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-4 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 1.1s;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 0.7s;
   top: -75%;
-  left: -75%;
+  left: -85%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1382,19 +1382,19 @@ img {
 
 .firework-5 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 0.7s;
-  top: 90%;
-  left: 35%;
+  animation-delay: 1s;
+  top: 85%;
+  left: 45%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-6 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 1s;
-  top: -35%;
-  left: -60%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 1.4s;
+  top: -25%;
+  left: -70%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1402,29 +1402,29 @@ img {
 
 .firework-7 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 1.2s;
-  top: 70%;
-  left: 35%;
+  animation-delay: 1.8s;
+  top: 45%;
+  left: 65%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-8 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 1.3s;
-  top: -95%;
-  left: -50%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 1.5s;
+  top: -45%;
+  left: -80%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-9 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 0.4s;
-  top: 55%;
-  left: 80%;
+  animation: firework-sm 0.8s both 5;
+  animation-delay: 0.1s;
+  top: 45%;
+  left: 95%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1432,19 +1432,19 @@ img {
 
 .firework-10 {
   animation: firework-lg 0.8s both 5;
-  animation-delay: 1.3s;
-  top: -60%;
-  left: -80%;
+  animation-delay: 0.5s;
+  top: -95%;
+  left: -60%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-11 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 1.8s;
-  top: 85%;
-  left: 75%;
+  animation: firework-sm 0.8s both 5;
+  animation-delay: 1.5s;
+  top: 95%;
+  left: 50%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1453,8 +1453,8 @@ img {
 .firework-12 {
   animation: firework-md 0.8s both 5;
   animation-delay: 2s;
-  top: -85%;
-  left: -35%;
+  top: -30%;
+  left: -80%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1462,9 +1462,9 @@ img {
 
 .firework-13 {
   animation: firework-sm 0.8s both 5;
-  animation-delay: 1.1s;
-  top: 85%;
-  left: 40%;
+  animation-delay: 0.9s;
+  top: 35%;
+  left: 60%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1472,9 +1472,9 @@ img {
 
 .firework-14 {
   animation: firework-sm 0.8s both 5;
-  animation-delay: 1.6s;
-  top: -70%;
-  left: -80%;
+  animation-delay: 1.9s;
+  top: -50%;
+  left: -55%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1482,29 +1482,29 @@ img {
 
 .firework-15 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 0.5s;
-  top: 70%;
-  left: 100%;
+  animation-delay: 1.3s;
+  top: 40%;
+  left: 85%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-16 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 1.7s;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 1.5s;
   top: -90%;
-  left: -45%;
+  left: -95%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-17 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 1.1s;
-  top: 90%;
-  left: 70%;
+  animation: firework-md 0.8s both 5;
+  animation-delay: 0.7s;
+  top: 55%;
+  left: 90%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1512,29 +1512,29 @@ img {
 
 .firework-18 {
   animation: firework-lg 0.8s both 5;
-  animation-delay: 0.1s;
+  animation-delay: 0.4s;
   top: -75%;
-  left: -25%;
+  left: -55%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-19 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 1.7s;
-  top: 50%;
-  left: 45%;
+  animation: firework-md 0.8s both 5;
+  animation-delay: 1.2s;
+  top: 25%;
+  left: 90%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-20 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 1.7s;
-  top: -70%;
-  left: -30%;
+  animation: firework-sm 0.8s both 5;
+  animation-delay: 0.7s;
+  top: -55%;
+  left: -40%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1737,6 +1737,238 @@ img {
     background: #535353;
     margin-right: 1.2rem;
     min-width: 5rem; }
+
+.evaluation {
+  padding: 8rem 0;
+  font-size: 1.2rem; }
+  .evaluation-title {
+    padding: 2rem;
+    font-size: 2rem;
+    margin-bottom: 2rem; }
+  .evaluation-new-comment {
+    margin-top: 5rem;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap; }
+    .evaluation-new-comment-avatar {
+      padding: 1rem;
+      border: 2px solid #e5e5e5;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 50%;
+      margin-bottom: 3rem; }
+      .evaluation-new-comment-avatar span {
+        display: block;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding-top: 15%; }
+    .evaluation-new-comment-content {
+      font-size: 1.2rem;
+      margin-left: 1.2rem;
+      padding: 0 2rem;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      display: flex;
+      flex-wrap: nowrap; }
+      .evaluation-new-comment-content-text {
+        width: 70rem;
+        line-height: 1.6;
+        padding: 1rem;
+        border-radius: 1rem;
+        border: 1px solid #e5e5e5;
+        width: 90rem;
+        height: 6rem;
+        position: relative; }
+      .evaluation-new-comment-content-text-invalid {
+        border: 1px solid red; }
+      .evaluation-new-comment-content-error {
+        color: red;
+        margin-top: 5px; }
+      .evaluation-new-comment-content-rating {
+        font-size: 1.4rem;
+        margin-top: 2rem;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        display: flex;
+        flex-wrap: nowrap; }
+        .evaluation-new-comment-content-rating-text {
+          margin-right: 1.2rem; }
+    .evaluation-new-comment-submit {
+      padding: 6px 8px;
+      border-radius: 1rem;
+      color: white;
+      font-weight: bold;
+      background: rgba(12, 135, 238, 0.8); }
+      .evaluation-new-comment-submit:hover {
+        opacity: 1; }
+  .evaluation-comment-list {
+    padding: 0 2rem; }
+  .evaluation-comment-item:not(:last-child) {
+    padding-bottom: 3rem; }
+    .evaluation-comment-item:not(:last-child):before {
+      position: absolute;
+      position: absolute;
+      content: "";
+      background: black;
+      width: 100%;
+      height: 1px;
+      bottom: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%); }
+  .evaluation-comment-item {
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: 5rem; }
+    .evaluation-comment-item-info {
+      min-width: 25%; }
+      .evaluation-comment-item-info-author {
+        padding-right: 10rem;
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 1.4rem; }
+        .evaluation-comment-item-info-author span {
+          margin-left: 1.2rem; }
+      .evaluation-comment-item-info-control {
+        margin: 1rem 0; }
+        .evaluation-comment-item-info-control span {
+          margin-left: 1.2rem; }
+    .evaluation-comment-item-content {
+      padding-left: 5rem; }
+      .evaluation-comment-item-content-header-rating {
+        font-size: 1.4rem;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        display: flex;
+        flex-wrap: nowrap; }
+        .evaluation-comment-item-content-header-rating-desc {
+          margin-left: 1.2rem;
+          display: inline-block;
+          font-weight: bold; }
+      .evaluation-comment-item-content-header-create {
+        margin-top: 1.2rem; }
+        .evaluation-comment-item-content-header-create span {
+          font-weight: bold; }
+      .evaluation-comment-item-content-container {
+        margin-left: -1rem;
+        margin-top: 2rem; }
+        .evaluation-comment-item-content-container-text {
+          width: 70rem;
+          line-height: 1.6;
+          padding: 1rem;
+          border-radius: 1rem;
+          border: 1px solid #e5e5e5; }
+        .evaluation-comment-item-content-container-react {
+          margin-top: 1.2rem;
+          align-items: stretch;
+          justify-content: flex-start;
+          flex-direction: row;
+          display: flex;
+          flex-wrap: nowrap; }
+          .evaluation-comment-item-content-container-react-like, .evaluation-comment-item-content-container-react-reply {
+            color: #0d5cb6;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid rgba(13, 92, 182, 0.7); }
+            .evaluation-comment-item-content-container-react-like span, .evaluation-comment-item-content-container-react-reply span {
+              display: inline-block;
+              margin-right: 0.6rem; }
+            .evaluation-comment-item-content-container-react-like i, .evaluation-comment-item-content-container-react-reply i {
+              color: rgba(13, 92, 182, 0.7); }
+          .evaluation-comment-item-content-container-react-reply {
+            margin-left: 1.2rem; }
+  .evaluation-answer-reply-comment {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap; }
+    .evaluation-answer-reply-comment-avatar {
+      padding: 1rem;
+      border: 2px solid #e5e5e5;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 50%; }
+      .evaluation-answer-reply-comment-avatar span {
+        display: block;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding-top: 15%; }
+    .evaluation-answer-reply-comment-content {
+      font-size: 1.2rem;
+      margin-left: 1.2rem;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      display: flex;
+      flex-wrap: nowrap; }
+      .evaluation-answer-reply-comment-content-text {
+        width: 70rem;
+        line-height: 1.6;
+        padding: 1rem;
+        border-radius: 1rem;
+        border: 1px solid #e5e5e5;
+        position: relative; }
+      .evaluation-answer-reply-comment-content-text-invalid {
+        border: 1px solid red; }
+      .evaluation-answer-reply-comment-content-error {
+        color: red;
+        margin-left: 7rem;
+        margin-top: 1rem; }
+      .evaluation-answer-reply-comment-content-icon-send {
+        color: #0c87ee;
+        font-size: 1.4rem;
+        position: absolute;
+        right: 10%; }
+  .evaluation-answer-list {
+    margin-left: 2rem; }
+  .evaluation-answer-item {
+    margin: 3rem 0;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: nowrap; }
+    .evaluation-answer-item-avatar {
+      padding: 1rem;
+      border: 2px solid #e5e5e5;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 50%; }
+      .evaluation-answer-item-avatar span {
+        display: block;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding-top: 15%; }
+    .evaluation-answer-item-content {
+      margin-left: 1.2rem; }
+      .evaluation-answer-item-content-username {
+        font-size: 1.6rem;
+        font-weight: bold; }
+      .evaluation-answer-item-content-text {
+        margin-top: 1rem;
+        width: 70rem;
+        line-height: 1.6;
+        padding: 1rem;
+        border-radius: 1rem;
+        border: 1px solid #e5e5e5; }
+      .evaluation-answer-item-content-time {
+        display: inline-block;
+        margin-top: 1rem; }
+        .evaluation-answer-item-content-time span {
+          font-weight: bold; }
 
 .login-form {
   align-items: center;

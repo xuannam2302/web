@@ -3,18 +3,18 @@
     height: $height;
 }
 
-@mixin absoluteCenter($direction: 'left', $position: absolute) {
+@mixin absoluteCenter($direction: "left", $position: absolute) {
     position: $position;
 
-    @if $direction == 'left' {
+    @if $direction == "left" {
         left: 50%;
         transform: translateX(-50%);
     }
-    @if $direction == 'top' {
+    @if $direction == "top" {
         top: 50%;
         transform: translateY(-50%);
     }
-    @if $direction == 'both' {
+    @if $direction == "both" {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -91,17 +91,33 @@
     }
 }
 
-@mixin promoLine () {
+@mixin promoLine() {
     position: absolute;
     content: "";
     @include bg(black);
     width: 100%;
     height: 1px;
     bottom: 0;
-    @include absoluteCenter('left');
+    @include absoluteCenter("left");
 }
 
-@mixin rotateWheel ($num) {
+@mixin avatar() {
+    padding: 1rem;
+    border: 2px solid #e5e5e5;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+}
+
+@mixin inputText() {
+    width: 70rem;
+    line-height: 1.6;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #e5e5e5;
+}
+
+@mixin rotateWheel($num) {
     transform: rotate($num * 30deg) skewY(-60deg);
 }
 

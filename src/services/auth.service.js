@@ -2,6 +2,10 @@ import axios from "axios";
 
 import authHeader from "./auth-header";
 
+import { SET_MESSAGE } from '../constants/actionType'
+
+import { showErrorMessage } from '../actions/general'
+
 const API_URL = "http://localhost:5000/auth";
 
 class AuthService {
@@ -40,6 +44,10 @@ class AuthService {
             })
             .then((response) => {
                 return response.data
+            })
+            .catch(error => {
+                
+                return Promise.reject(error);
             })
     }
 

@@ -26,26 +26,24 @@ import FireWork from './components/Promotion/FireWork';
 import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
-import { RESET_QUANTITY, REFRESH_USER } from './constants/actionType';
+import { RESET_QUANTITY } from './constants/actionType';
 
 function App() {
 
   const dispatch = useDispatch();
   const message = useSelector(state => state.message);
 
-  // console.log(message);
-
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token-verify'));
     if (token) {
       dispatch(getInformation(token.token));
       if (message.msg === 'Token is expired') {
+        console.log("Start refresh_token");
         dispatch(refreshToken(token.id, token.refresh_token));
       }
       if (message.msg === 'Invalid refresh token') {
         dispatch(logout());
         dispatch({ type: RESET_QUANTITY });
-        dispatch({ type: REFRESH_USER });
       }
     }
   }, [dispatch, message]);

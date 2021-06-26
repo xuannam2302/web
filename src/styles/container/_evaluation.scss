@@ -1,0 +1,225 @@
+.evaluation {
+    padding: 8rem 0;
+    font-size: 1.2rem;
+    &-title {
+        padding: 2rem;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    // New comment
+    &-new-comment {
+        margin-top: 5rem;
+        @include flexbox(center, flex-start);
+        &-avatar {
+            @include avatar();
+            margin-bottom: 3rem;
+            span {
+                display: block;
+                @include size(1.5rem);
+                padding-top: 15%;
+            }
+        }
+        &-content {
+            font-size: 1.2rem;
+            margin-left: 1.2rem;
+            padding: 0 2rem;
+            @include flexbox(flex-start, center, column);
+            // Text in new comment
+            &-text {
+                @include inputText();
+                @include size(90rem, 6rem);
+                position: relative;
+            }
+            &-text-invalid {
+                border: 1px solid red;
+            }
+            &-error {
+                color: red;
+                margin-top: 5px;
+            }
+            &-rating {
+                font-size: 1.4rem;
+                margin-top: 2rem;
+                @include flexbox(center, center);
+                &-text {
+                    margin-right: 1.2rem;
+                }
+            }
+        }
+        &-submit {
+            padding: 6px 8px;
+            border-radius: 1rem;
+            color: white;
+            font-weight: bold;
+            @include bg(rgba(12,135,238, 0.8));
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    // Comment Component
+    &-comment {
+        &-list {
+            padding: 0 2rem;
+        }
+        // Item
+        &-item:not(:last-child) {
+            padding-bottom: 3rem;
+            &:before {
+                position: absolute;
+                @include promoLine();
+            }
+        }
+        &-item {
+            position: relative;
+            @include flexbox(flex-start);
+            margin-top: 5rem;
+            // Item-info
+            &-info {
+                min-width: 25%;
+                &-author {
+                    padding-right: 10rem;
+                    font-size: 1.6rem;
+                    font-weight: bold;
+                    margin-bottom: 1.4rem;
+                    span {
+                        margin-left: 1.2rem;
+                    }
+                }
+                &-control {
+                    margin: 1rem 0;
+                    span {
+                        margin-left: 1.2rem;
+                    }
+                }
+            }
+            // Item-content includes: answer, evaluation, feedback
+            &-content {
+                padding-left: 5rem;
+                // Rating and create
+                &-header {
+                    &-rating {
+                        font-size: 1.4rem;
+                        @include flexbox(center);
+                        &-desc {
+                            margin-left: 1.2rem;
+                            display: inline-block;
+                            font-weight: bold;
+                        }
+                    }
+                    &-create {
+                        margin-top: 1.2rem;
+                        span {
+                            font-weight: bold;
+                        }
+                    }
+                }
+                // Content of comment
+                &-container {
+                    margin-left: -1rem;
+                    margin-top: 2rem;
+                    &-text {
+                        @include inputText();
+                    }
+                    // react includes like and reply comment
+                    &-react {
+                        margin-top: 1.2rem;
+                        @include flexbox();
+                        &-like,
+                        &-reply {
+                            color: rgb(13, 92, 182);
+                            padding: 5px;
+                            border-radius: 5px;
+                            border: 1px solid rgba(rgb(13, 92, 182), 0.7);
+                            span {
+                                display: inline-block;
+                                margin-right: 0.6rem;
+                            }
+                            i {
+                                color: rgba(rgb(13, 92, 182), 0.7);
+                            }
+                        }
+                        &-reply {
+                            margin-left: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Answer of comment
+    &-answer {
+        &-reply-comment {
+            margin-left: 2rem;
+            margin-top: 2rem;
+            @include flexbox(center, flex-start);
+            &-avatar {
+                @include avatar();
+                span {
+                    display: block;
+                    @include size(1.5rem);
+                    padding-top: 15%;
+                }
+            }
+            &-content {
+                font-size: 1.2rem;
+                margin-left: 1.2rem;
+                @include flexbox(center, center);
+                &-text {
+                    @include inputText();
+                    position: relative;
+                }
+                &-text-invalid {
+                    border: 1px solid red;
+                }
+                &-error {
+                    color: red;
+                    margin-left: 7rem;
+                    margin-top: 1rem;
+                }
+                &-icon-send {
+                    color: rgb(12, 135, 238);
+                    font-size: 1.4rem;
+                    position: absolute;
+                    right: 10%;
+                }
+            }
+        }
+        &-list {
+            margin-left: 2rem;
+        }
+        &-item {
+            margin: 3rem 0;
+            font-size: 1.2rem;
+            @include flexbox(center, flex-start);
+            // Avatar
+            &-avatar {
+                @include avatar();
+                span {
+                    display: block;
+                    @include size(1.5rem);
+                    padding-top: 15%;
+                }
+            }
+            // Content includes username, text, time
+            &-content {
+                margin-left: 1.2rem;
+                &-username {
+                    font-size: 1.6rem;
+                    font-weight: bold;
+                }
+                &-text {
+                    margin-top: 1rem;
+                    @include inputText();
+                }
+                &-time {
+                    display: inline-block;
+                    margin-top: 1rem;
+                    span {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}
