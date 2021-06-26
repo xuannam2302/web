@@ -8,6 +8,7 @@ import { getAvatarFromUserName } from '../../util/ChangeUnit';
 import { isRequired } from '../../util/Validator';
 
 import { postAnswer } from '../../actions/evaluation';
+import { POST_ANSWER } from '../../constants/actionType';
 
 const AnswerList = ({ answers, isRepComment, comment_id, book_id }) => {
     // Get user from data
@@ -36,8 +37,16 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id }) => {
         let check = handleReplyCommnet(element);
         console.log(check);
         if (!check) {
-            console.log(book_id, comment_id, repComment);
-            dispatch(postAnswer(book_id, comment_id, repComment));
+            const token_verification = JSON.parse(localStorage.getItem('token-verify'))
+            const newAnswer = {
+                book_id,
+                comment_id,
+                repComment,
+                username: user.username,
+                _id: token_verification.id
+            }
+            dispatch({ type: POST_ANSWER, payload: newAnswer })
+            // dispatch(postAnswer(book_id, comment_id, repComment));
         }
         else {
             console.log("Error");

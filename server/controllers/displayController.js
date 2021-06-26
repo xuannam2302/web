@@ -106,19 +106,19 @@ exports.search = function (req, res, next) {
     }
 }
 
-exports.display_book = async(req, res, next) => {
+exports.display_book = async (req, res, next) => {
     var id = new ObjectId(req.params.id);
-    var evaluation = await Evaluation.findOne({book_id: id});
-    if(!evaluation) {
+    var evaluation = await Evaluation.findOne({ book_id: id });
+    if (!evaluation) {
         evaluation = new Evaluation({
             book_id: id
         });
         await evaluation.save();
     }
     var book = await Book.findById(id);
-    evaluation = await Evaluation.findOne({book_id: id}).populate('rating.user_id', 'username evaluations likes')
-                                 .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
-                                 .populate('comments.likes.user_id', 'username');
-    evaluation.comments = evaluation.comments.sort((comment1, comment2) => {return (comment2.create_at - comment1.create_at)})
-    res.json({book: book, evaluation: evaluation, user_id: req.user_id});
+    evaluation = await Evaluation.findOne({ book_id: id }).populate('rating.user_id', 'username evaluations likes')
+        .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
+        .populate('comments.likes.user_id', 'username');
+    evaluation.comments = evaluation.comments.sort((comment1, comment2) => { return (comment2.create_at - comment1.create_at) });
+    return res.json({ book: book, evaluation: evaluation, user_id: req.user_id });
 };
