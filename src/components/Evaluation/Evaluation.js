@@ -3,10 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import Loading from '../Loading';
-import Comment from './Comment'
-
-import { getAvatarFromUserName } from '../../util/ChangeUnit';
-import RatingFeedback from '../../util/RatingFeedback'
+import Comment from './Comment';
+import NewComment from './NewComment';
 import { isRequired } from '../../util/Validator';
 
 import { postComment, deleteComment } from '../../actions/evaluation';
@@ -17,15 +15,13 @@ const Evaluation = ({ evaluation }) => {
     const history = useHistory();
 
     const { comments, book_id } = evaluation;
-    console.log(comments);
     const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
 
-    const [canCommnet, setCanComment] = useState(true);
-    const [newComment, setNewComment] = useState('');
-    const [ratingStars, setRatingStars] = useState(5);
     const myRef = useRef(null);
     const [errorNewComment, setErrorNewComment] = useState('');
+    const [newComment, setNewComment] = useState('');
+    const [ratingStars, setRatingStars] = useState(5);
 
     const handleNewComment = (target) => {
         const value = target.value;
@@ -63,7 +59,25 @@ const Evaluation = ({ evaluation }) => {
         dispatch(findLandingPage(book_id));
     }
     if (comments.length === 0) {
-        console.log(123);
+        if (user) {
+            return (
+                <>
+                    <h2 className="evaluation-title" ref={myRef}>
+                        Đánh giá của khách hàng ({comments.length})
+                    </h2>
+                    <NewComment
+                        user={user}
+                        clearError={clearError}
+                        handlePostComment={handlePostComment}
+                        errorNewComment={errorNewComment}
+                        newComment={newComment}
+                        setNewComment={setNewComment}
+                        ratingStars={ratingStars}
+                        setRatingStars={setRatingStars}
+                    />
+                </>
+            )
+        }
         return (
             <Loading />
         )
@@ -71,7 +85,7 @@ const Evaluation = ({ evaluation }) => {
     return (
         <div className="evaluation">
             <h2 className="evaluation-title" ref={myRef}>
-                Đánh giá của khách hàng
+                Đánh giá của khách hàng ({comments.length})
             </h2>
             <div className="evaluation-comment-list">
                 {comments.map((comment, index) => {
@@ -85,39 +99,17 @@ const Evaluation = ({ evaluation }) => {
                     )
                 })}
             </div>
-            {user && canCommnet &&
-                <div className="evaluation-new-comment">
-                    <div className="evaluation-new-comment-avatar">
-                        <span>{getAvatarFromUserName(user.username)}</span>
-                    </div>
-                    <div className="evaluation-new-comment-content">
-                        <input
-                            type="text"
-                            className="evaluation-new-comment-content-text"
-                            onChange={(e) => setNewComment(e.target.value)}
-                            onKeyUp={(e) => clearError(e.target)}
-                            onBlur={(e) => clearError(e.target)}
-                            value={newComment}
-                            placeholder="Viết đánh giá gì đó..."
-                        />
-                        <p className="evaluation-new-comment-content-error">
-                            {errorNewComment}
-                        </p>
-                        <div className="evaluation-new-comment-content-rating">
-                            <span className="evaluation-new-comment-content-rating-text">Độ hài lòng đối với sản phẩm</span>
-                            <RatingFeedback
-                                ratingStars={ratingStars}
-                                setRatingStars={setRatingStars}
-                            />
-                        </div>
-                    </div>
-                    <button
-                        className="evaluation-new-comment-submit"
-                        onClick={handlePostComment}
-                    >
-                        Submit
-                    </button>
-                </div>
+            {user &&
+                <NewComment
+                    user={user}
+                    clearError={clearError}
+                    handlePostComment={handlePostComment}
+                    errorNewComment={errorNewComment}
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                    ratingStars={ratingStars}
+                    setRatingStars={setRatingStars}
+                />
             }
         </div>
     )

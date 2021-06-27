@@ -8,8 +8,6 @@ import { getQuantity } from '../actions/cart'
 
 import Menu from './Profile/Menu';
 
-import url_icon from '../assets/Logo.webp';
-
 const Header = () => {
     // Global Variavles
     const history = useHistory();
@@ -57,7 +55,7 @@ const Header = () => {
                     <div className="header-logo">
                         <Link to="/">
                             <img
-                                src={url_icon}
+                                src="https://images.unsplash.com/photo-1562307534-a03738d2a81a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
                                 alt="Logo"
                                 className="header-logo-img"
                             />
