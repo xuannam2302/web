@@ -69,9 +69,17 @@ const LandingPage = () => {
         dispatch(addToCart(send_request));
         successAddToCart();
     }
+    
+    /// ------------------------------------------------------- ///
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
+
+    // useEffect(() => {
+    //     dispatch(findLandingPage(_id));
+    // })
+    /// ------------------------------------------------------- ///
+
 
     // Render
     if (!item) {
