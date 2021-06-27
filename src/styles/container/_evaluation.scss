@@ -128,6 +128,7 @@
                         &-delete,
                         &-like,
                         &-reply {
+                            cursor: pointer;
                             padding: 5px;
                             border-radius: 5px;
                             opacity: 0.8;
@@ -147,6 +148,9 @@
                                 color: rgb(13, 92, 182);
                             }
                         }
+                        &-unlike {
+                            @include bg(rgb(230,238,247));
+                        }
                         &-delete,
                         &-reply {
                             margin-left: 1.2rem;
@@ -156,6 +160,27 @@
                             border: 1px solid tomato;
                             i {
                                 color: tomato;
+                            }
+                        }
+                        &-like-container {
+                            @include flexbox(center, center);
+                            position: relative;
+                            &-likelist {
+                                position: absolute;
+                                top: 100%;
+                                padding: 1rem 1.5rem;
+                                @include bg(rgba(black, 0.5));
+                                color: white;
+                                border-radius: 5px;
+                                line-height: 1.6;
+                                opacity: 1;
+                                display: none;
+                                &-item {
+                                    @include textClamp(1);
+                                }
+                            }
+                            &:hover > &-likelist {
+                                @include flexbox(stretch, space-between, column);
                             }
                         }
                     }

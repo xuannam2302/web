@@ -70,3 +70,35 @@ export const deleteAnswer = (_id, comment_id, answer_id) => (dispatch) => {
         }
     )
 }
+
+export const likeComment = (_id, comment_id) => (dispatch) => {
+    return EvaluationService.like_comment(_id, comment_id).then(
+        (data) => {
+            console.log(data);
+            
+            return Promise.resolve();
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+            console.log(message);
+            dispatch({type: SET_MESSAGE, payload: message})
+            return Promise.reject();
+        }
+    )
+}
+
+export const unlikeComment = (_id, comment_id) => (dispatch) => {
+    return EvaluationService.unlike_comment(_id, comment_id).then(
+        (data) => {
+            console.log(data);
+            
+            return Promise.resolve();
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+            console.log(message);
+            dispatch({type: SET_MESSAGE, payload: message})
+            return Promise.reject();
+        }
+    )
+}

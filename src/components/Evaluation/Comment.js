@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import AnswerList from './AnswerList'
+import Like from './Like'
 
 import RatingStar from '../../util/RatingStar'
 import { changeTimeStamp } from '../../util/ChangeUnit'
+import ToastNotify from '../../util/ToastNotify'
+import Toast from '../../util/Toast'
+import { toast } from 'react-toastify'
+
+import { likeComment, unlikeComment } from '../../actions/evaluation'
+import { findLandingPage } from '../../actions/books'
 
 function checkRatingStar(value) {
     switch (value) {
@@ -23,11 +31,47 @@ function checkRatingStar(value) {
 }
 
 const Comment = ({ comment, book_id, handleDeleteComment }) => {
+    const dispatch = useDispatch();
+
+    const warningLike = () => toast.warn(<Toast state="warning" desc="Bạn không thể like đánh giá của mình"/>)
 
     const { _id: commentID, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
     const { username, evaluations, likes: user_like, _id: userID } = user_id;
     const [isRepComment, setIsRepComment] = useState(false);
     const currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
+    // Handle action like
+    const [isLike, setIsLike] = useState(false);
+    const [likeList, setLikeList] = useState([]);
+
+    const handleLikeComment = () => {
+        if (currentUserID === userID) {
+            warningLike()
+            return ;
+        }
+        const state = !isLike;
+        setIsLike(state);
+        if (state) {
+            dispatch(likeComment(book_id, commentID));
+        }
+        else {
+            dispatch(unlikeComment(book_id, commentID));
+        }
+        dispatch(findLandingPage(book_id));
+    }
+
+    useEffect(() => {
+        const checkLikeComment = () => {
+            let newList = [];
+            comment_likes.forEach(like => {
+                const { user_id } = like;
+                newList.push(user_id.username);
+                if (user_id._id === currentUserID)
+                    setIsLike(true);
+            })
+            setLikeList(newList);
+        }
+        checkLikeComment();
+    }, [comment_likes, currentUserID])
 
     return (
         <div className="evaluation-comment-item">
@@ -63,12 +107,13 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
                         {content}
                     </p>
                     <div className="evaluation-comment-item-content-container-react">
-                        <button
-                            className="evaluation-comment-item-content-container-react-like"
-                        >
-                            <span>Thích ({comment_likes.length})</span>
-                            <i className="far fa-thumbs-up"></i>
-                        </button>
+                        <Like
+                            handleLikeComment={handleLikeComment}
+                            isLike={isLike}
+                            likeList={likeList}
+                            comment_likes={comment_likes}
+                        />
+
                         <button
                             className="evaluation-comment-item-content-container-react-reply"
                             onClick={() => setIsRepComment(!isRepComment)}
@@ -77,7 +122,7 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
                             <i className="fas fa-reply"></i>
                         </button>
                         {currentUserID === userID ?
-                            <button 
+                            <button
                                 className="evaluation-comment-item-content-container-react-delete"
                                 onClick={() => handleDeleteComment(commentID)}
                             >
@@ -99,6 +144,7 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
                     />
                 </div>
             </div>
+            <ToastNotify />
         </div>
     )
 }

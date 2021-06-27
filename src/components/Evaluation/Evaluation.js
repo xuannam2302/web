@@ -17,6 +17,7 @@ const Evaluation = ({ evaluation }) => {
     const history = useHistory();
 
     const { comments, book_id } = evaluation;
+    console.log(comments);
     const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
 
@@ -62,6 +63,7 @@ const Evaluation = ({ evaluation }) => {
         dispatch(findLandingPage(book_id));
     }
     if (comments.length === 0) {
+        console.log(123);
         return (
             <Loading />
         )
