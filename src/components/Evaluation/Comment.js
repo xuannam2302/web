@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+
 import AnswerList from './AnswerList'
 
 import RatingStar from '../../util/RatingStar'
@@ -21,11 +22,12 @@ function checkRatingStar(value) {
     }
 }
 
-const Comment = ({ comment, book_id }) => {
-    const { _id, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
-    const { username, evaluations, likes: user_like  } = user_id;
-    const [isRepComment, setIsRepComment] = useState(false);
+const Comment = ({ comment, book_id, handleDeleteComment }) => {
 
+    const { _id: commentID, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
+    const { username, evaluations, likes: user_like, _id: userID } = user_id;
+    const [isRepComment, setIsRepComment] = useState(false);
+    const currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
 
     return (
         <div className="evaluation-comment-item">
@@ -74,13 +76,26 @@ const Comment = ({ comment, book_id }) => {
                             <span>Trả lời</span>
                             <i className="fas fa-reply"></i>
                         </button>
+                        {currentUserID === userID ?
+                            <button 
+                                className="evaluation-comment-item-content-container-react-delete"
+                                onClick={() => handleDeleteComment(commentID)}
+                            >
+                                <span>Xóa</span>
+                                <i className="fas fa-trash"></i>
+                            </button>
+                            :
+                            <>
+                            </>
+                        }
                     </div>
-                    <AnswerList 
-                        answers={answers} 
+                    <AnswerList
+                        answers={answers}
                         isRepComment={isRepComment}
                         username={username}
                         book_id={book_id}
-                        comment_id={_id}
+                        comment_id={commentID}
+                        setIsRepComment={setIsRepComment}
                     />
                 </div>
             </div>

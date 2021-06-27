@@ -1341,20 +1341,20 @@ img {
     display: none; }
 
 .firework-1 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 1.6s;
-  top: 50%;
-  left: 100%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 1.9s;
+  top: 65%;
+  left: 90%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-2 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 1.7s;
-  top: -80%;
-  left: -65%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 0.6s;
+  top: -50%;
+  left: -35%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1362,29 +1362,29 @@ img {
 
 .firework-3 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 0.8s;
-  top: 95%;
-  left: 25%;
+  animation-delay: 0.7s;
+  top: 25%;
+  left: 40%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-4 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 0.7s;
-  top: -75%;
-  left: -85%;
+  animation: firework-sm 0.8s both 5;
+  animation-delay: 1.5s;
+  top: -65%;
+  left: -20%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-5 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 1s;
-  top: 85%;
-  left: 45%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 0.4s;
+  top: 60%;
+  left: 25%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1393,36 +1393,36 @@ img {
 .firework-6 {
   animation: firework-lg 0.8s both 5;
   animation-delay: 1.4s;
-  top: -25%;
-  left: -70%;
+  top: -80%;
+  left: -65%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-7 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 1.8s;
-  top: 45%;
-  left: 65%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 1s;
+  top: 30%;
+  left: 45%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-8 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 1.5s;
-  top: -45%;
-  left: -80%;
+  animation: firework-md 0.8s both 5;
+  animation-delay: 1.4s;
+  top: -30%;
+  left: -60%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-9 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 0.1s;
+  animation: firework-md 0.8s both 5;
+  animation-delay: 1.1s;
   top: 45%;
   left: 95%;
   position: absolute;
@@ -1432,9 +1432,9 @@ img {
 
 .firework-10 {
   animation: firework-lg 0.8s both 5;
-  animation-delay: 0.5s;
-  top: -95%;
-  left: -60%;
+  animation-delay: 1.8s;
+  top: -40%;
+  left: -85%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1442,39 +1442,39 @@ img {
 
 .firework-11 {
   animation: firework-sm 0.8s both 5;
-  animation-delay: 1.5s;
-  top: 95%;
-  left: 50%;
+  animation-delay: 0.5s;
+  top: 90%;
+  left: 90%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-12 {
-  animation: firework-md 0.8s both 5;
-  animation-delay: 2s;
-  top: -30%;
-  left: -80%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 0.7s;
+  top: -90%;
+  left: -75%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-13 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 0.9s;
-  top: 35%;
-  left: 60%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 0.8s;
+  top: 85%;
+  left: 55%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-14 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 1.9s;
-  top: -50%;
-  left: -55%;
+  animation: firework-lg 0.8s both 5;
+  animation-delay: 1.3s;
+  top: -95%;
+  left: -95%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1482,19 +1482,19 @@ img {
 
 .firework-15 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 1.3s;
-  top: 40%;
-  left: 85%;
+  animation-delay: 0.9s;
+  top: 85%;
+  left: 90%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-16 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 1.5s;
-  top: -90%;
-  left: -95%;
+  animation: firework-sm 0.8s both 5;
+  animation-delay: 2s;
+  top: -40%;
+  left: -55%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1502,19 +1502,19 @@ img {
 
 .firework-17 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 0.7s;
-  top: 55%;
-  left: 90%;
+  animation-delay: 1.5s;
+  top: 60%;
+  left: 45%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-18 {
-  animation: firework-lg 0.8s both 5;
-  animation-delay: 0.4s;
-  top: -75%;
-  left: -55%;
+  animation: firework-sm 0.8s both 5;
+  animation-delay: 1.1s;
+  top: -80%;
+  left: -25%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1522,19 +1522,19 @@ img {
 
 .firework-19 {
   animation: firework-md 0.8s both 5;
-  animation-delay: 1.2s;
-  top: 25%;
-  left: 90%;
+  animation-delay: 0.9s;
+  top: 90%;
+  left: 50%;
   position: absolute;
   width: 5px;
   height: 5px;
   border-radius: 50%; }
 
 .firework-20 {
-  animation: firework-sm 0.8s both 5;
-  animation-delay: 0.7s;
-  top: -55%;
-  left: -40%;
+  animation: firework-md 0.8s both 5;
+  animation-delay: 1.9s;
+  top: -95%;
+  left: -95%;
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1874,18 +1874,27 @@ img {
           flex-direction: row;
           display: flex;
           flex-wrap: nowrap; }
-          .evaluation-comment-item-content-container-react-like, .evaluation-comment-item-content-container-react-reply {
-            color: #0d5cb6;
+          .evaluation-comment-item-content-container-react-delete, .evaluation-comment-item-content-container-react-like, .evaluation-comment-item-content-container-react-reply {
             padding: 5px;
             border-radius: 5px;
-            border: 1px solid rgba(13, 92, 182, 0.7); }
-            .evaluation-comment-item-content-container-react-like span, .evaluation-comment-item-content-container-react-reply span {
+            opacity: 0.8; }
+            .evaluation-comment-item-content-container-react-delete span, .evaluation-comment-item-content-container-react-like span, .evaluation-comment-item-content-container-react-reply span {
               display: inline-block;
               margin-right: 0.6rem; }
+            .evaluation-comment-item-content-container-react-delete:hover, .evaluation-comment-item-content-container-react-like:hover, .evaluation-comment-item-content-container-react-reply:hover {
+              opacity: 1; }
+          .evaluation-comment-item-content-container-react-like, .evaluation-comment-item-content-container-react-reply {
+            color: #0d5cb6;
+            border: 1px solid #0d5cb6; }
             .evaluation-comment-item-content-container-react-like i, .evaluation-comment-item-content-container-react-reply i {
-              color: rgba(13, 92, 182, 0.7); }
-          .evaluation-comment-item-content-container-react-reply {
+              color: #0d5cb6; }
+          .evaluation-comment-item-content-container-react-delete, .evaluation-comment-item-content-container-react-reply {
             margin-left: 1.2rem; }
+          .evaluation-comment-item-content-container-react-delete {
+            color: tomato;
+            border: 1px solid tomato; }
+            .evaluation-comment-item-content-container-react-delete i {
+              color: tomato; }
   .evaluation-answer-reply-comment {
     margin-left: 2rem;
     margin-top: 2rem;
@@ -1964,11 +1973,31 @@ img {
         padding: 1rem;
         border-radius: 1rem;
         border: 1px solid #e5e5e5; }
-      .evaluation-answer-item-content-time {
-        display: inline-block;
+      .evaluation-answer-item-content-footer {
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        display: flex;
+        flex-wrap: nowrap;
         margin-top: 1rem; }
-        .evaluation-answer-item-content-time span {
-          font-weight: bold; }
+      .evaluation-answer-item-content-time span {
+        font-weight: bold; }
+      .evaluation-answer-item-content-control {
+        margin-left: 1.2rem; }
+        .evaluation-answer-item-content-control-delete {
+          opacity: 0.8;
+          cursor: pointer;
+          color: tomato;
+          padding: 5px;
+          border-radius: 5px;
+          border: 1px solid tomato; }
+          .evaluation-answer-item-content-control-delete button {
+            color: tomato; }
+          .evaluation-answer-item-content-control-delete i {
+            color: tomato;
+            margin-left: 0.8rem; }
+          .evaluation-answer-item-content-control-delete:hover {
+            opacity: 1; }
 
 .login-form {
   align-items: center;

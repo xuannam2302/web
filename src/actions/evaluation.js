@@ -16,6 +16,7 @@ export const postComment = (_id, comment, rating_starts, comment_id) => (dispatc
         },
         (error) => {
             const message = showErrorMessage(error);
+            console.log(message);
             dispatch({type: SET_MESSAGE, payload: message})
             return Promise.reject();
         }
@@ -31,6 +32,39 @@ export const postAnswer = (_id, comment_id, answer) => (dispatch) => {
         },
         (error) => {
             const message = showErrorMessage(error);
+            console.log(message);
+            dispatch({type: SET_MESSAGE, payload: message})
+            return Promise.reject();
+        }
+    )
+}
+
+export const deleteComment = (_id, comment_id) => (dispatch) => {
+    return EvaluationService.delete_comment(_id, comment_id).then(
+        (data) => {
+            console.log(data);
+
+            return Promise.resolve();
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+            console.log(message);
+            dispatch({type: SET_MESSAGE, payload: message})
+            return Promise.reject();
+        }
+    )
+}
+
+export const deleteAnswer = (_id, comment_id, answer_id) => (dispatch) => {
+    return EvaluationService.delete_answer(_id, comment_id, answer_id).then(
+        (data) => {
+            console.log(data);
+
+            return Promise.resolve();
+        },
+        (error) => {
+            const message = showErrorMessage(error);
+            console.log(message);
             dispatch({type: SET_MESSAGE, payload: message})
             return Promise.reject();
         }
