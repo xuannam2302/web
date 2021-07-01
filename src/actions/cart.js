@@ -111,22 +111,22 @@ export const getQuantity = () => (dispatch) => {
     return CartService.get_quantity().then(
         (data) => {
 
-            if(data) {
-                const { quantity } = data;
-                dispatch({ type: GET_QUANTITY, payload: quantity });
-            }
-            else {
-                dispatch({ type: RESET_QUANTITY });
-            }
-
-            // if (data && data?.msg !== 'Token is expired') {
+            // if(data) {
             //     const { quantity } = data;
             //     dispatch({ type: GET_QUANTITY, payload: quantity });
             // }
-            // else if (data?.msg === 'Token is expired') {
+            // else {
             //     dispatch({ type: RESET_QUANTITY });
-            //     dispatch({ type: SET_MESSAGE, payload: data.msg });
             // }
+
+            if (data && data?.msg !== 'Token is expired') {
+                const { quantity } = data;
+                dispatch({ type: GET_QUANTITY, payload: quantity });
+            }
+            else if (data?.msg === 'Token is expired') {
+                dispatch({ type: RESET_QUANTITY });
+                dispatch({ type: SET_MESSAGE, payload: data.msg });
+            }
 
             return Promise.resolve();
         },

@@ -37,6 +37,7 @@ function App() {
     const token = JSON.parse(localStorage.getItem('token-verify'));
     if (token) {
       dispatch(getInformation(token.token));
+      
       if (message.msg === 'Token is expired') {
         console.log("Start refresh_token");
         dispatch(refreshToken(token.id, token.refresh_token));

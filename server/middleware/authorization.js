@@ -27,7 +27,7 @@ exports.take_user_id = function(req, res, next) {
         return next();
     }
     jwt.verify(token, secret_key, (err, decoded) => {
-        if(err) return res.json({msg: 'Token is expired'});
+        if(err) return res.status(403).json({msg: 'Token is expired'});
         req.user_id = decoded.id;
         next();
     })

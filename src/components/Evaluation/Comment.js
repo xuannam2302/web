@@ -34,7 +34,7 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
     const dispatch = useDispatch();
 
     const warningLike = () => toast.warn(<Toast state="Warning" desc="Bạn không thể like đánh giá của mình"/>)
-
+    console.log(comment);
     const { _id: commentID, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
     const { username, evaluations, likes: user_like, _id: userID } = user_id;
     const [isRepComment, setIsRepComment] = useState(false);
