@@ -5,6 +5,7 @@ var url_link = require('url');
 var async = require('async');
 var Evaluation = require('../models/evaluation');
 var Book = require('../models/book');
+var Trader = require('../models/trader').Trader;
 //const uri = "mongodb+srv://xuannam:xuannamt81@web.qpw3q.mongodb.net";
 const uri = "mongodb://localhost:27017/";
 var client;
@@ -115,10 +116,51 @@ exports.display_book = async (req, res, next) => {
         });
         await evaluation.save();
     }
-    var book = await Book.findById(id);
-    evaluation = await Evaluation.findOne({ book_id: id }).populate('rating.user_id', 'username evaluations likes')
-        .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
-        .populate('comments.likes.user_id', 'username');
-    evaluation.comments = evaluation.comments.sort((comment1, comment2) => { return (comment2.create_at - comment1.create_at) });
-    return res.json({ book: book, evaluation: evaluation, user_id: req.user_id });
+    if(req.user_id) {
+        var trader = await Trader.findOne({user_id: req.user_id, 'search_items.book_id': id});
+        if(trader) {
+            await Trader.findOneAndUpdate(
+                {user_id: req.user_id, 'search_items.book_id': id},
+                {
+                    $set: {
+                        'search_items.$': {
+                            'book_id': id,
+                            'last_search': new Date(),
+                        }
+                    }
+                }
+            )
+        }
+        else {
+            console.log('here')
+            await Trader.findOneAndUpdate(
+                {user_id: req.user_id},
+                {
+                    $push: {
+                        'search_items': {
+                            'book_id': id,
+                            'last_search': new Date(),
+                        }
+                    }
+                }
+            )
+        }
+    }   
+
+    async.parallel({
+        book: function(callback) {
+            Book.findById(id).exec(callback);
+        },
+        evaluation: function(callback) {
+            Evaluation.findOne({ book_id: id }).populate('rating.user_id', 'username evaluations likes')
+                        .populate('comments.user_id', 'username evaluations likes').populate('comments.answers.user_id', 'username')
+                        .populate('comments.likes.user_id', 'username').exec(callback);
+        },
+    }, function(err, result) {
+        result.evaluation.comments = result.evaluation.comments.sort((comment1, comment2) => { return (comment2.create_at - comment1.create_at) });
+        return res.json({ book: result.book, evaluation: result.evaluation, user_id: req.user_id });
+    })
+
+    // 
+    
 };

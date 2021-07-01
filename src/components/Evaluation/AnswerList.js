@@ -9,8 +9,9 @@ import { isRequired } from '../../util/Validator';
 
 import { postAnswer } from '../../actions/evaluation';
 import { POST_ANSWER } from '../../constants/actionType';
+import { findLandingPage } from '../../actions/books'
 
-const AnswerList = ({ answers, isRepComment, comment_id, book_id }) => {
+const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepComment }) => {
     // Get user from data
     const user = useSelector(state => state.auth.user);
 
@@ -45,8 +46,11 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id }) => {
                 username: user.username,
                 _id: token_verification.id
             }
-            dispatch({ type: POST_ANSWER, payload: newAnswer })
-            // dispatch(postAnswer(book_id, comment_id, repComment));
+            // dispatch({ type: POST_ANSWER, payload: newAnswer })
+            dispatch(postAnswer(book_id, comment_id, repComment));
+            dispatch(findLandingPage(book_id));
+            setRepComment('');
+            setIsRepComment(false);
         }
         else {
             console.log("Error");

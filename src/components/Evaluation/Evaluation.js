@@ -16,6 +16,8 @@ import {
     POST_ANSWER,
 } from '../../constants/actionType'
 
+import io from 'socket.io-client' //
+
 const Evaluation = ({ evaluation }) => {
     const dispatch = useDispatch();
 

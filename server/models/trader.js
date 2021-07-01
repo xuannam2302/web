@@ -50,6 +50,13 @@ exports.Trader = mongoose.model(
             },
             create_at: Date,
         }],
+        search_items: [{
+            book_id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Book',
+            },
+            last_search: Date,
+        }]
     }),
     'traders'
 );

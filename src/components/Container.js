@@ -9,6 +9,7 @@ import Error from './Error'
 import Slider from './Sliders/Slider'
 
 import Pagination from '@material-ui/lab/Pagination';
+import io from 'socket.io-client'
 
 const Container = () => {
     // Global Variables

@@ -4,10 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
-var compression = require('compression');
 var helmet = require('helmet');
 var cors = require('cors');
-var mongoose = require('mongoose');
 displayRouter = require('./routes/display');
 manageRouter = require('./routes/manage');
 authRouter = require('./routes/auth');
@@ -48,5 +46,30 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 5000);
   res.render('error');
 });
+
+var http = require('http')
+var port = process.env.PORT || '5000';
+app.set('port', port);
+var server = http.createServer(app);
+server.listen(port);
+
+const io = require('socket.io')(server)
+io.of('/').on('connection', socket => {
+  console.log(socket.id + ' connected')
+  socket.on('disconnect', () => {
+    console.log(socket.id + ' disconnected');
+  });
+  socket.on('create_comment', comment => {
+    console.log(comment)
+  })
+})
+
+
+
+
+
+
+
+
 
 module.exports = app;

@@ -7,15 +7,11 @@ const { json } = require('body-parser');
 exports.verify_token = function(req, res, next) {
     var token = req.headers['x-access-token'];
     if(!token) {
-        console.log(123);
         return res.status(403).json({msg: 'No token provided'});
     }
     jwt.verify(token, secret_key, (err, decoded) => {
-        if(err) 
-        {
-            return res.status(403).json({msg: 'Token is expired'});
-        
-            }    req.user_id = decoded.id;
+        if(err) return res.json({msg: 'Token is expired'});
+        req.user_id = decoded.id;
         next();
     })
 }
@@ -23,7 +19,6 @@ exports.verify_token = function(req, res, next) {
 exports.take_user_id = function(req, res, next) {
     var token = req.headers['x-access-token'];
     if(!token) {
-        console.log('0');
         return next();
     }
     jwt.verify(token, secret_key, (err, decoded) => {

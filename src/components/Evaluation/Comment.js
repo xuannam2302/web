@@ -25,7 +25,7 @@ const Comment = ({ comment, book_id }) => {
     const { _id, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
     const { username, evaluations, likes: user_like  } = user_id;
     const [isRepComment, setIsRepComment] = useState(false);
-
+    
 
     return (
         <div className="evaluation-comment-item">
@@ -81,6 +81,7 @@ const Comment = ({ comment, book_id }) => {
                         username={username}
                         book_id={book_id}
                         comment_id={_id}
+                        setIsRepComment={setIsRepComment}
                     />
                 </div>
             </div>

@@ -18,8 +18,9 @@ import { toast } from 'react-toastify';
 import ToastNotify from '../util/ToastNotify';
 import Toast from '../util/Toast'
 
-const LandingPage = () => {
+const LandingPage = ({socket}) => {
     // Global Variables
+    console.log(socket)
     const dispatch = useDispatch();
     const item = useSelector(state => state.item);
     const evaluation = useSelector(state => state.getEvaluation);
