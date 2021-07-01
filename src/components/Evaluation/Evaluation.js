@@ -1,55 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import Loading from '../Loading';
-import Comment from './Comment'
-
-
-import { getAvatarFromUserName } from '../../util/ChangeUnit';
-import RatingFeedback from '../../util/RatingFeedback'
+import Comment from './Comment';
+import NewComment from './NewComment';
 import { isRequired } from '../../util/Validator';
 
-import { postComment } from '../../actions/evaluation';
-
-import {
-    POST_COMMENT,
-    POST_ANSWER,
-} from '../../constants/actionType'
+import { postComment, deleteComment } from '../../actions/evaluation';
+import { findLandingPage } from '../../actions/books';
 
 import io from 'socket.io-client' //
 
-const Evaluation = ({ evaluation }) => {
+const Evaluation = ({ evaluation, socket }) => {
     const dispatch = useDispatch();
-
+    const history = useHistory();
+    
     const { comments, book_id } = evaluation;
     const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
-
-    const [canCommnet, setCanComment] = useState(true);
+    console.log(user)
+    const myRef = useRef(null);
+    const [errorNewComment, setErrorNewComment] = useState('');
     const [newComment, setNewComment] = useState('');
     const [ratingStars, setRatingStars] = useState(5);
 
-    const [errorNewComment, setErrorNewComment] = useState('');
-
-    const handlePostComment = () => {
-        const element = document.querySelector('.evaluation-new-comment-content-text');
-        let check = handleNewComment(element);
-        if (!check) {
-            const newCommnet = {
-                book_id,
-                newComment,
-                ratingStars,
-                comment_id,
-            }
-
-            dispatch(postComment(book_id, newComment, ratingStars, comment_id));
-            dispatch({ type: POST_COMMENT, payload: newCommnet });
-
-        }
-        else {
-            console.log("Error");
-        }
-    }
     const handleNewComment = (target) => {
         const value = target.value;
         console.log(target, value);
@@ -65,15 +40,55 @@ const Evaluation = ({ evaluation }) => {
         target.classList.remove("evaluation-new-comment-content-text-invalid");
         setErrorNewComment('');
     }
+    const handlePostComment = () => {
+        const element = document.querySelector('.evaluation-new-comment-content-text');
+        let check = handleNewComment(element);
+        if (!check) {
+            socket.emit('create_comment', {book_id, newComment, ratingStars, comment_id});
+            dispatch(postComment(book_id, newComment, ratingStars, comment_id));
+            // Reset page
+            setRatingStars(5);
+            setNewComment('');
+            history.push('/book/' + book_id);
+            dispatch(findLandingPage(book_id));
+            myRef.current.scrollIntoView();
+        }
+        else {
+            console.log("Error");
+        }
+    }
+    const handleDeleteComment = (comment_id) => {
+        dispatch(deleteComment(book_id, comment_id));
+        dispatch(findLandingPage(book_id));
+    }
     if (comments.length === 0) {
+        if (user) {
+            return (
+                <>
+                    <h2 className="evaluation-title" ref={myRef}>
+                        Đánh giá của khách hàng ({comments.length})
+                    </h2>
+                    <NewComment
+                        user={user}
+                        clearError={clearError}
+                        handlePostComment={handlePostComment}
+                        errorNewComment={errorNewComment}
+                        newComment={newComment}
+                        setNewComment={setNewComment}
+                        ratingStars={ratingStars}
+                        setRatingStars={setRatingStars}
+                    />
+                </>
+            )
+        }
         return (
             <Loading />
         )
     }
     return (
         <div className="evaluation">
-            <h2 className="evaluation-title">
-                Đánh giá của khách hàng
+            <h2 className="evaluation-title" ref={myRef}>
+                Đánh giá của khách hàng ({comments.length})
             </h2>
             <div className="evaluation-comment-list">
                 {comments.map((comment, index) => {
@@ -82,43 +97,22 @@ const Evaluation = ({ evaluation }) => {
                             comment={comment}
                             key={index}
                             book_id={book_id}
+                            handleDeleteComment={handleDeleteComment}
                         />
                     )
                 })}
             </div>
-            {user && canCommnet &&
-                <div className="evaluation-new-comment">
-                    <div className="evaluation-new-comment-avatar">
-                        <span>{getAvatarFromUserName(user.username)}</span>
-                    </div>
-                    <div className="evaluation-new-comment-content">
-                        <input
-                            type="text"
-                            className="evaluation-new-comment-content-text"
-                            onChange={(e) => setNewComment(e.target.value)}
-                            onKeyUp={(e) => clearError(e.target)}
-                            onBlur={(e) => clearError(e.target)}
-                            value={newComment}
-                            placeholder="Viết đánh giá gì đó..."
-                        />
-                        <p className="evaluation-new-comment-content-error">
-                            {errorNewComment}
-                        </p>
-                        <div className="evaluation-new-comment-content-rating">
-                            <span className="evaluation-new-comment-content-rating-text">Độ hài lòng đối với sản phẩm</span>
-                            <RatingFeedback
-                                ratingStars={ratingStars}
-                                setRatingStars={setRatingStars}
-                            />
-                        </div>
-                    </div>
-                    <button
-                        className="evaluation-new-comment-submit"
-                        onClick={handlePostComment}
-                    >
-                        Submit
-                    </button>
-                </div>
+            {user && user.username && 
+                <NewComment
+                    user={user} 
+                    clearError={clearError}
+                    handlePostComment={handlePostComment}
+                    errorNewComment={errorNewComment}
+                    newComment={newComment}
+                    setNewComment={setNewComment}
+                    ratingStars={ratingStars}
+                    setRatingStars={setRatingStars}
+                />
             }
         </div>
     )

@@ -18,10 +18,12 @@ const changeFullTimeStamp = (value) => {
 }
 
 const getAvatarFromUserName = (value) => {
+    console.log(value)
     const arraySpilt = value.split(" ");
     let result = [];
-    arraySpilt.forEach(string => {
-        result.push(string[0].toUpperCase());
+    arraySpilt.forEach((string, index) => {
+        if(index < 2)
+            result.push(string[0].toUpperCase());
     })
     return result.join("");
 }

@@ -7,18 +7,18 @@ import Answer from './Answer'
 import { getAvatarFromUserName } from '../../util/ChangeUnit';
 import { isRequired } from '../../util/Validator';
 
-import { postAnswer } from '../../actions/evaluation';
-import { POST_ANSWER } from '../../constants/actionType';
-import { findLandingPage } from '../../actions/books'
+import { postAnswer, deleteAnswer } from '../../actions/evaluation';
+import {findLandingPage} from '../../actions/books';
 
 const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepComment }) => {
+    const dispatch = useDispatch();
+    
     // Get user from data
     const user = useSelector(state => state.auth.user);
 
-    const dispatch = useDispatch();
-
     const [repComment, setRepComment] = useState('');
     const [errorRepComment, setErrorRepComment] = useState('');
+
     const handleReplyCommnet = (target) => {
         const value = target.value;
         const getError = isRequired(value) || "";
@@ -36,25 +36,19 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepCommen
     const handleReplyCommentSubmit = () => {
         const element = document.querySelector('.evaluation-answer-reply-comment-content-text');
         let check = handleReplyCommnet(element);
-        console.log(check);
         if (!check) {
-            const token_verification = JSON.parse(localStorage.getItem('token-verify'))
-            const newAnswer = {
-                book_id,
-                comment_id,
-                repComment,
-                username: user.username,
-                _id: token_verification.id
-            }
-            // dispatch({ type: POST_ANSWER, payload: newAnswer })
             dispatch(postAnswer(book_id, comment_id, repComment));
             dispatch(findLandingPage(book_id));
-            setRepComment('');
             setIsRepComment(false);
+            setRepComment('');
         }
         else {
             console.log("Error");
         }
+    }
+    const handleDeleteAnserSubmit = (answerID) => {
+        dispatch(deleteAnswer(book_id, comment_id, answerID));
+        dispatch(findLandingPage(book_id));
     }
     return (
         <>
@@ -93,6 +87,7 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepCommen
                         <Answer
                             key={index}
                             answer={answer}
+                            handleDeleteAnserSubmit={handleDeleteAnserSubmit}
                         />
                     )
                 })}

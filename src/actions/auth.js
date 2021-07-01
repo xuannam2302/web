@@ -113,11 +113,15 @@ export const getInformation = () => (dispatch) => {
         .then(
             (data) => {
                 console.log(data);
-
-                dispatch({
-                    type: GET_INFORMATION,
-                    payload: { user: data },
-                });
+                if(data.msg !== 'Token is expired') {
+                    dispatch({
+                        type: GET_INFORMATION,
+                        payload: { user: data },
+                    });
+                }
+                else {
+                    dispatch({type: SET_MESSAGE, payload: data})
+                }
 
                 return Promise.resolve();
             },

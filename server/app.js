@@ -6,10 +6,14 @@ var logger = require('morgan');
 const bodyParser = require('body-parser');
 var helmet = require('helmet');
 var cors = require('cors');
+
 displayRouter = require('./routes/display');
 manageRouter = require('./routes/manage');
 authRouter = require('./routes/auth');
 tradeRouter = require('./routes/trade');
+
+evaluationController = require('./controllers/evaluationController')
+authorization = require('./middleware/authorization');
 
 var app = express();
 
@@ -53,20 +57,16 @@ app.set('port', port);
 var server = http.createServer(app);
 server.listen(port);
 
-const io = require('socket.io')(server)
-io.of('/').on('connection', socket => {
-  console.log(socket.id + ' connected')
+const io = require('socket.io')(server);
+io.on('connection', socket => {
+  console.log(socket.id + ' connected');
   socket.on('disconnect', () => {
-    console.log(socket.id + ' disconnected');
-  });
-  socket.on('create_comment', comment => {
-    console.log(comment)
+    console.log(socket + ' disconnected');
+  }) 
+  socket.on('create_comment', post => {
+    
   })
 })
-
-
-
-
 
 
 

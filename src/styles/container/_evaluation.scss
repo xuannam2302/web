@@ -51,7 +51,7 @@
             border-radius: 1rem;
             color: white;
             font-weight: bold;
-            @include bg(rgba(12,135,238, 0.8));
+            @include bg(rgba(12, 135, 238, 0.8));
             &:hover {
                 opacity: 1;
             }
@@ -125,22 +125,63 @@
                     &-react {
                         margin-top: 1.2rem;
                         @include flexbox();
+                        &-delete,
                         &-like,
                         &-reply {
-                            color: rgb(13, 92, 182);
+                            cursor: pointer;
                             padding: 5px;
                             border-radius: 5px;
-                            border: 1px solid rgba(rgb(13, 92, 182), 0.7);
+                            opacity: 0.8;
                             span {
                                 display: inline-block;
                                 margin-right: 0.6rem;
                             }
-                            i {
-                                color: rgba(rgb(13, 92, 182), 0.7);
+                            &:hover {
+                                opacity: 1;
                             }
                         }
+                        &-like,
+                        &-reply {
+                            color: rgb(13, 92, 182);
+                            border: 1px solid rgb(13, 92, 182);
+                            i {
+                                color: rgb(13, 92, 182);
+                            }
+                        }
+                        &-unlike {
+                            @include bg(rgb(230,238,247));
+                        }
+                        &-delete,
                         &-reply {
                             margin-left: 1.2rem;
+                        }
+                        &-delete {
+                            color: tomato;
+                            border: 1px solid tomato;
+                            i {
+                                color: tomato;
+                            }
+                        }
+                        &-like-container {
+                            @include flexbox(center, center);
+                            position: relative;
+                            &-likelist {
+                                position: absolute;
+                                top: 100%;
+                                padding: 1rem 1.5rem;
+                                @include bg(rgba(black, 0.5));
+                                color: white;
+                                border-radius: 5px;
+                                line-height: 1.6;
+                                opacity: 1;
+                                display: none;
+                                &-item {
+                                    @include textClamp(1);
+                                }
+                            }
+                            &:hover > &-likelist {
+                                @include flexbox(stretch, space-between, column);
+                            }
                         }
                     }
                 }
@@ -212,11 +253,34 @@
                     margin-top: 1rem;
                     @include inputText();
                 }
-                &-time {
-                    display: inline-block;
+                &-footer {
+                    @include flexbox(center);
                     margin-top: 1rem;
+                }
+                &-time {
                     span {
                         font-weight: bold;
+                    }
+                }
+                &-control {
+                    margin-left: 1.2rem;
+                    &-delete {
+                        opacity: 0.8;
+                        cursor: pointer;
+                        color: tomato;
+                        padding: 5px;
+                        border-radius: 5px;
+                        border: 1px solid tomato;
+                        button {
+                            color: tomato;
+                        }
+                        i {
+                            color: tomato;
+                            margin-left: 0.8rem;
+                        }
+                        &:hover {
+                            opacity: 1;
+                        }
                     }
                 }
             }

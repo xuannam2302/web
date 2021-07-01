@@ -20,7 +20,6 @@ import Toast from '../util/Toast'
 
 const LandingPage = ({socket}) => {
     // Global Variables
-    console.log(socket)
     const dispatch = useDispatch();
     const item = useSelector(state => state.item);
     const evaluation = useSelector(state => state.getEvaluation);
@@ -70,9 +69,17 @@ const LandingPage = ({socket}) => {
         dispatch(addToCart(send_request));
         successAddToCart();
     }
+    
+    /// ------------------------------------------------------- ///
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
+
+    // useEffect(() => {
+    //     dispatch(findLandingPage(_id));
+    // })
+    /// ------------------------------------------------------- ///
+
 
     // Render
     if (!item) {
@@ -162,7 +169,7 @@ const LandingPage = ({socket}) => {
                     </div>
                 </div>
             </div>
-            <Evaluation evaluation={evaluation} />
+            <Evaluation evaluation={evaluation} socket={socket} />
             <ToastNotify />
         </div>
     )
