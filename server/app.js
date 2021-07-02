@@ -37,18 +37,18 @@ app.use('/trade', tradeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 5000);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 5000);
+    res.render('error');
 });
 
 var http = require('http')
@@ -58,14 +58,17 @@ var server = http.createServer(app);
 server.listen(port);
 
 const io = require('socket.io')(server);
+var socket_controller = require('./controllers/socketController')
 io.on('connection', socket => {
-  console.log(socket.id + ' connected');
-  socket.on('disconnect', () => {
-    console.log(socket + ' disconnected');
-  }) 
-  socket.on('create_comment', post => {
-    
-  })
+    console.log(socket.id + ' connected');
+    socket.on('disconnect', () => {
+        console.log(socket + ' disconnected');
+    })
+    socket.on('create_comment', post => {
+        console.log('send_create_post')
+        console.log(post)
+        socket_controller.live_post(socket, post._id);
+    })
 })
 
 

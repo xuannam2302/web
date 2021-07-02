@@ -11,7 +11,7 @@ const NewComment = ({ user,
     setNewComment,
     ratingStars,
     setRatingStars }) => {
-        console.log(user)
+        
     return (
         <div className="evaluation-new-comment">
             <div className="evaluation-new-comment-avatar">

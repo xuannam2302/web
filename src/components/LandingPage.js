@@ -76,6 +76,9 @@ const LandingPage = ({socket}) => {
     }, [_id, dispatch])
 
     // useEffect(() => {
+
+    // })
+    // useEffect(() => {
     //     dispatch(findLandingPage(_id));
     // })
     /// ------------------------------------------------------- ///

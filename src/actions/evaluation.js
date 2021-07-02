@@ -7,11 +7,11 @@ import {
 
 } from "../constants/actionType";
 
-export const postComment = (_id, comment, rating_starts, comment_id) => (dispatch) => {
+export const postComment = (_id, comment, rating_starts, comment_id, socket) => (dispatch) => {
     return EvaluationService.post_comment(_id, comment, rating_starts, comment_id).then(
         (data) => {
             console.log(data);
-
+            socket.emit('create_comment', {_id, comment, rating_starts, comment_id})
             return Promise.resolve();
         },
         (error) => {

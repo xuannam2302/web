@@ -34,13 +34,13 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
     const dispatch = useDispatch();
 
     const warningLike = () => toast.warn(<Toast state="Warning" desc="Bạn không thể like đánh giá của mình"/>)
-
     const { _id: commentID, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
     const { username, evaluations, likes: user_like, _id: userID } = user_id;
     const [isRepComment, setIsRepComment] = useState(false);
     // const currentUserID = ''
     // if(localStorage.getItem('token-verify'))
-    const currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
+    var currentUserID = '';
+    if(localStorage.getItem('token-verify')) currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
 
     // Handle action like
     const [isLike, setIsLike] = useState(false);

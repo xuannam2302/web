@@ -132,7 +132,6 @@ exports.display_book = async (req, res, next) => {
             )
         }
         else {
-            console.log('here')
             await Trader.findOneAndUpdate(
                 {user_id: req.user_id},
                 {

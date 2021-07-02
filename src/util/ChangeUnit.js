@@ -18,7 +18,6 @@ const changeFullTimeStamp = (value) => {
 }
 
 const getAvatarFromUserName = (value) => {
-    console.log(value)
     const arraySpilt = value.split(" ");
     let result = [];
     arraySpilt.forEach((string, index) => {

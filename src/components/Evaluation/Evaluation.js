@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -9,21 +9,20 @@ import { isRequired } from '../../util/Validator';
 
 import { postComment, deleteComment } from '../../actions/evaluation';
 import { findLandingPage } from '../../actions/books';
+import SelectInput from '@material-ui/core/Select/SelectInput';
 
-import io from 'socket.io-client' //
 
 const Evaluation = ({ evaluation, socket }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    
     const { comments, book_id } = evaluation;
     const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
-    console.log(user)
     const myRef = useRef(null);
     const [errorNewComment, setErrorNewComment] = useState('');
     const [newComment, setNewComment] = useState('');
     const [ratingStars, setRatingStars] = useState(5);
+    const [Comments, setComments] = useState([]);
 
     const handleNewComment = (target) => {
         const value = target.value;
@@ -44,29 +43,45 @@ const Evaluation = ({ evaluation, socket }) => {
         const element = document.querySelector('.evaluation-new-comment-content-text');
         let check = handleNewComment(element);
         if (!check) {
-            socket.emit('create_comment', {book_id, newComment, ratingStars, comment_id});
-            dispatch(postComment(book_id, newComment, ratingStars, comment_id));
+            dispatch(postComment(book_id, newComment, ratingStars, comment_id, socket))
             // Reset page
             setRatingStars(5);
             setNewComment('');
-            history.push('/book/' + book_id);
-            dispatch(findLandingPage(book_id));
+            // history.push('/book/' + book_id);
+            // dispatch(findLandingPage(book_id));
             myRef.current.scrollIntoView();
         }
         else {
             console.log("Error");
         }
     }
+    
     const handleDeleteComment = (comment_id) => {
         dispatch(deleteComment(book_id, comment_id));
         dispatch(findLandingPage(book_id));
     }
+    
+    useEffect(() => {
+        setComments(comments)
+    }, [comments])
+    
+    useEffect(() => {
+        console.log('socket here')
+        if(socket) {
+            socket.on('update_post', data => {
+                const {comments: comment_list} = data.evaluation
+                setComments(comment_list); 
+            });
+            return() => socket.off('update_post')
+        }
+    }, [Comments, socket]);
+
     if (comments.length === 0) {
         if (user) {
             return (
                 <>
                     <h2 className="evaluation-title" ref={myRef}>
-                        Đánh giá của khách hàng ({comments.length})
+                        Đánh giá của khách hàng ({Comments.length})
                     </h2>
                     <NewComment
                         user={user}
@@ -88,10 +103,10 @@ const Evaluation = ({ evaluation, socket }) => {
     return (
         <div className="evaluation">
             <h2 className="evaluation-title" ref={myRef}>
-                Đánh giá của khách hàng ({comments.length})
+                Đánh giá của khách hàng ({Comments.length})
             </h2>
             <div className="evaluation-comment-list">
-                {comments.map((comment, index) => {
+                {Comments.map((comment, index) => {
                     return (
                         <Comment
                             comment={comment}

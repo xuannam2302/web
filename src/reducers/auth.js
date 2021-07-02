@@ -44,11 +44,10 @@ const Auth = (state = initialState, action) => {
                 user: null,
             };
         case LOGOUT:
-            console.log(123);
             return {
                 ...state,
                 isLoggedIn: false,
-                user: null,
+                user: null, 
             };
         case REFRESH_USER:
             

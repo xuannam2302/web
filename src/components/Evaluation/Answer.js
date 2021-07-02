@@ -7,7 +7,8 @@ import {
 } from '../../util/ChangeUnit'
 
 const Answer = ({ answer, handleDeleteAnserSubmit }) => {
-    const currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
+    var currentUserID = '';
+    if(localStorage.getItem('token-verify')) currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
     const { content, create_at, user_id, _id: answerID } = answer;
     const { username, _id: userID } = user_id;
 
