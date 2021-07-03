@@ -9,7 +9,6 @@ import { isRequired } from '../../util/Validator';
 
 import { postComment, deleteComment } from '../../actions/evaluation';
 import { findLandingPage } from '../../actions/books';
-import SelectInput from '@material-ui/core/Select/SelectInput';
 
 
 const Evaluation = ({ evaluation, socket }) => {
