@@ -59,15 +59,40 @@ server.listen(port);
 
 const io = require('socket.io')(server);
 var socket_controller = require('./controllers/socketController')
+let users = []
 io.on('connection', socket => {
     console.log(socket.id + ' connected');
     socket.on('disconnect', () => {
-        console.log(socket + ' disconnected');
+        users = users.filter(user => {user.user_id !== socket.id})
+        console.log(socket.id + ' disconnected');
     })
+    socket.on('join_room', id => {
+        console.log(id)
+        if(!id) return;
+        const user = {user_id: socket.id, room: id};
+        const check = users.every(user => user.user_id !== socket.id)
+        if(check) {
+            users.push(user);
+            socket.join(user.room);
+        }
+        else {
+            users.map(user => {
+                if(user.user_id === socket.id) {
+                    if(user.room !== id) {
+                        socket.leave(user.room);
+                        socket.join(id);
+                        user.room = id;
+                    }
+                }
+            })
+        }
+        console.log(users)
+        //console.log(socket.adapter.rooms)
+    })
+
     socket.on('create_comment', post => {
         console.log('send_create_post')
-        console.log(post)
-        socket_controller.live_post(socket, post._id);
+        socket_controller.live_post(io, post._id);
     })
 })
 

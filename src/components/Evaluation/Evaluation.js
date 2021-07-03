@@ -13,7 +13,7 @@ import { findLandingPage } from '../../actions/books';
 
 const Evaluation = ({ evaluation, socket }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    //const history = useHistory();
     const { comments, book_id } = evaluation;
     const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
@@ -22,6 +22,8 @@ const Evaluation = ({ evaluation, socket }) => {
     const [newComment, setNewComment] = useState('');
     const [ratingStars, setRatingStars] = useState(5);
     const [Comments, setComments] = useState([]);
+    
+    
 
     const handleNewComment = (target) => {
         const value = target.value;
@@ -56,8 +58,7 @@ const Evaluation = ({ evaluation, socket }) => {
     }
     
     const handleDeleteComment = (comment_id) => {
-        dispatch(deleteComment(book_id, comment_id));
-        dispatch(findLandingPage(book_id));
+        dispatch(deleteComment(book_id, comment_id, socket));
     }
     
     useEffect(() => {
@@ -65,17 +66,22 @@ const Evaluation = ({ evaluation, socket }) => {
     }, [comments])
     
     useEffect(() => {
-        console.log('socket here')
+        if(socket) {
+            socket.emit('join_room', book_id);
+            return () => socket.emit('out_room', book_id);
+        }
+    }, [book_id])
+
+    useEffect(() => {
         if(socket) {
             socket.on('update_post', data => {
                 const {comments: comment_list} = data.evaluation
                 setComments(comment_list); 
             });
-            return() => socket.off('update_post')
         }
     }, [Comments, socket]);
 
-    if (comments.length === 0) {
+    if (Comments.length === 0) {
         if (user) {
             return (
                 <>
