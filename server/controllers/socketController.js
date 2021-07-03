@@ -4,7 +4,7 @@ var User = require('../models/user');
 
 var async = require('async')
 
-exports.live_post = function(socket, id) {
+exports.live_post = function(io, id) {
     async.parallel({
         book: function(callback) {
             Book.findById(id).exec(callback);
@@ -16,6 +16,6 @@ exports.live_post = function(socket, id) {
         },
     }, function(err, result) {
         result.evaluation.comments = result.evaluation.comments.sort((comment1, comment2) => { return (comment2.create_at - comment1.create_at) });
-        socket.emit('update_post', { evaluation: result.evaluation });
+        io.to(id).emit('update_post', { evaluation: result.evaluation });
     })
 }
