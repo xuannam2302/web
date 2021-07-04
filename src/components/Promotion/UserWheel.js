@@ -47,7 +47,7 @@ const UserWheel = () => {
         isDisplay: isDisplay
     }
 
-    const handleonMouseClickSpin = () => {
+    const handleOnMouseClickSpin = () => {
         const newName = 'promotion-wheel-container promotion-wheel-container-spin-start';
         setNameSpin(newName);
         setIsSpin(false);
@@ -156,7 +156,7 @@ const UserWheel = () => {
                     </ul>
                     <button
                         className="promotion-wheel-spin"
-                        onClick={handleonMouseClickSpin}
+                        onClick={handleOnMouseClickSpin}
                         onMouseDown={getStart}
                         onMouseUp={getEnd}
                         disabled={!isSpin}

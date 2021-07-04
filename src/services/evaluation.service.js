@@ -1,7 +1,5 @@
 import axios from 'axios';
-import { Socket } from 'socket.io-client';
 import authHeader from './auth-header';
-import io from 'socket.io-client'
 const API_URL = 'http://localhost:5000/book';
 
 class EvaluationService {

@@ -6,12 +6,12 @@ import Like from './Like'
 
 import RatingStar from '../../util/RatingStar'
 import { changeTimeStamp } from '../../util/ChangeUnit'
+
+import { toast } from 'react-toastify'
 import ToastNotify from '../../util/ToastNotify'
 import Toast from '../../util/Toast'
-import { toast } from 'react-toastify'
 
 import { likeComment, unlikeComment } from '../../actions/evaluation'
-import { findLandingPage } from '../../actions/books'
 
 function checkRatingStar(value) {
     switch (value) {
@@ -30,17 +30,15 @@ function checkRatingStar(value) {
     }
 }
 
-const Comment = ({ comment, book_id, handleDeleteComment }) => {
+const Comment = ({ comment, book_id, handleDeleteComment, socket }) => {
     const dispatch = useDispatch();
 
-    const warningLike = () => toast.warn(<Toast state="Warning" desc="Bạn không thể like đánh giá của mình"/>)
+    const warningLike = () => toast.warn(<Toast state="Warning" desc="Bạn không thể like đánh giá của mình" />)
     const { _id: commentID, user_id, content, rating, create_at, answers, likes: comment_likes } = comment;
     const { username, evaluations, likes: user_like, _id: userID } = user_id;
     const [isRepComment, setIsRepComment] = useState(false);
-    // const currentUserID = ''
-    // if(localStorage.getItem('token-verify'))
-    var currentUserID = '';
-    if(localStorage.getItem('token-verify')) currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
+
+    const currentUserID = localStorage.getItem('token-verify') ? JSON.parse(localStorage.getItem('token-verify')).id : '';
 
     // Handle action like
     const [isLike, setIsLike] = useState(false);
@@ -54,12 +52,11 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
         const state = !isLike;
         setIsLike(state);
         if (state) {
-            dispatch(likeComment(book_id, commentID));
+            dispatch(likeComment(book_id, commentID, socket));
         }
         else {
-            dispatch(unlikeComment(book_id, commentID));
+            dispatch(unlikeComment(book_id, commentID, socket));
         }
-        dispatch(findLandingPage(book_id));
     }
 
     useEffect(() => {
@@ -74,7 +71,7 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
             setLikeList(newList);
         }
         checkLikeComment();
-    }, [comment_likes, currentUserID])
+    }, [comment_likes, currentUserID, socket])
 
     return (
         <div className="evaluation-comment-item">
@@ -144,6 +141,7 @@ const Comment = ({ comment, book_id, handleDeleteComment }) => {
                         book_id={book_id}
                         comment_id={commentID}
                         setIsRepComment={setIsRepComment}
+                        socket={socket}
                     />
                 </div>
             </div>

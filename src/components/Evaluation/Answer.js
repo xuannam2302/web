@@ -6,9 +6,8 @@ import {
     getAvatarFromUserName,
 } from '../../util/ChangeUnit'
 
-const Answer = ({ answer, handleDeleteAnserSubmit }) => {
-    var currentUserID = '';
-    if(localStorage.getItem('token-verify')) currentUserID = JSON.parse(localStorage.getItem('token-verify')).id;
+const Answer = ({ answer, handleDeleteAnswerSubmit }) => {
+    const currentUserID = localStorage.getItem('token-verify') ? JSON.parse(localStorage.getItem('token-verify')).id : '';
     const { content, create_at, user_id, _id: answerID } = answer;
     const { username, _id: userID } = user_id;
 
@@ -32,7 +31,7 @@ const Answer = ({ answer, handleDeleteAnserSubmit }) => {
                         <div className="evaluation-answer-item-content-control">
                             <div 
                                 className="evaluation-answer-item-content-control-delete"
-                                onClick={() => handleDeleteAnserSubmit(answerID)}
+                                onClick={() => handleDeleteAnswerSubmit(answerID)}
                             >
                                 <button>
                                     Xóa

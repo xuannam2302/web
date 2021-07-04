@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import Loading from '../Loading';
 import Comment from './Comment';
@@ -8,12 +7,11 @@ import NewComment from './NewComment';
 import { isRequired } from '../../util/Validator';
 
 import { postComment, deleteComment } from '../../actions/evaluation';
-import { findLandingPage } from '../../actions/books';
 
 
 const Evaluation = ({ evaluation, socket }) => {
     const dispatch = useDispatch();
-    //const history = useHistory();
+
     const { comments, book_id } = evaluation;
     const { comment_id } = comments;
     const user = useSelector(state => state.auth.user);
@@ -22,8 +20,6 @@ const Evaluation = ({ evaluation, socket }) => {
     const [newComment, setNewComment] = useState('');
     const [ratingStars, setRatingStars] = useState(5);
     const [Comments, setComments] = useState([]);
-    
-    
 
     const handleNewComment = (target) => {
         const value = target.value;
@@ -44,42 +40,33 @@ const Evaluation = ({ evaluation, socket }) => {
         const element = document.querySelector('.evaluation-new-comment-content-text');
         let check = handleNewComment(element);
         if (!check) {
-            dispatch(postComment(book_id, newComment, ratingStars, comment_id, socket))
+            dispatch(postComment(book_id, newComment, ratingStars, comment_id, socket));
             // Reset page
             setRatingStars(5);
             setNewComment('');
-            // history.push('/book/' + book_id);
-            // dispatch(findLandingPage(book_id));
             myRef.current.scrollIntoView();
         }
         else {
             console.log("Error");
         }
     }
-    
+
     const handleDeleteComment = (comment_id) => {
         dispatch(deleteComment(book_id, comment_id, socket));
     }
-    
+
     useEffect(() => {
         setComments(comments)
     }, [comments])
-    
-    useEffect(() => {
-        if(socket) {
-            socket.emit('join_room', book_id);
-            return () => socket.emit('out_room', book_id);
-        }
-    }, [book_id])
 
     useEffect(() => {
-        if(socket) {
+        if (socket) {
             socket.on('update_post', data => {
-                const {comments: comment_list} = data.evaluation
-                setComments(comment_list); 
+                const { comments: comment_list } = data.evaluation
+                setComments(comment_list);
             });
         }
-    }, [Comments, socket]);
+    }, [socket]);
 
     if (Comments.length === 0) {
         if (user) {
@@ -118,13 +105,14 @@ const Evaluation = ({ evaluation, socket }) => {
                             key={index}
                             book_id={book_id}
                             handleDeleteComment={handleDeleteComment}
+                            socket={socket}
                         />
                     )
                 })}
             </div>
-            {user && user.username && 
+            {user && user.username &&
                 <NewComment
-                    user={user} 
+                    user={user}
                     clearError={clearError}
                     handlePostComment={handlePostComment}
                     errorNewComment={errorNewComment}

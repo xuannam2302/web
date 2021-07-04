@@ -4,7 +4,7 @@ import { findLandingPage } from '../actions/books';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import {addToCart} from '../actions/cart'
+import { addToCart } from '../actions/cart'
 
 import Evaluation from './Evaluation/Evaluation'
 import Loading from '../components/Loading';
@@ -12,19 +12,19 @@ import Error from '../components/Error';
 import RatingStar from '../util/RatingStar';
 
 import { checkValidAmountOnBlur, checkValidAmountOnChange } from '../util/Validator'
-import {changeToLocalePrice } from '../util/ChangeUnit'
+import { changeToLocalePrice } from '../util/ChangeUnit'
 
 import { toast } from 'react-toastify';
 import ToastNotify from '../util/ToastNotify';
 import Toast from '../util/Toast'
 
-const LandingPage = ({socket}) => {
+const LandingPage = ({ socket }) => {
     // Global Variables
     const dispatch = useDispatch();
     const item = useSelector(state => state.item);
     const evaluation = useSelector(state => state.getEvaluation);
 
-    const successAddToCart = ()  => toast.success(<Toast state="Successfully" desc="Thêm vào giỏ hàng thành công"/>)
+    const successAddToCart = () => toast.success(<Toast state="Successfully" desc="Thêm vào giỏ hàng thành công" />)
 
     // Component State
     const [amount, setAmount] = useState(1);
@@ -62,27 +62,24 @@ const LandingPage = ({socket}) => {
         setAmount(checkValidAmountOnBlur(e.target.value));
     }
     const handleAddToCart = () => {
-        const item = {book_id: _id, quantity: amount};
+        const item = { book_id: _id, quantity: amount };
         const send_request = [];
         send_request.push(item);
 
         dispatch(addToCart(send_request));
         successAddToCart();
     }
-    
+
     /// ------------------------------------------------------- ///
     useEffect(() => {
         dispatch(findLandingPage(_id));
     }, [_id, dispatch])
 
-    // useEffect(() => {
-
-    // })
-    // useEffect(() => {
-    //     dispatch(findLandingPage(_id));
-    // })
-    /// ------------------------------------------------------- ///
-
+    useEffect(() => {
+        if (socket) {
+            socket.emit('join_room', _id);
+        }
+    }, [_id, socket])
 
     // Render
     if (!item) {

@@ -28,12 +28,13 @@ import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
 import { RESET_QUANTITY } from './constants/actionType';
 
-import io from 'socket.io-client' //
+import io from 'socket.io-client'
 
 function App() {
   const [socket, setSocket] = useState(null);
   const dispatch = useDispatch();
-  const message = useSelector(state => state.message);  
+  const message = useSelector(state => state.message);
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token-verify'));
     if (token) {
@@ -51,8 +52,9 @@ function App() {
   }, [dispatch, message]);
 
   useEffect(() => {
-    let socket = io.connect('http://localhost:5000', { transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io.connect('http://localhost:5000', { transports: ['websocket', 'polling', 'flashsocket'] });
     setSocket(socket);
+
     return() => socket.close();
   },[])
 

@@ -36,13 +36,13 @@ app.use('/auth', authRouter);
 app.use('/trade', tradeRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -63,22 +63,22 @@ let users = []
 io.on('connection', socket => {
     console.log(socket.id + ' connected');
     socket.on('disconnect', () => {
-        users = users.filter(user => {user.user_id !== socket.id})
+        users = users.filter(user => { user.user_id !== socket.id })
         console.log(socket.id + ' disconnected');
     })
     socket.on('join_room', id => {
         console.log(id)
-        if(!id) return;
-        const user = {user_id: socket.id, room: id};
+        if (!id) return;
+        const user = { user_id: socket.id, room: id };
         const check = users.every(user => user.user_id !== socket.id)
-        if(check) {
+        if (check) {
             users.push(user);
             socket.join(user.room);
         }
         else {
             users.map(user => {
-                if(user.user_id === socket.id) {
-                    if(user.room !== id) {
+                if (user.user_id === socket.id) {
+                    if (user.room !== id) {
                         socket.leave(user.room);
                         socket.join(id);
                         user.room = id;

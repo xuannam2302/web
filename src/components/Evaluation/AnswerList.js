@@ -8,18 +8,16 @@ import { getAvatarFromUserName } from '../../util/ChangeUnit';
 import { isRequired } from '../../util/Validator';
 
 import { postAnswer, deleteAnswer } from '../../actions/evaluation';
-import {findLandingPage} from '../../actions/books';
 
-const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepComment }) => {
+const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepComment, socket }) => {
     const dispatch = useDispatch();
-    
     // Get user from data
     const user = useSelector(state => state.auth.user);
 
     const [repComment, setRepComment] = useState('');
     const [errorRepComment, setErrorRepComment] = useState('');
 
-    const handleReplyCommnet = (target) => {
+    const handleReplyComment = (target) => {
         const value = target.value;
         const getError = isRequired(value) || "";
         if (getError) {
@@ -35,10 +33,9 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepCommen
     }
     const handleReplyCommentSubmit = () => {
         const element = document.querySelector('.evaluation-answer-reply-comment-content-text');
-        let check = handleReplyCommnet(element);
+        let check = handleReplyComment(element);
         if (!check) {
-            dispatch(postAnswer(book_id, comment_id, repComment));
-            dispatch(findLandingPage(book_id));
+            dispatch(postAnswer(book_id, comment_id, repComment, socket));
             setIsRepComment(false);
             setRepComment('');
         }
@@ -46,9 +43,8 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepCommen
             console.log("Error");
         }
     }
-    const handleDeleteAnserSubmit = (answerID) => {
-        dispatch(deleteAnswer(book_id, comment_id, answerID));
-        dispatch(findLandingPage(book_id));
+    const handleDeleteAnswerSubmit = (answerID) => {
+        dispatch(deleteAnswer(book_id, comment_id, answerID, socket));
     }
     return (
         <>
@@ -87,7 +83,7 @@ const AnswerList = ({ answers, isRepComment, comment_id, book_id, setIsRepCommen
                         <Answer
                             key={index}
                             answer={answer}
-                            handleDeleteAnserSubmit={handleDeleteAnserSubmit}
+                            handleDeleteAnswerSubmit={handleDeleteAnswerSubmit}
                         />
                     )
                 })}
