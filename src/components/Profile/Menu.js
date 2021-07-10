@@ -32,6 +32,9 @@ const Menu = ({ user }) => {
     const linkToWheel = () => {
         history.push('/promotion/wheel')
     }
+    const linkToDelivery = () => {
+        history.push('/cart/checkout')
+    }
 
     return (
         <ul className="header-dropdown-menu">
@@ -42,6 +45,10 @@ const Menu = ({ user }) => {
             <li className="header-dropdown-item header-dropdown-item-1" onClick={linkToWheel}>
                 <span>Quay số</span>
                 <i className="fas fa-dharmachakra"></i>
+            </li>
+            <li className="header-dropdown-item header-dropdown-item-1" onClick={linkToDelivery}>
+                <span>Delivery</span>
+                <i className="fas fa-truck"></i>
             </li>
             {isAdmin ?
                 <>

@@ -32,7 +32,6 @@ const item = (state = {}, action) => {
         case LANDING_PAGE:
             return action.payload;
         case CREATE_ITEM:
-            console.log(4567);
             return {
                 msg: action.payload.msg,
                 item: action.payload.results

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router, Switch, Route
 } from "react-router-dom";
+import io from 'socket.io-client'
 
 import { useDispatch, useSelector } from "react-redux";
 import { getInformation, refreshToken, logout } from './actions/auth';
@@ -21,14 +22,12 @@ import CreateItem from './components/CreateItem';
 
 import LuckyDraw from './components/Promotion/LuckyDraw';
 import UserWheel from './components/Promotion/UserWheel';
-import FireWork from './components/Promotion/FireWork';
 
 import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import CartCheckout from './components/Cart/CartCheckout';
 import { RESET_QUANTITY } from './constants/actionType';
 
-import io from 'socket.io-client'
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -64,9 +63,6 @@ function App() {
         <div className="wrapper">
           <Header />
           <Switch>
-            <Route path="/promotion/firework">
-              <FireWork />
-            </Route>
             <Route path="/promotion/luckydraw">
               <LuckyDraw />
             </Route>
