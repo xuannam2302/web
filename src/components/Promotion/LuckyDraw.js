@@ -86,111 +86,113 @@ const LuckyDraw = () => {
     }
     
     return (
-        <div className="container">
-            <div className="luckydraw-container">
-                <ul className="box-container">
-                    <li id="box">
-                        <div>1</div>
-                    </li>
-                    <li id="box">
-                        <div>2</div>
-                    </li>
-                    <li id="box">
-                        <div>3</div>
-                    </li>
-                    <li id="box">
-                        <div>4</div>
-                    </li>
-                    <li id="box">
-                        <div>5</div>
-                    </li>
-                    <li id="box">
-                        <div>6</div>
-                    </li>
-                    <li id="box">
-                        <div>7</div>
-                    </li>
-                    <li id="box">
-                        <div>8</div>
-                    </li>
-                    <li id="box">
-                        <div>9</div>
-                    </li>
-                    <li id="box">
-                        <div>10</div>
-                    </li>
-                </ul>
-                <div className="tear-container">
-                    <div className="tear-lucky">
+        <>
+            <div className="container">
+                <div className="luckydraw-container">
+                    <ul className="box-container">
+                        <li id="box">
+                            <div>1</div>
+                        </li>
+                        <li id="box">
+                            <div>2</div>
+                        </li>
+                        <li id="box">
+                            <div>3</div>
+                        </li>
+                        <li id="box">
+                            <div>4</div>
+                        </li>
+                        <li id="box">
+                            <div>5</div>
+                        </li>
+                        <li id="box">
+                            <div>6</div>
+                        </li>
+                        <li id="box">
+                            <div>7</div>
+                        </li>
+                        <li id="box">
+                            <div>8</div>
+                        </li>
+                        <li id="box">
+                            <div>9</div>
+                        </li>
+                        <li id="box">
+                            <div>10</div>
+                        </li>
+                    </ul>
+                    <div className="tear-container">
+                        <div className="tear-lucky">
+                        </div>
+                        <div className="tear-lucky-down">
+                        </div>
                     </div>
-                    <div className="tear-lucky-down">
+                    <div className="btn-control">
+                        <button
+                            className="btn-start luckydraw-btn"
+                            onClick={() => { setIsDisable(!isDisable); render() }}
+                            disabled={isDisable}
+                        >Spin
+                        </button>
                     </div>
-                </div>
-                <div className="btn-control">
-                    <button
-                        className="btn-start luckydraw-btn"
-                        onClick={() => { setIsDisable(!isDisable); render() }}
-                        disabled={isDisable}
-                    >Spin
-                    </button>
-                </div>
-                <div className="display">
-                    <div className="display-winner">
-                        <h3 className="display-title">Danh sách trúng thưởng</h3>
-                        <h3 className="first-prize">
-                            <span className="number">
-                                1 giải nhất:
-                            </span>
-                            <div className="list">
-                                <span>{thewinner[0]}</span>
-                            </div>
-                        </h3>
-                        <h3 className="second-prize">
-                            <span className="number">
-                                2 giải nhì:
-                            </span>
-                            <div className="list">
-                                <span>{thewinner[1]}</span>
-                                <span>{thewinner[2]}</span>
-                            </div>
-                        </h3>
-                        <h3 className="third-prize">
-                            <span className="number">
-                                3 giải ba:
-                            </span>
-                            <div className="list">
-                                <span>{thewinner[3]}</span>
-                                <span>{thewinner[4]}</span>
-                                <span>{thewinner[5]}</span>
-                            </div>
-                        </h3>
-                    </div>
-                    <div className="display-config">
-                        <h3 className="display-config-title">Cơ cấu giải thưởng</h3>
-                        <div className="display-config-prize">
-                            <div className="config-prize-control">
-                                <span className="config-text">
+                    <div className="display">
+                        <div className="display-winner">
+                            <h3 className="display-title">Danh sách trúng thưởng</h3>
+                            <h3 className="first-prize">
+                                <span className="number">
                                     1 giải nhất:
                                 </span>
-                                <span className="config-amount">{convertVND(1000000)}</span>
-                            </div>
-                            <div className="config-prize-control">
-                                <span className="config-text">
+                                <div className="list">
+                                    <span>{thewinner[0]}</span>
+                                </div>
+                            </h3>
+                            <h3 className="second-prize">
+                                <span className="number">
                                     2 giải nhì:
                                 </span>
-                                <span className="config-amount">{convertVND(500000)}</span>
-                            </div>
-                            <div className="config-prize-control">
-                                <span className="config-text">
+                                <div className="list">
+                                    <span>{thewinner[1]}</span>
+                                    <span>{thewinner[2]}</span>
+                                </div>
+                            </h3>
+                            <h3 className="third-prize">
+                                <span className="number">
                                     3 giải ba:
                                 </span>
-                                <span className="config-amount">{convertVND(300000)}</span>
+                                <div className="list">
+                                    <span>{thewinner[3]}</span>
+                                    <span>{thewinner[4]}</span>
+                                    <span>{thewinner[5]}</span>
+                                </div>
+                            </h3>
+                        </div>
+                        <div className="display-config">
+                            <h3 className="display-config-title">Cơ cấu giải thưởng</h3>
+                            <div className="display-config-prize">
+                                <div className="config-prize-control">
+                                    <span className="config-text">
+                                        1 giải nhất:
+                                    </span>
+                                    <span className="config-amount">{convertVND(1000000)}</span>
+                                </div>
+                                <div className="config-prize-control">
+                                    <span className="config-text">
+                                        2 giải nhì:
+                                    </span>
+                                    <span className="config-amount">{convertVND(500000)}</span>
+                                </div>
+                                <div className="config-prize-control">
+                                    <span className="config-text">
+                                        3 giải ba:
+                                    </span>
+                                    <span className="config-amount">{convertVND(300000)}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

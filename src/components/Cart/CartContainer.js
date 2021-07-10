@@ -94,7 +94,6 @@ const CartContainer = ({ cart, total_price, discount_price, isOrder }) => {
 
         dispatch({ type: CHECKED_ITEM, payload: add_list });
         dispatch({ type: GET_PSEUDO_CART });
-
     }
 
     const handleDeleteAll = () => {

@@ -13,6 +13,10 @@ html {
     scroll-behavior: smooth;
 }
 
+select {
+    outline: none;
+}
+
 textarea,
 input,
 li,
