@@ -94,6 +94,7 @@ function App() {
               <LandingPage socket={socket}/>
             </Route>
             <Route exact path='/' component={Container} />
+            <Route path='/search' component={Container} />
             <Route path='/about' component={About} />
             <Route path="*" component={Error} />
           </Switch>

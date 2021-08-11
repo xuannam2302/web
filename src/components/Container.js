@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { searchFunction } from '../actions/books'
 
@@ -12,6 +13,7 @@ import Pagination from '@material-ui/lab/Pagination';
 
 const Container = () => {
     // Global Variables
+    const history = useHistory();
     const dispatch = useDispatch();
     const data = useSelector(state => state.books);
     const { search,
@@ -21,7 +23,6 @@ const Container = () => {
         limit
     } = data;
 
-    console.log(data); // Debug
     // -- Content -- //
     const [m_sort, setM_Sort] = useState(sort);
     const [m_lower_price, setM_LowPrice] = useState('');
@@ -32,15 +33,24 @@ const Container = () => {
         setM_Sort(value);
         setPage(1);
         dispatch(searchFunction(search, value, m_lower_price, m_upper_price, 1));
+        history.push(`/search?search=${search}&sort=${value}&lower_price=${m_lower_price}&upper_price=${m_upper_price}&page=1`);
     }
     const handlePrice = () => {
         setPage(1);
         dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price, 1));
+        history.push(`/search?search=${search}&sort=${m_sort}&lower_price=${m_lower_price}&upper_price=${m_upper_price}&page=1`);
     }
     const handleChangePage = (e) => {
         const value = parseInt(e.target.innerText);
         setPage(parseInt(e.target.innerText));
         dispatch(searchFunction(search, m_sort, m_lower_price, m_upper_price, value));
+        history.push(`/search?search=${search}&sort=${m_sort}&lower_price=${m_lower_price}&upper_price=${m_upper_price}&page=${value}`);
+    }
+    const handleOnKeyUp = (e) => {
+        const keyCode = e.keyCode;
+        if(keyCode === 13) {
+            handlePrice();
+        }
     }
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -108,7 +118,7 @@ const Container = () => {
                                     value="price"
                                     onClick={handleSelect}>Từ cao đến thấp
                                 </div>
-                                <div className="container-option-select-input">
+                                <div className="container-option-select-input" onKeyUp={e => handleOnKeyUp(e)}>
                                     <p>Từ</p>
                                     <div className="container-option-select-input-content">
                                         <input

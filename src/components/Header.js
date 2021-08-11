@@ -16,13 +16,11 @@ const Header = () => {
 
     const auth = useSelector(state => state.auth);
     const { isLoggedIn, user } = auth;
-    
+
     useEffect(() => {
         dispatch(getQuantity());
     }, [dispatch, isLoggedIn])
-    
-    // console.log(auth);
-    
+
     // Component State
     const { search, sort, lower_price, upper_price } = useSelector(state => state.books);
     const [m_search, setM_Search] = useState(search === undefined ? '' : search);
@@ -35,8 +33,8 @@ const Header = () => {
         history.push('/about');
     }
     const handleSearch = () => {
-        console.log(m_search, sort, lower_price, upper_price);
         dispatch(searchFunction(m_search, sort, lower_price, upper_price, 1));
+        history.push(`/search?search=${m_search}&sort=${sort}&lower_price=${lower_price}&upper_price=${upper_price}&page=1`);
     }
     const linkToLogin = () => {
         history.push('/auth/login');
@@ -46,6 +44,12 @@ const Header = () => {
     }
     const linkToCart = () => {
         history.push('/cart');
+    }
+    const handleOnKeyUp = (e) => {
+        const keyCode = e.keyCode;
+        if(keyCode === 13) {
+            handleSearch();
+        }
     }
     // Render
     return (
@@ -68,6 +72,7 @@ const Header = () => {
                             placeholder="Nhập tên bạn muốn tìm kiếm"
                             value={m_search}
                             onChange={(e) => setM_Search(e.target.value)}
+                            onKeyUp={e => handleOnKeyUp(e)}
                         />
                         <div className="header-search-icon" onClick={handleSearch}>
                             <i className="fas fa-search"></i>

@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import {getOrderedCart} from '../../actions/cart'
+import { getOrderedCart } from '../../actions/cart'
 
 import CartHeader from './CartHeader'
 import CartContainer from './CartContainer'
