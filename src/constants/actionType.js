@@ -48,3 +48,7 @@ export const UNLIKE_COMMENT = "UNLIKE_COMMENT"
 // Message
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+// Loading
+export const START_LOADING = "START_LOADING";
+export const END_LOADING = "END_LOADING";

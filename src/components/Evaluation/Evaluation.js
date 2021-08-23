@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
-import Loading from '../Loading';
 import Comment from './Comment';
 import NewComment from './NewComment';
 import { isRequired } from '../../util/Validator';
@@ -88,9 +87,6 @@ const Evaluation = ({ evaluation, socket }) => {
                 </>
             )
         }
-        return (
-            <Loading />
-        )
     }
     return (
         <div className="evaluation">

@@ -7,7 +7,7 @@ import { searchFunction } from '../actions/books'
 import Item from './Item'
 import Loading from './Loading'
 import Error from './Error'
-import Slider from './Sliders/Slider'
+// import Slider from './Sliders/Slider'
 
 import Pagination from '@material-ui/lab/Pagination';
 
@@ -16,6 +16,8 @@ const Container = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const data = useSelector(state => state.books);
+    const isLoading = useSelector(state => state.books.isLoading);
+
     const { search,
         sort,
         books,
@@ -48,7 +50,7 @@ const Container = () => {
     }
     const handleOnKeyUp = (e) => {
         const keyCode = e.keyCode;
-        if(keyCode === 13) {
+        if (keyCode === 13) {
             handlePrice();
         }
     }
@@ -82,7 +84,7 @@ const Container = () => {
     }
     return (
         <div className="container">
-            <Slider />
+            {/* <Slider /> */}
             <div className="container-main">
                 <div className="container-filter">
                     <p className="container-label">Sắp xếp theo</p>
@@ -144,13 +146,15 @@ const Container = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container-list">
-                    {books.map((item, index) => {
-                        return (
-                            <Item data={item} key={index} index={index} />
-                        )
-                    })}
-                </div>
+                {isLoading ? <Loading /> :
+                    <div className="container-list">
+                        {books.map((item, index) => {
+                            return (
+                                <Item data={item} key={index} index={index} />
+                            )
+                        })}
+                    </div>
+                }
                 <div className="container-pagination">
                     <Pagination
                         count={Math.floor(limit / 20)}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { searchFunction } from '../actions/books'
@@ -9,7 +9,7 @@ import { getQuantity } from '../actions/cart'
 import Menu from './Profile/Menu';
 
 const Header = () => {
-    // Global Variavles
+    // Global Variables
     const history = useHistory();
     const dispatch = useDispatch();
     const amount = useSelector(state => state.get_quantity);
@@ -28,6 +28,7 @@ const Header = () => {
     // Function handler
     const returnHomePage = () => {
         history.push('/');
+        dispatch(searchFunction());
     }
     const changeToAbout = () => {
         history.push('/about');
@@ -47,7 +48,7 @@ const Header = () => {
     }
     const handleOnKeyUp = (e) => {
         const keyCode = e.keyCode;
-        if(keyCode === 13) {
+        if (keyCode === 13) {
             handleSearch();
         }
     }
@@ -56,14 +57,12 @@ const Header = () => {
         <div className="header">
             <div className="container">
                 <div className="header-container">
-                    <div className="header-logo">
-                        <Link to="/">
-                            <img
-                                src="https://images.unsplash.com/photo-1562307534-a03738d2a81a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
-                                alt="Logo"
-                                className="header-logo-img"
-                            />
-                        </Link>
+                    <div className="header-logo" onClick={returnHomePage}>
+                        <img
+                            src="https://images.unsplash.com/photo-1562307534-a03738d2a81a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80"
+                            alt="Logo"
+                            className="header-logo-img"
+                        />
                     </div>
                     <div className="header-search">
                         <input

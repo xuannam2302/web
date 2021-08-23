@@ -9,19 +9,24 @@ import {
     DISPLAY_ALL,
     SET_MESSAGE,
     GET_EVALUATION,
+    START_LOADING,
+    END_LOADING
 
 } from '../constants/actionType';
 
 import AdminService from '../services/admin.service';
-import authHeader from '../services/auth-header';
 import showErrorMessage from './general'
 
 const url = process.env.REACT_APP_API_URL;
 
 export const searchFunction = (search = '', sort = '', lower_price = '', upper_price = '', page = 1) => async (dispatch) => {
     try {
+        dispatch({ type: START_LOADING })
+        
         const { data } = await axios.post(`${url}/search?search=${search}&sort=${sort}&lower_price=${lower_price}&upper_price=${upper_price}&page=${page}`)
         dispatch({ type: SEARCH, payload: data })
+
+        dispatch({ type: END_LOADING })
     }
     catch (err) {
         console.log(err.message);
@@ -30,21 +35,18 @@ export const searchFunction = (search = '', sort = '', lower_price = '', upper_p
 
 export const findLandingPage = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${url}/book/${id}`, {
-            headers: authHeader()
-        });
+        const { data } = await axios.get(`${url}/book/${id}`);
         const { book, evaluation } = data;
-        console.log(data);
 
         dispatch({ type: LANDING_PAGE, payload: book });
-        dispatch({ type: GET_EVALUATION, payload: evaluation })
 
+        dispatch({ type: GET_EVALUATION, payload: evaluation })
     }
     catch (error) {
         const message = showErrorMessage(error);
         console.log(message);
 
-        dispatch({ type: SET_MESSAGE, payload: message})
+        dispatch({ type: SET_MESSAGE, payload: message })
     }
 }
 

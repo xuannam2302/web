@@ -6,10 +6,22 @@ import {
     DELETE_ITEM,
     RESET_STATE,
     DISPLAY_ALL,
+    START_LOADING,
+    END_LOADING,
 } from '../constants/actionType'
 
-const books = (state = { books: [] }, action) => {
+const books = (state = { books: [], isLoading: false }, action) => {
     switch (action.type) {
+        case START_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case END_LOADING:
+            return {
+                ...state,
+                isLoading: false,
+            }
         case SEARCH:
             return {
                 msg: action.payload.msg,
@@ -26,11 +38,20 @@ const books = (state = { books: [] }, action) => {
     }
 }
 
-const initialState = {};
-const item = (state = {}, action) => {
+const initialState = {
+    msg: "",
+    book_history: [],
+    current_book: {}
+};
+const item = (state = initialState, action) => {
     switch (action.type) {
         case LANDING_PAGE:
-            return action.payload;
+            console.log(state.book_history);
+            return {
+                ...state,
+                current_book: action.payload,
+                book_history: [...state.book_history, action.payload],
+            }
         case CREATE_ITEM:
             return {
                 msg: action.payload.msg,
@@ -43,7 +64,10 @@ const item = (state = {}, action) => {
                 msg: action.payload.msg
             }
         case RESET_STATE:
-            return initialState;
+            return {
+                ...state,
+                current_book: {}
+            }
         default:
             return state;
     }
@@ -53,7 +77,6 @@ const data = (state = { books: [] }, action) => {
     switch (action.type) {
         case DISPLAY_ALL:
             return { books: action.payload.results }
-
         default:
             return state;
     }

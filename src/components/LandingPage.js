@@ -21,7 +21,7 @@ import Toast from '../util/Toast'
 const LandingPage = ({ socket }) => {
     // Global Variables
     const dispatch = useDispatch();
-    const item = useSelector(state => state.item);
+    const item = useSelector(state => state.item.current_book);
     const evaluation = useSelector(state => state.getEvaluation);
 
     const successAddToCart = () => toast.success(<Toast state="Successfully" desc="Thêm vào giỏ hàng thành công" />)

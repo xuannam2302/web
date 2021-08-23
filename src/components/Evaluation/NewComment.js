@@ -12,6 +12,12 @@ const NewComment = ({ user,
     ratingStars,
     setRatingStars }) => {
         
+        const handlePressEnter = (e) => {
+            if(e.keyCode === 13) {
+                handlePostComment();
+            }
+        }
+
     return (
         <div className="evaluation-new-comment">
             <div className="evaluation-new-comment-avatar">
@@ -26,6 +32,7 @@ const NewComment = ({ user,
                     onBlur={(e) => clearError(e.target)}
                     value={newComment}
                     placeholder="Viết đánh giá gì đó..."
+                    onKeyDown={(e) => handlePressEnter(e)}
                 />
                 <p className="evaluation-new-comment-content-error">
                     {errorNewComment}
