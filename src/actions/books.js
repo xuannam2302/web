@@ -17,7 +17,7 @@ import {
 import AdminService from '../services/admin.service';
 import showErrorMessage from './general'
 
-const url = process.env.REACT_APP_API_URL;
+const url = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export const searchFunction = (search = '', sort = '', lower_price = '', upper_price = '', page = 1) => async (dispatch) => {
     try {

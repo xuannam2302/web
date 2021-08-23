@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = `${process.env.REACT_APP_API_URL}/book`;
+const API_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/book`;
 
 class EvaluationService {
     post_comment(_id, comment, rating_stars, comment_id) {

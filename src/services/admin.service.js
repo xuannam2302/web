@@ -2,7 +2,7 @@ import axios from "axios";
 
 import authHeader from "./auth-header";
 
-const API_URL = `${process.env.REACT_APP_API_URL}/manage`;
+const API_URL = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/manage`;
 class AdminService {
     display_all() {
         return axios
